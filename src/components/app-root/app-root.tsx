@@ -30,7 +30,6 @@ export class AppRoot {
   }
 
   handleSubmit() {
-    console.log('submit')
     const { weeks } = colleges.find(c => c.name === this.college);
     const { hourlyWage } = ranks.find(r => r.name === this.rank);
     const teach = this.position === 'teach';
@@ -50,14 +49,14 @@ export class AppRoot {
       }
     });
 
-    const footer = document.getElementsByTagName('footer');
+    const footer = document.getElementsByTagName('footer')[0];
 
     window.addEventListener('ionKeyboardDidShow', () => {
-      footer[0].classList.add('hide');
+      footer.classList.add('hide');
     });
     
     window.addEventListener('ionKeyboardDidHide', () => {
-      footer[0].classList.remove('hide');
+      footer.classList.remove('hide');
     });
   }
 
@@ -65,7 +64,7 @@ export class AppRoot {
     return (
       <ion-app>
         <header>
-          <ion-title>כח לעובדים!</ion-title>
+          <ion-title>איגוד הסגל האקדמי במכללות הציבוריות</ion-title>
           <img src="https://cafe.themarker.com/media/t/146/754/7/file_0_big.jpg?1267870768" width="100" height="50"/>
         </header>
 

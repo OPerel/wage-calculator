@@ -14,11 +14,9 @@ const getFutureWage = (seniorityWage: number, hours: number, teach: boolean): nu
   return roundResult(wage);
 }
 
-const getEmployerPensionPayments = (wage: number) => {
-  return roundResult(wage * 0.0708);
-}
+const getEmployerPensionPayments = (wage: number): number => roundResult(wage * 0.0708);
 
-const roundResult = (wage: number) => Math.round((wage + Number.EPSILON) * 100) / 100;
+const roundResult = (wage: number): number => Math.round((wage + Number.EPSILON) * 100) / 100;
 
 export {
   getPresentWage,
