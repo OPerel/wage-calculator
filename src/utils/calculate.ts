@@ -6,6 +6,14 @@ const getPresentWage = (weeks: number, rankWage: number, hours: number, teach: b
   return roundResult(wage);
 }
 
+const getFutureWageByWeeks = (futureWeeks: number, rankWage: number, hours: number, teach: boolean): number => {
+  let wage = futureWeeks * rankWage * hours;
+  if (teach) {
+    wage = wage * 0.5;
+  }
+  return roundResult(wage);
+}
+
 const getFutureWage = (seniorityWage: number, hours: number, teach: boolean): number => {
   let wage = seniorityWage * (hours / 14);
   if (teach) {
@@ -20,6 +28,7 @@ const roundResult = (wage: number): number => Math.round((wage + Number.EPSILON)
 
 export {
   getPresentWage,
+  getFutureWageByWeeks,
   getFutureWage,
   getEmployerPensionPayments
 }

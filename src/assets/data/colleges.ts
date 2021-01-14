@@ -1,7 +1,8 @@
 export interface College {
   name: string
   label: string,
-  weeks: number
+  weeks: number,
+  futureWeeks?: number
 }
 
 const colleges: College[] = [
@@ -63,22 +64,26 @@ const colleges: College[] = [
   {
     name: 'ahv',
     label: 'אחווה',
-    weeks: 16
+    weeks: 16,
+    futureWeeks: 15
   },
   {
     name: 'hds',
     label: 'הדסה',
-    weeks: 16
+    weeks: 16,
+    futureWeeks: 15
   },
   {
     name: 'spr',
     label: 'ספיר',
-    weeks: 16.8
+    weeks: 16.8,
+    futureWeeks: 14
   },
   {
     name: 'hit168',
     label: 'HIT 16.8',
-    weeks: 16.8
+    weeks: 16.8,
+    futureWeeks: 14
   }
 ]
 

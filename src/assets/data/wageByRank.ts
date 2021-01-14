@@ -8,17 +8,17 @@ export interface Rank {
 const ranks: Rank[] = [
   {
     name: '1',
-    label: 'סגל עמית 1',
+    label: 'דרגה 1',
     hourlyWage: 175.74
   },
   {
     name: 'a',
-    label: 'סגל עמית א',
+    label: 'דרגה א',
     hourlyWage: 268.19
   },
   {
     name: 'b',
-    label: 'סגל עמית ב',
+    label: 'דרגה ב',
     hourlyWage: 346.96
   }
 ];

@@ -17,6 +17,10 @@ header {
   align-items: flex-end;
 }
 
+ion-title {
+  font-size: 15px;
+}
+
 footer {
   width: 100vw;
   text-align: center;
@@ -72,5 +76,9 @@ ion-button {
 @media only screen and (min-width: 776px) {
   .content {
     width: 40vw
+  }
+
+  ion-title {
+    font-size: 20px;
   }
 }

@@ -3,7 +3,7 @@ import { Component, h, State } from '@stencil/core';
 import colleges from '../../assets/data/colleges';
 import ranks from '../../assets/data/wageByRank';
 import wageBySeniority from '../../assets/data/wageBySeniority';
-import { getPresentWage, getFutureWage, getEmployerPensionPayments } from '../../utils/calculate';
+import { getPresentWage, getFutureWageByWeeks, getFutureWage, getEmployerPensionPayments } from '../../utils/calculate';
 import { note, seniorityMessage } from '../../assets/data/text';
 
 @Component({
@@ -21,6 +21,7 @@ export class AppRoot {
   @State() formIsValid: boolean;
 
   @State() presentWage: number;
+  @State() futureWageByWeeks: number;
   @State() futureWage: number;
   @State() pensionPayments: number;
 
@@ -30,10 +31,16 @@ export class AppRoot {
   }
 
   handleSubmit() {
-    const { weeks } = colleges.find(c => c.name === this.college);
+    const { weeks, futureWeeks } = colleges.find(c => c.name === this.college);
     const { hourlyWage } = ranks.find(r => r.name === this.rank);
     const teach = this.position === 'teach';
     this.presentWage = getPresentWage(weeks, hourlyWage, this.hours, teach);
+
+    if (futureWeeks) {
+      this.futureWageByWeeks = getFutureWageByWeeks(futureWeeks, hourlyWage, this.hours, teach);
+    } else {
+      this.futureWageByWeeks = undefined;
+    }
 
     const seniorityWage = wageBySeniority[this.rank][this.seniority];
     this.futureWage = getFutureWage(seniorityWage, this.hours, teach);
@@ -138,28 +145,12 @@ export class AppRoot {
               </form>
 
               {!!this.presentWage && (
-                <div>
-                  <ion-item>
-                    <ion-label>שכר סמסטריאלי נוכחי כממ"ח</ion-label>
-                    <h4>
-                      {this.presentWage}
-                    </h4>
-                  </ion-item>
-
-                  <ion-item>
-                    <ion-label>שכר סמסטריאלי עתידי כס"ע</ion-label>
-                    <h4>
-                      {this.futureWage}
-                    </h4>
-                  </ion-item>
-
-                  <ion-item>
-                    <ion-label>גובה קרן השתלמות הפרשות מעסיק</ion-label>
-                    <h4>
-                      {this.pensionPayments}
-                    </h4>
-                  </ion-item>
-                </div>
+                <wage-output
+                  presentWage={this.presentWage}
+                  futureWageByWeeks={this.futureWageByWeeks}
+                  futureWage={this.futureWage}
+                  pensionPayments={this.pensionPayments}
+                />
               )}
 
             </div>
