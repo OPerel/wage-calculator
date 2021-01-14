@@ -1,8 +1,7 @@
 export interface Rank {
   name: string,
   label: string,
-  hourlyWage: number,
-  // bySeniority: number
+  hourlyWage: number
 }
 
 const ranks: Rank[] = [

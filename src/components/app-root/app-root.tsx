@@ -3,8 +3,8 @@ import { Component, h, State } from '@stencil/core';
 import colleges from '../../assets/data/colleges';
 import ranks from '../../assets/data/wageByRank';
 import wageBySeniority from '../../assets/data/wageBySeniority';
-import { getPresentWage, getFutureWageByWeeks, getFutureWage, getEmployerPensionPayments } from '../../utils/calculate';
-import { note, seniorityMessage } from '../../assets/data/text';
+import { getPresentWage, getFutureWage, getEmployerPensionPayments } from '../../utils/calculate';
+import { disclaimer, seniorityMessage } from '../../assets/data/text';
 
 @Component({
   tag: 'app-root',
@@ -12,12 +12,15 @@ import { note, seniorityMessage } from '../../assets/data/text';
 })
 export class AppRoot {
   hoursInput: HTMLInputElement;
+  hoursInput2: HTMLInputElement;
 
   @State() college: string;
-  @State() position: string;
+  @State() position: string[];
+  @State() multiPosition: boolean;
   @State() rank: string;
   @State() seniority: number;
   @State() hours: number;
+  @State() hours2: number;
   @State() formIsValid: boolean;
 
   @State() presentWage: number;
@@ -25,26 +28,42 @@ export class AppRoot {
   @State() futureWage: number;
   @State() pensionPayments: number;
 
-  handleInputFocus() {
-    const isValid = !!this.rank && !!this.college && !!this.hours && !!this.seniority && !!this.position;
-    this.formIsValid = isValid;
-  }
-
   handleSubmit() {
     const { weeks, futureWeeks } = colleges.find(c => c.name === this.college);
     const { hourlyWage } = ranks.find(r => r.name === this.rank);
-    const teach = this.position === 'teach';
-    this.presentWage = getPresentWage(weeks, hourlyWage, this.hours, teach);
+    const seniorityWage = wageBySeniority[this.rank][this.seniority];
 
-    if (futureWeeks) {
-      this.futureWageByWeeks = getFutureWageByWeeks(futureWeeks, hourlyWage, this.hours, teach);
+    // if user in EITHER a teacher OR a professor
+    if (!this.multiPosition) {
+      const teach = this.position[0] === 'teach';
+
+      this.presentWage = getPresentWage(weeks, hourlyWage, this.hours, teach);
+
+      if (futureWeeks) {
+        this.futureWageByWeeks = getPresentWage(futureWeeks, hourlyWage, this.hours, teach);
+      } else {
+        this.futureWageByWeeks = undefined;
+      }
+
+      this.futureWage = getFutureWage(seniorityWage, this.hours, teach);
+
+    // if user is BOTH a teacher AND a professor
     } else {
-      this.futureWageByWeeks = undefined;
+      this.presentWage = getPresentWage(weeks, hourlyWage, this.hours, true) +
+        getPresentWage(weeks, hourlyWage, this.hours2, false);
+
+      if (futureWeeks) {
+        this.futureWageByWeeks = getPresentWage(futureWeeks, hourlyWage, this.hours, true) +
+          getPresentWage(futureWeeks, hourlyWage, this.hours2, false);
+      } else {
+        this.futureWageByWeeks = undefined;
+      }
+
+      this.futureWage = getFutureWage(seniorityWage, this.hours, true) +
+        getFutureWage(seniorityWage, this.hours2, false);
     }
 
-    const seniorityWage = wageBySeniority[this.rank][this.seniority];
-    this.futureWage = getFutureWage(seniorityWage, this.hours, teach);
-
+    // check if present wage is higher than future wage
     if (this.futureWageByWeeks) {
       if (this.futureWageByWeeks > this.futureWage) {
         this.futureWage = this.futureWageByWeeks;
@@ -56,10 +75,11 @@ export class AppRoot {
     }
 
     this.pensionPayments = getEmployerPensionPayments(this.futureWage);
+
   }
 
   componentDidLoad() {
-    document.getElementById('hours').addEventListener('keypress', e => {
+    document.getElementById('hours1').addEventListener('keypress', (e: KeyboardEvent) => {
       if (e.keyCode === 13) {
         e.preventDefault();
         this.hoursInput.blur();
@@ -77,8 +97,37 @@ export class AppRoot {
     });
   }
 
+  componentWillUpdate() {
+    if (this.position && this.position.length === 2) {
+      this.multiPosition = true;
+    } else {
+      this.multiPosition = false;
+      this.hours2 = undefined;
+    }
+
+    const isValid =
+      !!this.rank &&
+      !!this.college &&
+      !!this.hours &&
+      !!this.seniority &&
+      !!this.position &&
+      (this.multiPosition ? !!this.hours2 : true);
+
+    this.formIsValid = isValid;
+  }
+
+  componentDidUpdate() {
+    if (this.multiPosition) {
+      document.getElementById('hours2').addEventListener('keypress', (e: KeyboardEvent) => {
+        if (e.keyCode === 13) {
+          e.preventDefault();
+          this.hoursInput2.blur();
+        }
+      });
+    }
+  }
+
   render() {
-    console.log(this.presentWage, this.futureWageByWeeks, this.futureWage, this.pensionPayments)
     return (
       <ion-app>
         <header>
@@ -88,88 +137,109 @@ export class AppRoot {
 
         <ion-content>
           <main>
-            <div class="content">
-              <h2>מחשבון שכר נוכחי ועתידי</h2>
-              <form>
+          <div class="content">
+            <h2>מחשבון שכר נוכחי ועתידי</h2>
+            <form>
 
-                <ion-item>
-                  <ion-label>בחר מכללה</ion-label>
-                  <ion-select value={this.college} onIonChange={e => {this.college = e.detail.value; this.handleInputFocus()}}>
-                    {colleges.map(({ name, label }) => (
-                      <ion-select-option value={name}>{label}</ion-select-option>
-                    ))}
-                  </ion-select>
-                </ion-item>
+              <ion-item>
+                <ion-label>בחר מכללה</ion-label>
+                <ion-select value={this.college} onIonChange={e => {this.college = e.detail.value}}>
+                  {colleges.map(({ name, label }) => (
+                    <ion-select-option value={name}>{label}</ion-select-option>
+                  ))}
+                </ion-select>
+              </ion-item>
 
-                <ion-item>
-                  <ion-label>בחר תפקיד</ion-label>
-                  <ion-select value={this.position} onIonChange={e => {this.position = e.detail.value; this.handleInputFocus()}}>
-                    <ion-select-option value="teach">מתרגל</ion-select-option>
-                    <ion-select-option value="prof">מרצה</ion-select-option>
-                  </ion-select>
-                </ion-item>
+              <ion-item>
+                <ion-label>בחר תפקיד</ion-label>
+                <ion-select
+                  multiple
+                  value={this.position}
+                  onIonChange={e => {this.position = e.detail.value}}
+                >
+                  <ion-select-option value="teach">מתרגל</ion-select-option>
+                  <ion-select-option value="prof">מרצה</ion-select-option>
+                </ion-select>
+              </ion-item>
 
-                <ion-item>
-                  <ion-label>בחר דירוג</ion-label>
-                  <ion-select value={this.rank} onIonChange={e => {this.rank = e.detail.value; this.handleInputFocus()}}>
-                    {ranks.map(({ name, label }) => (
-                      <ion-select-option value={name}>{label}</ion-select-option>
-                    ))}
-                  </ion-select>
-                </ion-item>
+              <ion-item>
+                <ion-label>בחר דירוג</ion-label>
+                <ion-select value={this.rank} onIonChange={e => {this.rank = e.detail.value}}>
+                  {ranks.map(({ name, label }) => (
+                    <ion-select-option value={name}>{label}</ion-select-option>
+                  ))}
+                </ion-select>
+              </ion-item>
 
-                <ion-item>
-                  <ion-label>בחר ותק</ion-label>
-                  <ion-select
-                    value={this.seniority}
-                    onIonChange={e => {this.seniority = e.detail.value; this.handleInputFocus()}}
-                    interfaceOptions={{ message: seniorityMessage }}
-                  >
-                    {this.rank === 'b' ? (
-                      Array.from(Array(26)).map((_, idx) => (
-                        <ion-select-option>{idx}</ion-select-option>
-                      ))
-                    ) : (
-                      Array.from(Array(16)).map((_, idx) => (
-                        <ion-select-option>{idx}</ion-select-option>
-                      ))
-                    )}
-                  </ion-select>
-                </ion-item>
+              <ion-item>
+                <ion-label>בחר ותק</ion-label>
+                <ion-select
+                  value={this.seniority}
+                  onIonChange={e => {this.seniority = e.detail.value}}
+                  interfaceOptions={{ message: seniorityMessage }}
+                >
+                  {this.rank === 'b' ? (
+                    Array.from(Array(26)).map((_, idx) => (
+                      <ion-select-option>{idx}</ion-select-option>
+                    ))
+                  ) : (
+                    Array.from(Array(16)).map((_, idx) => (
+                      <ion-select-option>{idx}</ion-select-option>
+                    ))
+                  )}
+                </ion-select>
+              </ion-item>
 
+              <ion-item>
+                <ion-label>הכנס מספר שעות {this.multiPosition && 'מתרגל'}</ion-label>
+                <ion-input
+                  id="hours1"
+                  inputmode="numeric"
+                  enterkeyhint="done"
+                  value={this.hours}
+                  onIonChange={e => {this.hours = Number(e.detail.value)}} 
+                  ref={(el: HTMLIonInputElement) => el.getInputElement().then(res => this.hoursInput = res)}
+                />
+              </ion-item>
+
+              {this.multiPosition && (
                 <ion-item>
-                  <ion-label>הכנס מספר שעות</ion-label>
+                  <ion-label>הכנס מספר שעות מרצה</ion-label>
                   <ion-input
-                    id="hours"
+                    id="hours2"
                     inputmode="numeric"
                     enterkeyhint="done"
-                    value={this.hours}
-                    onIonChange={e => {this.hours = Number(e.detail.value); this.handleInputFocus()}} 
-                    ref={(el: HTMLIonInputElement) => el.getInputElement().then(res => this.hoursInput = res)}
+                    value={this.hours2}
+                    onIonChange={e => {this.hours2 = Number(e.detail.value)}} 
+                    ref={(el: HTMLIonInputElement) => {
+                      if (this.multiPosition) {
+                        el.getInputElement().then(res => this.hoursInput2 = res);
+                      }
+                    }}
                   />
                 </ion-item>
-
-                <ion-button onClick={() => this.handleSubmit()} disabled={!this.formIsValid}>
-                  חשב שכר נוכחי ועתידי
-                </ion-button>
-
-              </form>
-
-              {!!this.presentWage && (
-                <wage-output
-                  presentWage={this.presentWage}
-                  futureWageByWeeks={this.futureWageByWeeks}
-                  futureWage={this.futureWage}
-                  pensionPayments={this.pensionPayments}
-                />
               )}
 
-            </div>
+              <ion-button onClick={() => this.handleSubmit()} disabled={!this.formIsValid}>
+                חשב שכר נוכחי ועתידי
+              </ion-button>
 
-            <p class="note">* {note}</p>
+            </form>
+
+            {!!this.presentWage && (
+              <wage-output
+                presentWage={this.presentWage}
+                futureWageByWeeks={this.futureWageByWeeks}
+                futureWage={this.futureWage}
+                pensionPayments={this.pensionPayments}
+              />
+            )}
+
+          </div>
+
+          <p class="note">* {disclaimer}</p>
           
           </main>
-
         </ion-content>
 
         <footer dir="ltr">
