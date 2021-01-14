@@ -136,6 +136,11 @@ export class AppRoot {
         </header>
 
         <ion-content>
+          
+          <ion-refresher slot="fixed" onIonRefresh={() => window.location.reload()}>
+            <ion-refresher-content></ion-refresher-content>
+          </ion-refresher>
+
           <main>
           <div class="content">
             <h2>מחשבון שכר נוכחי ועתידי</h2>
