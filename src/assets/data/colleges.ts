@@ -40,6 +40,7 @@ const colleges: College[] = [
     name: 'hit15',
     label: 'HIT 15',
     weeks: 15,
+    futureWeeks: 14
   },
   {
     name: 'ask',

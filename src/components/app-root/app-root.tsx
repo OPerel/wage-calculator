@@ -45,6 +45,16 @@ export class AppRoot {
     const seniorityWage = wageBySeniority[this.rank][this.seniority];
     this.futureWage = getFutureWage(seniorityWage, this.hours, teach);
 
+    if (this.futureWageByWeeks) {
+      if (this.futureWageByWeeks > this.futureWage) {
+        this.futureWage = this.futureWageByWeeks;
+      }
+    } else {
+      if (this.presentWage > this.futureWage) {
+        this.futureWage = this.presentWage;
+      }
+    }
+
     this.pensionPayments = getEmployerPensionPayments(this.futureWage);
   }
 
@@ -68,6 +78,7 @@ export class AppRoot {
   }
 
   render() {
+    console.log(this.presentWage, this.futureWageByWeeks, this.futureWage, this.pensionPayments)
     return (
       <ion-app>
         <header>

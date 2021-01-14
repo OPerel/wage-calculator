@@ -10,25 +10,13 @@ export class WageOutput {
   @Prop({ mutable: true }) futureWage: number;
   @Prop() pensionPayments: number;
 
-  componentWillRender() {
-    if (this.futureWageByWeeks) {
-      if (this.futureWageByWeeks > this.futureWage) {
-        this.futureWage = this.futureWageByWeeks;
-      }
-    } else {
-      if (this.presentWage > this.futureWage) {
-        this.futureWage = this.presentWage;
-      }
-    }
-  }
-
   render() {
     return (
       <div>
         <ion-item>
           <ion-label>שכר סמסטריאלי נוכחי כממ"ח</ion-label>
           <h4>
-            {this.presentWage}
+            {this.presentWage.toLocaleString()}
           </h4>
         </ion-item>
 
@@ -36,7 +24,7 @@ export class WageOutput {
           <ion-item>
             <ion-label>שכר סמסטריאלי עתידי כממ"ח</ion-label>
             <h4>
-              {this.futureWageByWeeks}
+              {this.futureWageByWeeks.toLocaleString()}
             </h4>
           </ion-item>
         )}
@@ -44,14 +32,14 @@ export class WageOutput {
         <ion-item>
           <ion-label>שכר סמסטריאלי עתידי כס"ע</ion-label>
           <h4>
-            {this.futureWage}
+            {this.futureWage.toLocaleString()}
           </h4>
         </ion-item>
 
         <ion-item>
           <ion-label>גובה קרן השתלמות הפרשות מעסיק</ion-label>
           <h4>
-            {this.pensionPayments}
+            {this.pensionPayments.toLocaleString()}
           </h4>
         </ion-item>
       </div>
