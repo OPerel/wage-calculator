@@ -1,5 +1,10 @@
 import { Component, h, Prop } from '@stencil/core';
 
+const currencyObj = {
+  style: 'currency',
+  currency: 'ILS'
+}
+
 @Component({
   tag: 'wage-output',
   styleUrl: 'wage-output.css',
@@ -7,7 +12,7 @@ import { Component, h, Prop } from '@stencil/core';
 export class WageOutput {
   @Prop() presentWage: number;
   @Prop() futureWageByWeeks: number;
-  @Prop({ mutable: true }) futureWage: number;
+  @Prop() futureWage: number;
   @Prop() pensionPayments: number;
 
   render() {
@@ -16,7 +21,7 @@ export class WageOutput {
         <ion-item>
           <ion-label>שכר סמסטריאלי נוכחי כממ"ח</ion-label>
           <h4>
-            {this.presentWage.toLocaleString()}
+            {this.presentWage.toLocaleString('he-IL', currencyObj)}
           </h4>
         </ion-item>
 
@@ -24,7 +29,7 @@ export class WageOutput {
           <ion-item>
             <ion-label>שכר סמסטריאלי עתידי כממ"ח</ion-label>
             <h4>
-              {this.futureWageByWeeks.toLocaleString()}
+              {this.futureWageByWeeks.toLocaleString('he-IL', currencyObj)}
             </h4>
           </ion-item>
         )}
@@ -32,14 +37,14 @@ export class WageOutput {
         <ion-item>
           <ion-label>שכר סמסטריאלי עתידי כס"ע</ion-label>
           <h4>
-            {this.futureWage.toLocaleString()}
+            {this.futureWage.toLocaleString('he-IL', currencyObj)}
           </h4>
         </ion-item>
 
         <ion-item>
           <ion-label>גובה קרן השתלמות הפרשות מעסיק</ion-label>
           <h4>
-            {this.pensionPayments.toLocaleString()}
+            {this.pensionPayments.toLocaleString('he-IL', currencyObj)}
           </h4>
         </ion-item>
       </div>
