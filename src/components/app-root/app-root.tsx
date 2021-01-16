@@ -33,7 +33,7 @@ export class AppRoot {
     const { hourlyWage } = ranks.find(r => r.name === this.rank);
     const seniorityWage = wageBySeniority[this.rank][this.seniority];
 
-    // if user in EITHER a teacher OR a professor
+    // if user is EITHER a teacher OR a professor
     if (!this.multiPosition) {
       const teach = this.position[0] === 'teach';
 
@@ -128,6 +128,7 @@ export class AppRoot {
   }
 
   render() {
+    console.log(window)
     return (
       <ion-app>
         <header>
