@@ -70,6 +70,8 @@ ion-button {
 }
 
 .note {
+  margin: 0;
+  padding: 4% 0;
   text-align: center;
 }
 
