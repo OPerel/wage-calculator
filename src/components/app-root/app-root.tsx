@@ -33,7 +33,7 @@ export class AppRoot {
     const { hourlyWage } = ranks.find(r => r.name === this.rank);
     const seniorityWage = wageBySeniority[this.rank][this.seniority];
 
-    // if user in EITHER a teacher OR a professor
+    // if user is EITHER a teacher OR a professor
     if (!this.multiPosition) {
       const teach = this.position[0] === 'teach';
 
@@ -79,7 +79,7 @@ export class AppRoot {
   }
 
   componentDidLoad() {
-    document.getElementById('hours1').addEventListener('keypress', (e: KeyboardEvent) => {
+    document.getElementById('input-hours1').addEventListener('keypress', (e: KeyboardEvent) => {
       if (e.keyCode === 13) {
         e.preventDefault();
         this.hoursInput.blur();
@@ -118,7 +118,7 @@ export class AppRoot {
 
   componentDidUpdate() {
     if (this.multiPosition) {
-      document.getElementById('hours2').addEventListener('keypress', (e: KeyboardEvent) => {
+      document.getElementById('input-hours2').addEventListener('keypress', (e: KeyboardEvent) => {
         if (e.keyCode === 13) {
           e.preventDefault();
           this.hoursInput2.blur();
@@ -132,7 +132,11 @@ export class AppRoot {
       <ion-app>
         <header>
           <ion-title>איגוד הסגל האקדמי במכללות הציבוריות</ion-title>
-          <img src="https://cafe.themarker.com/media/t/146/754/7/file_0_big.jpg?1267870768" width="100" height="50"/>
+          <img
+            src="https://cafe.themarker.com/media/t/146/754/7/file_0_big.jpg?1267870768"
+            width="100"
+            height="50"
+          />
         </header>
 
         <ion-content>
@@ -142,107 +146,119 @@ export class AppRoot {
           </ion-refresher>
 
           <main>
-          <div class="content">
-            <h2>מחשבון שכר נוכחי ועתידי</h2>
-            <form>
+            <div class="content">
+              <h2>מחשבון שכר נוכחי ועתידי</h2>
+              <form>
 
-              <ion-item>
-                <ion-label>בחר מכללה</ion-label>
-                <ion-select value={this.college} onIonChange={e => {this.college = e.detail.value}}>
-                  {colleges.map(({ name, label }) => (
-                    <ion-select-option value={name}>{label}</ion-select-option>
-                  ))}
-                </ion-select>
-              </ion-item>
-
-              <ion-item>
-                <ion-label>בחר תפקיד</ion-label>
-                <ion-select
-                  multiple
-                  value={this.position}
-                  onIonChange={e => {this.position = e.detail.value}}
-                >
-                  <ion-select-option value="teach">מתרגל</ion-select-option>
-                  <ion-select-option value="prof">מרצה</ion-select-option>
-                </ion-select>
-              </ion-item>
-
-              <ion-item>
-                <ion-label>בחר דירוג</ion-label>
-                <ion-select value={this.rank} onIonChange={e => {this.rank = e.detail.value}}>
-                  {ranks.map(({ name, label }) => (
-                    <ion-select-option value={name}>{label}</ion-select-option>
-                  ))}
-                </ion-select>
-              </ion-item>
-
-              <ion-item>
-                <ion-label>בחר ותק</ion-label>
-                <ion-select
-                  value={this.seniority}
-                  onIonChange={e => {this.seniority = e.detail.value}}
-                  interfaceOptions={{ message: seniorityMessage }}
-                >
-                  {this.rank === 'b' ? (
-                    Array.from(Array(26)).map((_, idx) => (
-                      <ion-select-option>{idx}</ion-select-option>
-                    ))
-                  ) : (
-                    Array.from(Array(16)).map((_, idx) => (
-                      <ion-select-option>{idx}</ion-select-option>
-                    ))
-                  )}
-                </ion-select>
-              </ion-item>
-
-              <ion-item>
-                <ion-label>הכנס מספר שעות {this.multiPosition && 'מתרגל'}</ion-label>
-                <ion-input
-                  id="hours1"
-                  inputmode="numeric"
-                  enterkeyhint="done"
-                  value={this.hours}
-                  onIonChange={e => {this.hours = Number(e.detail.value)}} 
-                  ref={(el: HTMLIonInputElement) => el.getInputElement().then(res => this.hoursInput = res)}
-                />
-              </ion-item>
-
-              {this.multiPosition && (
                 <ion-item>
-                  <ion-label>הכנס מספר שעות מרצה</ion-label>
+                  <ion-label>בחר מכללה</ion-label>
+                  <ion-select
+                    id="select-college"
+                    value={this.college}
+                    onIonChange={e => {this.college = e.detail.value}}
+                  >
+                    {colleges.map(({ name, label }) => (
+                      <ion-select-option value={name}>{label}</ion-select-option>
+                    ))}
+                  </ion-select>
+                </ion-item>
+
+                <ion-item>
+                  <ion-label>בחר תפקיד</ion-label>
+                  <ion-select
+                    id="select-position"
+                    multiple
+                    value={this.position}
+                    onIonChange={e => {this.position = e.detail.value}}
+                  >
+                    <ion-select-option value="teach">מתרגל</ion-select-option>
+                    <ion-select-option value="prof">מרצה</ion-select-option>
+                  </ion-select>
+                </ion-item>
+
+                <ion-item>
+                  <ion-label>בחר דירוג</ion-label>
+                  <ion-select
+                    id="select-rank"
+                    value={this.rank}
+                    onIonChange={e => {this.rank = e.detail.value}}
+                  >
+                    {ranks.map(({ name, label }) => (
+                      <ion-select-option value={name}>{label}</ion-select-option>
+                    ))}
+                  </ion-select>
+                </ion-item>
+
+                <ion-item>
+                  <ion-label>בחר ותק</ion-label>
+                  <ion-select
+                    id="select-seniority"
+                    value={this.seniority}
+                    onIonChange={e => {this.seniority = e.detail.value}}
+                    interfaceOptions={{ message: seniorityMessage }}
+                  >
+                    {this.rank === 'b' ? (
+                      Array.from(Array(26)).map((_, idx) => (
+                        <ion-select-option>{idx}</ion-select-option>
+                      ))
+                    ) : (
+                      Array.from(Array(16)).map((_, idx) => (
+                        <ion-select-option>{idx}</ion-select-option>
+                      ))
+                    )}
+                  </ion-select>
+                </ion-item>
+
+                <ion-item>
+                  <ion-label>הכנס מספר שעות {this.multiPosition && 'מתרגל'}</ion-label>
                   <ion-input
-                    id="hours2"
+                    id="input-hours1"
                     inputmode="numeric"
                     enterkeyhint="done"
-                    value={this.hours2}
-                    onIonChange={e => {this.hours2 = Number(e.detail.value)}} 
+                    value={this.hours}
+                    onIonChange={e => {this.hours = Number(e.detail.value)}} 
                     ref={(el: HTMLIonInputElement) => {
-                      if (this.multiPosition) {
-                        el.getInputElement().then(res => this.hoursInput2 = res);
-                      }
+                      el.getInputElement().then(res => this.hoursInput = res);
                     }}
                   />
                 </ion-item>
+
+                {this.multiPosition && (
+                  <ion-item>
+                    <ion-label>הכנס מספר שעות מרצה</ion-label>
+                    <ion-input
+                      id="input-hours2"
+                      inputmode="numeric"
+                      enterkeyhint="done"
+                      value={this.hours2}
+                      onIonChange={e => {this.hours2 = Number(e.detail.value)}} 
+                      ref={(el: HTMLIonInputElement) => {
+                        if (this.multiPosition) {
+                          el.getInputElement().then(res => this.hoursInput2 = res);
+                        }
+                      }}
+                    />
+                  </ion-item>
+                )}
+
+                <ion-button onClick={() => this.handleSubmit()} disabled={!this.formIsValid}>
+                  חשב שכר נוכחי ועתידי
+                </ion-button>
+
+              </form>
+
+              {!!this.presentWage && (
+                <wage-output
+                  presentWage={this.presentWage}
+                  futureWageByWeeks={this.futureWageByWeeks}
+                  futureWage={this.futureWage}
+                  pensionPayments={this.pensionPayments}
+                />
               )}
 
-              <ion-button onClick={() => this.handleSubmit()} disabled={!this.formIsValid}>
-                חשב שכר נוכחי ועתידי
-              </ion-button>
+            </div>
 
-            </form>
-
-            {!!this.presentWage && (
-              <wage-output
-                presentWage={this.presentWage}
-                futureWageByWeeks={this.futureWageByWeeks}
-                futureWage={this.futureWage}
-                pensionPayments={this.pensionPayments}
-              />
-            )}
-
-          </div>
-
-          <p class="note">* {disclaimer}</p>
+            <p class="note">* {disclaimer}</p>
           
           </main>
         </ion-content>
