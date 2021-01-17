@@ -148,7 +148,7 @@ export class AppRoot {
             <form>
 
               <ion-item>
-                <ion-label>בחר מכללה</ion-label>
+                <ion-label>בחר/י מכללה</ion-label>
                 <ion-select value={this.college} onIonChange={e => {this.college = e.detail.value}}>
                   {colleges.map(({ name, label }) => (
                     <ion-select-option value={name}>{label}</ion-select-option>
@@ -157,7 +157,7 @@ export class AppRoot {
               </ion-item>
 
               <ion-item>
-                <ion-label>בחר תפקיד</ion-label>
+                <ion-label>בחר/י תפקיד</ion-label>
                 <ion-select
                   multiple
                   value={this.position}
@@ -169,7 +169,7 @@ export class AppRoot {
               </ion-item>
 
               <ion-item>
-                <ion-label>בחר דירוג</ion-label>
+                <ion-label>בחר/י דירוג</ion-label>
                 <ion-select value={this.rank} onIonChange={e => {this.rank = e.detail.value}}>
                   {ranks.map(({ name, label }) => (
                     <ion-select-option value={name}>{label}</ion-select-option>
@@ -178,7 +178,7 @@ export class AppRoot {
               </ion-item>
 
               <ion-item>
-                <ion-label>בחר ותק</ion-label>
+                <ion-label>בחר/י ותק</ion-label>
                 <ion-select
                   value={this.seniority}
                   onIonChange={e => {this.seniority = e.detail.value}}
@@ -197,7 +197,7 @@ export class AppRoot {
               </ion-item>
 
               <ion-item>
-                <ion-label>הכנס מספר שעות {this.multiPosition && 'מתרגל'}</ion-label>
+                <ion-label>הכנס/י מספר שעות {this.multiPosition && 'מתרגל'}</ion-label>
                 <ion-input
                   id="hours1"
                   inputmode="numeric"
@@ -210,7 +210,7 @@ export class AppRoot {
 
               {this.multiPosition && (
                 <ion-item>
-                  <ion-label>הכנס מספר שעות מרצה</ion-label>
+                  <ion-label>הכנס/י מספר שעות מרצה</ion-label>
                   <ion-input
                     id="hours2"
                     inputmode="numeric"
@@ -227,7 +227,7 @@ export class AppRoot {
               )}
 
               <ion-button onClick={() => this.handleSubmit()} disabled={!this.formIsValid}>
-                חשב שכר נוכחי ועתידי
+                חשב/י שכר נוכחי ועתידי
               </ion-button>
 
             </form>
