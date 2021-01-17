@@ -128,7 +128,6 @@ export class AppRoot {
   }
 
   render() {
-    console.log(window)
     return (
       <ion-app>
         <header>
