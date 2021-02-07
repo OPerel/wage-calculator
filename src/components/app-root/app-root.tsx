@@ -257,7 +257,7 @@ export class AppRoot {
             &nbsp;
             <span>Developed by</span>
             &nbsp;
-            <a href="https://github.com/OPerel" target="_blank" rel="noopener">
+            <a href="https://www.oriperelman.com/" target="_blank" rel="noopener">
               Ori Perelman
             </a>
           </p>
