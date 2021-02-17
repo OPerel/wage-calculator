@@ -1,5 +1,5 @@
-const getPresentWage = (weeks: number, rankWage: number, hours: number, teach: boolean): number => {
-  let wage = weeks * rankWage * hours;
+const getPresentWage = (weeks: number, hourlyWage: number, hours: number, teach: boolean): number => {
+  let wage = weeks * hourlyWage * hours;
   if (teach) {
     wage = wage * 0.5;
   }
@@ -23,7 +23,11 @@ const getFutureWage = (
   }
 
   if (teach) {
-    wage = wage * 0.7;
+    if (asSa) {
+      wage = wage * 0.5;
+    } else {
+      wage = wage * 0.7;
+    }
   }
 
   return roundResult(wage);
