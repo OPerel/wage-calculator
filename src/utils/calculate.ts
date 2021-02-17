@@ -6,11 +6,26 @@ const getPresentWage = (weeks: number, rankWage: number, hours: number, teach: b
   return roundResult(wage);
 }
 
-const getFutureWage = (seniorityWage: number, hours: number, teach: boolean): number => {
-  let wage = seniorityWage * (hours / 14);
+const getFutureWage = (
+  seniorityWage: number,
+  hours: number,
+  teach: boolean,
+  asSa = false,
+  college?: string
+): number => {
+  let wage: number;
+  const fourteenHourColleges = ['ata', 'bbr', 'snk', 'viz'];
+  
+  if (asSa && !fourteenHourColleges.includes(college)) {
+    wage = seniorityWage * (hours / 16);
+  } else {
+    wage = seniorityWage * (hours / 14);
+  }
+
   if (teach) {
     wage = wage * 0.7;
   }
+
   return roundResult(wage);
 }
 

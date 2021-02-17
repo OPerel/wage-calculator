@@ -15,15 +15,18 @@ export class AppRoot {
   hoursInput2: HTMLInputElement;
 
   @State() college: string;
+  @State() preDealSa: boolean;
   @State() position: string[];
   @State() multiPosition: boolean;
   @State() rank: string;
+  @State() preDealSeniority: number;
   @State() seniority: number;
   @State() hours: number;
   @State() hours2: number;
   @State() formIsValid: boolean;
 
   @State() presentWage: number;
+  @State() presentWageAsSa: number;
   @State() futureWageByWeeks: number;
   @State() futureWage: number;
   @State() pensionPayments: number;
@@ -39,6 +42,12 @@ export class AppRoot {
 
       this.presentWage = getPresentWage(weeks, hourlyWage, this.hours, teach);
 
+      if (this.preDealSa) {
+        this.presentWageAsSa = getFutureWage(seniorityWage, this.hours, teach, this.preDealSa, this.college);
+      } else {
+        this.presentWageAsSa = undefined;
+      }
+
       if (futureWeeks) {
         this.futureWageByWeeks = getPresentWage(futureWeeks, hourlyWage, this.hours, teach);
       } else {
@@ -51,6 +60,13 @@ export class AppRoot {
     } else {
       this.presentWage = getPresentWage(weeks, hourlyWage, this.hours, true) +
         getPresentWage(weeks, hourlyWage, this.hours2, false);
+
+      if (this.preDealSa) {
+        this.presentWageAsSa = getFutureWage(seniorityWage, this.hours, true, this.preDealSa, this.college) +
+          getFutureWage(seniorityWage, this.hours, false, this.preDealSa, this.college);
+      } else {
+        this.presentWageAsSa = undefined;
+      }
 
       if (futureWeeks) {
         this.futureWageByWeeks = getPresentWage(futureWeeks, hourlyWage, this.hours, true) +
@@ -132,7 +148,11 @@ export class AppRoot {
       <ion-app>
         <header>
           <ion-title>איגוד הסגל האקדמי במכללות הציבוריות</ion-title>
-          <img src="https://cafe.themarker.com/media/t/146/754/7/file_0_big.jpg?1267870768" width="100" height="50"/>
+          <img
+            src="https://cafe.themarker.com/media/t/146/754/7/file_0_big.jpg?1267870768"
+            width="100"
+            height="50"
+          />
         </header>
 
         <ion-content>
@@ -152,6 +172,17 @@ export class AppRoot {
                   {colleges.map(({ name, label }) => (
                     <ion-select-option value={name}>{label}</ion-select-option>
                   ))}
+                </ion-select>
+              </ion-item>
+
+              <ion-item>
+                <ion-label>בחר/י אופן העסקה לפני ההסכם</ion-label>
+                <ion-select
+                  value={this.preDealSa}
+                  onIonChange={e => {this.preDealSa = e.detail.value}}
+                >
+                  <ion-select-option value={false}>ממ"ח</ion-select-option>
+                  <ion-select-option value={true}>ס"ע</ion-select-option>
                 </ion-select>
               </ion-item>
 
@@ -225,7 +256,31 @@ export class AppRoot {
                 </ion-item>
               )}
 
-              <ion-button onClick={() => this.handleSubmit()} disabled={!this.formIsValid}>
+              {this.preDealSa && (
+                <ion-item>
+                  <ion-label>בחר/י ותק לצורך טבלת השכר הנוכחית</ion-label>
+                  <ion-select
+                    value={this.preDealSeniority}
+                    onIonChange={e => {this.preDealSeniority = e.detail.value}}
+                    interfaceOptions={{ message: seniorityMessage }}
+                  >
+                    {this.rank === 'b' ? (
+                      Array.from(Array(26)).map((_, idx) => (
+                        <ion-select-option>{idx}</ion-select-option>
+                      ))
+                    ) : (
+                      Array.from(Array(16)).map((_, idx) => (
+                        <ion-select-option>{idx}</ion-select-option>
+                      ))
+                    )}
+                  </ion-select>
+                </ion-item>
+              )}
+
+              <ion-button
+                onClick={() => this.handleSubmit()}
+                disabled={!this.formIsValid}
+              >
                 חשב/י שכר נוכחי ועתידי
               </ion-button>
 
@@ -234,6 +289,7 @@ export class AppRoot {
             {!!this.presentWage && (
               <wage-output
                 presentWage={this.presentWage}
+                presentWageAsSa={this.presentWageAsSa}
                 futureWageByWeeks={this.futureWageByWeeks}
                 futureWage={this.futureWage}
                 pensionPayments={this.pensionPayments}
