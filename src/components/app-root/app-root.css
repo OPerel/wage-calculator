@@ -23,10 +23,17 @@ ion-title {
 }
 
 footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100vw;
-  text-align: center;
+  height: 5.5%;
   background-color: #393939;
   color: #fff;
+}
+
+footer p {
+  font-size: 0.9rem;
 }
 
 .hide {
