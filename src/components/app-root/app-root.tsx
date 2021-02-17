@@ -238,12 +238,12 @@ export class AppRoot {
                     {this.rank === 'b' ? (
                       Array.from(Array(26)).map((_, idx) => (
                         <ion-select-option>{idx}</ion-select-option>
-                        ))
-                        ) : (
-                          Array.from(Array(16)).map((_, idx) => (
-                            <ion-select-option>{idx}</ion-select-option>
-                            ))
-                            )}
+                      ))
+                    ) : (
+                      Array.from(Array(16)).map((_, idx) => (
+                        <ion-select-option>{idx}</ion-select-option>
+                      ))
+                    )}
                   </ion-select>
                 </ion-item>
               </div>
@@ -277,6 +277,7 @@ export class AppRoot {
                   />
                 </ion-item>
               )}
+
 
               <ion-button
                 onClick={() => this.handleSubmit()}
