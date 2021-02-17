@@ -207,24 +207,46 @@ export class AppRoot {
                 </ion-select>
               </ion-item>
 
-              <ion-item>
-                <ion-label>בחר/י ותק</ion-label>
-                <ion-select
-                  value={this.seniority}
-                  onIonChange={e => {this.seniority = e.detail.value}}
-                  interfaceOptions={{ message: seniorityMessage }}
-                >
-                  {this.rank === 'b' ? (
-                    Array.from(Array(26)).map((_, idx) => (
-                      <ion-select-option>{idx}</ion-select-option>
-                    ))
-                  ) : (
-                    Array.from(Array(16)).map((_, idx) => (
-                      <ion-select-option>{idx}</ion-select-option>
-                    ))
-                  )}
-                </ion-select>
-              </ion-item>
+              <div>
+                {this.preDealSa && (
+                  <ion-item>
+                    <ion-label>בחר/י ותק לצורך טבלת השכר הנוכחית</ion-label>
+                    <ion-select
+                      value={this.preDealSeniority}
+                      onIonChange={e => {this.preDealSeniority = e.detail.value}}
+                      interfaceOptions={{ message: seniorityMessage }}
+                    >
+                      {this.rank === 'b' ? (
+                        Array.from(Array(26)).map((_, idx) => (
+                          <ion-select-option>{idx}</ion-select-option>
+                        ))
+                      ) : (
+                        Array.from(Array(16)).map((_, idx) => (
+                          <ion-select-option>{idx}</ion-select-option>
+                        ))
+                      )}
+                    </ion-select>
+                  </ion-item>
+                )}
+                <ion-item>
+                  <ion-label>בחר/י ותק</ion-label>
+                  <ion-select
+                    value={this.seniority}
+                    onIonChange={e => {this.seniority = e.detail.value}}
+                    interfaceOptions={{ message: seniorityMessage }}
+                    >
+                    {this.rank === 'b' ? (
+                      Array.from(Array(26)).map((_, idx) => (
+                        <ion-select-option>{idx}</ion-select-option>
+                        ))
+                        ) : (
+                          Array.from(Array(16)).map((_, idx) => (
+                            <ion-select-option>{idx}</ion-select-option>
+                            ))
+                            )}
+                  </ion-select>
+                </ion-item>
+              </div>
 
               <ion-item>
                 <ion-label>הכנס/י מספר שעות {this.multiPosition && 'מתרגל'}</ion-label>
@@ -253,27 +275,6 @@ export class AppRoot {
                       }
                     }}
                   />
-                </ion-item>
-              )}
-
-              {this.preDealSa && (
-                <ion-item>
-                  <ion-label>בחר/י ותק לצורך טבלת השכר הנוכחית</ion-label>
-                  <ion-select
-                    value={this.preDealSeniority}
-                    onIonChange={e => {this.preDealSeniority = e.detail.value}}
-                    interfaceOptions={{ message: seniorityMessage }}
-                  >
-                    {this.rank === 'b' ? (
-                      Array.from(Array(26)).map((_, idx) => (
-                        <ion-select-option>{idx}</ion-select-option>
-                      ))
-                    ) : (
-                      Array.from(Array(16)).map((_, idx) => (
-                        <ion-select-option>{idx}</ion-select-option>
-                      ))
-                    )}
-                  </ion-select>
                 </ion-item>
               )}
 
