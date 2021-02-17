@@ -1,7 +1,7 @@
 {
   "name": "wage-calculator",
   "private": true,
-  "version": "0.0.2",
+  "version": "0.1.2",
   "description": "wage-calculator",
   "license": "MIT",
   "files": [

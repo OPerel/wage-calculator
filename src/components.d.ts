@@ -13,6 +13,7 @@ export namespace Components {
         "futureWageByWeeks": number;
         "pensionPayments": number;
         "presentWage": number;
+        "presentWageAsSa": number;
     }
 }
 declare global {
@@ -41,6 +42,7 @@ declare namespace LocalJSX {
         "futureWageByWeeks"?: number;
         "pensionPayments"?: number;
         "presentWage"?: number;
+        "presentWageAsSa"?: number;
     }
     interface IntrinsicElements {
         "app-root": AppRoot;
