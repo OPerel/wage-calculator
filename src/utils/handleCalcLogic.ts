@@ -16,7 +16,7 @@ interface FormState {
   hours2: number;
 }
 
-interface Result {
+export interface Result {
   presentWage: undefined | number,
   presentWageAsSa: undefined | number,
   futureWageByWeeks: undefined | number,
