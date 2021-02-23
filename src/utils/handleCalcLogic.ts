@@ -16,6 +16,14 @@ interface FormState {
   hours2: number;
 }
 
+interface Result {
+  presentWage: undefined | number,
+  presentWageAsSa: undefined | number,
+  futureWageByWeeks: undefined | number,
+  futureWage: undefined | number
+  pensionPayments: undefined | number
+}
+
 export default function handleCalcLogic({
   college,
   preDealSa,
@@ -33,7 +41,7 @@ export default function handleCalcLogic({
   const seniorityWage = wageBySeniority[rank][seniority];
   const preDealSeniorityWage = wageBySeniority[rank][preDealSeniority];
 
-  let result = {
+  let result: Result = {
     presentWage: undefined,
     presentWageAsSa: undefined,
     futureWageByWeeks: undefined,
