@@ -79,14 +79,17 @@ export class AppRoot {
         getFutureWage(seniorityWage, this.hours2, false);
     }
 
-    // check if present wage is higher than future wage
-    if (this.futureWageByWeeks) {
-      if (this.futureWageByWeeks > this.futureWage) {
-        this.futureWage = this.futureWageByWeeks;
-      }
-    } else {
-      if (this.presentWage > this.futureWage) {
-        this.futureWage = this.presentWage;
+    // if preDealSa is false
+    if (!this.preDealSa) {
+      // check if present wage is higher than future wage
+      if (this.futureWageByWeeks) {
+        if (this.futureWageByWeeks > this.futureWage) {
+          this.futureWage = this.futureWageByWeeks;
+        }
+      } else {
+        if (this.presentWage > this.futureWage) {
+          this.futureWage = this.presentWage;
+        }
       }
     }
 

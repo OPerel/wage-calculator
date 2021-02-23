@@ -19,18 +19,18 @@ export class WageOutput {
   render() {
     return (
       <div>
-        <ion-item>
-          <ion-label>שכר סמסטריאלי נוכחי כממ"ח</ion-label>
-          <h4>
-            {this.presentWage.toLocaleString('he-IL', currencyObj)}
-          </h4>
-        </ion-item>
-
-        {this.presentWageAsSa && (
+        {this.presentWageAsSa ? (
           <ion-item>
             <ion-label>שכר סמסטריאלי נוכחי כס"ע</ion-label>
             <h4>
               {this.presentWageAsSa.toLocaleString('he-IL', currencyObj)}
+            </h4>
+          </ion-item>
+        ) : (
+          <ion-item>
+            <ion-label>שכר סמסטריאלי נוכחי כממ"ח</ion-label>
+            <h4>
+              {this.presentWage.toLocaleString('he-IL', currencyObj)}
             </h4>
           </ion-item>
         )}
