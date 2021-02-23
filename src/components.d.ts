@@ -6,6 +6,8 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 export namespace Components {
+    interface AppFooter {
+    }
     interface AppRoot {
     }
     interface WageOutput {
@@ -17,6 +19,12 @@ export namespace Components {
     }
 }
 declare global {
+    interface HTMLAppFooterElement extends Components.AppFooter, HTMLStencilElement {
+    }
+    var HTMLAppFooterElement: {
+        prototype: HTMLAppFooterElement;
+        new (): HTMLAppFooterElement;
+    };
     interface HTMLAppRootElement extends Components.AppRoot, HTMLStencilElement {
     }
     var HTMLAppRootElement: {
@@ -30,11 +38,14 @@ declare global {
         new (): HTMLWageOutputElement;
     };
     interface HTMLElementTagNameMap {
+        "app-footer": HTMLAppFooterElement;
         "app-root": HTMLAppRootElement;
         "wage-output": HTMLWageOutputElement;
     }
 }
 declare namespace LocalJSX {
+    interface AppFooter {
+    }
     interface AppRoot {
     }
     interface WageOutput {
@@ -45,6 +56,7 @@ declare namespace LocalJSX {
         "presentWageAsSa"?: number;
     }
     interface IntrinsicElements {
+        "app-footer": AppFooter;
         "app-root": AppRoot;
         "wage-output": WageOutput;
     }
@@ -53,6 +65,7 @@ export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
+            "app-footer": LocalJSX.AppFooter & JSXBase.HTMLAttributes<HTMLAppFooterElement>;
             "app-root": LocalJSX.AppRoot & JSXBase.HTMLAttributes<HTMLAppRootElement>;
             "wage-output": LocalJSX.WageOutput & JSXBase.HTMLAttributes<HTMLWageOutputElement>;
         }

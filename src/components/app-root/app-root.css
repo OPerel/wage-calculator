@@ -22,21 +22,6 @@ ion-title {
   font-size: 15px;
 }
 
-footer {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100vw;
-  height: 5.5%;
-  text-align: center;
-  background-color: #393939;
-  color: #fff;
-}
-
-footer p {
-  font-size: 0.9rem;
-}
-
 .hide {
   display: none;
 }

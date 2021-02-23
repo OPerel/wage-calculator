@@ -308,21 +308,7 @@ export class AppRoot {
           </main>
         </ion-content>
 
-        <footer dir="ltr">
-          <p>
-            <a href="https://workers.org.il/" target="_blank" rel="noopener">
-              Koach LaOvdim
-            </a>
-            &nbsp;
-            <span>- Democratic Workers’ Organization &#169; {new Date().getFullYear()},</span>
-            &nbsp;
-            <span>Developed by</span>
-            &nbsp;
-            <a href="https://www.oriperelman.com/" target="_blank" rel="noopener">
-              Ori Perelman
-            </a>
-          </p>
-        </footer>
+        <app-footer />
       </ion-app>
     );
   }
