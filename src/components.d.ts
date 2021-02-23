@@ -5,8 +5,11 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
+import { Result } from "./utils/handleCalcLogic";
 export namespace Components {
     interface AppFooter {
+    }
+    interface AppForm {
     }
     interface AppRoot {
     }
@@ -25,6 +28,12 @@ declare global {
         prototype: HTMLAppFooterElement;
         new (): HTMLAppFooterElement;
     };
+    interface HTMLAppFormElement extends Components.AppForm, HTMLStencilElement {
+    }
+    var HTMLAppFormElement: {
+        prototype: HTMLAppFormElement;
+        new (): HTMLAppFormElement;
+    };
     interface HTMLAppRootElement extends Components.AppRoot, HTMLStencilElement {
     }
     var HTMLAppRootElement: {
@@ -39,12 +48,16 @@ declare global {
     };
     interface HTMLElementTagNameMap {
         "app-footer": HTMLAppFooterElement;
+        "app-form": HTMLAppFormElement;
         "app-root": HTMLAppRootElement;
         "wage-output": HTMLWageOutputElement;
     }
 }
 declare namespace LocalJSX {
     interface AppFooter {
+    }
+    interface AppForm {
+        "onSubmitForm"?: (event: CustomEvent<Result>) => void;
     }
     interface AppRoot {
     }
@@ -57,6 +70,7 @@ declare namespace LocalJSX {
     }
     interface IntrinsicElements {
         "app-footer": AppFooter;
+        "app-form": AppForm;
         "app-root": AppRoot;
         "wage-output": WageOutput;
     }
@@ -66,6 +80,7 @@ declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
             "app-footer": LocalJSX.AppFooter & JSXBase.HTMLAttributes<HTMLAppFooterElement>;
+            "app-form": LocalJSX.AppForm & JSXBase.HTMLAttributes<HTMLAppFormElement>;
             "app-root": LocalJSX.AppRoot & JSXBase.HTMLAttributes<HTMLAppRootElement>;
             "wage-output": LocalJSX.WageOutput & JSXBase.HTMLAttributes<HTMLWageOutputElement>;
         }
