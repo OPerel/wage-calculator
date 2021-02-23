@@ -2,9 +2,9 @@ import { Component, h, State } from '@stencil/core';
 
 import colleges from '../../assets/data/colleges';
 import ranks from '../../assets/data/wageByRank';
-import wageBySeniority from '../../assets/data/wageBySeniority';
-import { getPresentWage, getFutureWage, getEmployerPensionPayments } from '../../utils/calculate';
 import { disclaimer, seniorityMessage } from '../../assets/data/text';
+
+import handleCalcLogic from '../../utils/handleCalcLogic';
 
 @Component({
   tag: 'app-root',
@@ -32,69 +32,31 @@ export class AppRoot {
   @State() pensionPayments: number;
 
   handleSubmit() {
-    const { weeks, futureWeeks } = colleges.find(c => c.name === this.college);
-    const { hourlyWage } = ranks.find(r => r.name === this.rank);
-    const seniorityWage = wageBySeniority[this.rank][this.seniority];
+    const state = {
+      college: this.college,
+      preDealSa: this.preDealSa,
+      position: this.position,
+      multiPosition: this.multiPosition,
+      rank: this.rank,
+      preDealSeniority: this.preDealSeniority,
+      seniority: this.seniority,
+      hours: this.hours,
+      hours2: this.hours2
+    };
+    
+    const {
+      presentWage,
+      presentWageAsSa,
+      futureWageByWeeks,
+      futureWage,
+      pensionPayments
+    } = handleCalcLogic(state);
 
-    // if user is EITHER a teacher OR a professor
-    if (!this.multiPosition) {
-      const teach = this.position[0] === 'teach';
-
-      this.presentWage = getPresentWage(weeks, hourlyWage, this.hours, teach);
-
-      if (this.preDealSa) {
-        this.presentWageAsSa = getFutureWage(seniorityWage, this.hours, teach, this.preDealSa, this.college);
-      } else {
-        this.presentWageAsSa = undefined;
-      }
-
-      if (futureWeeks) {
-        this.futureWageByWeeks = getPresentWage(futureWeeks, hourlyWage, this.hours, teach);
-      } else {
-        this.futureWageByWeeks = undefined;
-      }
-
-      this.futureWage = getFutureWage(seniorityWage, this.hours, teach);
-
-    // if user is BOTH a teacher AND a professor
-    } else {
-      this.presentWage = getPresentWage(weeks, hourlyWage, this.hours, true) +
-        getPresentWage(weeks, hourlyWage, this.hours2, false);
-
-      if (this.preDealSa) {
-        this.presentWageAsSa = getFutureWage(seniorityWage, this.hours, true, this.preDealSa, this.college) +
-          getFutureWage(seniorityWage, this.hours, false, this.preDealSa, this.college);
-      } else {
-        this.presentWageAsSa = undefined;
-      }
-
-      if (futureWeeks) {
-        this.futureWageByWeeks = getPresentWage(futureWeeks, hourlyWage, this.hours, true) +
-          getPresentWage(futureWeeks, hourlyWage, this.hours2, false);
-      } else {
-        this.futureWageByWeeks = undefined;
-      }
-
-      this.futureWage = getFutureWage(seniorityWage, this.hours, true) +
-        getFutureWage(seniorityWage, this.hours2, false);
-    }
-
-    // if preDealSa is false
-    if (!this.preDealSa) {
-      // check if present wage is higher than future wage
-      if (this.futureWageByWeeks) {
-        if (this.futureWageByWeeks > this.futureWage) {
-          this.futureWage = this.futureWageByWeeks;
-        }
-      } else {
-        if (this.presentWage > this.futureWage) {
-          this.futureWage = this.presentWage;
-        }
-      }
-    }
-
-    this.pensionPayments = getEmployerPensionPayments(this.futureWage);
-
+    this.presentWage = presentWage;
+    this.presentWageAsSa = presentWageAsSa;
+    this.futureWageByWeeks = futureWageByWeeks;
+    this.futureWage = futureWage;
+    this.pensionPayments = pensionPayments;
   }
 
   componentDidLoad() {
@@ -130,7 +92,8 @@ export class AppRoot {
       !!this.hours &&
       !!this.seniority &&
       !!this.position &&
-      (this.multiPosition ? !!this.hours2 : true);
+      (this.multiPosition ? !!this.hours2 : true) &&
+      (this.preDealSa ? !!this.preDealSeniority : true);
 
     this.formIsValid = isValid;
   }
@@ -217,7 +180,7 @@ export class AppRoot {
                     <ion-select
                       value={this.preDealSeniority}
                       onIonChange={e => {this.preDealSeniority = e.detail.value}}
-                      interfaceOptions={{ message: seniorityMessage }}
+                      interfaceOptions={{}}
                     >
                       {this.rank === 'b' ? (
                         Array.from(Array(26)).map((_, idx) => (
@@ -291,7 +254,7 @@ export class AppRoot {
 
             </form>
 
-            {!!this.presentWage && (
+            {(!!this.presentWage || !!this.presentWageAsSa) && (
               <wage-output
                 presentWage={this.presentWage}
                 presentWageAsSa={this.presentWageAsSa}
