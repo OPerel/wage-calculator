@@ -12,6 +12,7 @@
     "start": "stencil build --dev --watch --serve",
     "test": "stencil test --spec --e2e",
     "test.watch": "stencil test --spec --e2e --watch",
+    "test.calc": "stencil test --spec --verbose",
     "generate": "stencil generate"
   },
   "devDependencies": {

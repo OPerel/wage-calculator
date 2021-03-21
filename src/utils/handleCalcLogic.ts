@@ -4,7 +4,7 @@ import colleges from '../assets/data/colleges';
 import ranks from '../assets/data/wageByRank';
 import wageBySeniority from '../assets/data/wageBySeniority';
 
-interface FormState {
+export interface FormState {
   college: string;
   preDealSa: boolean;
   position: string[];
