@@ -52,7 +52,7 @@ export class WageOutput {
         </ion-item>
 
         <ion-item>
-          <ion-label>גובה קרן השתלמות הפרשות מעסיק</ion-label>
+          <ion-label>גובה קרן השתלמות לס"ע הפרשות מעסיק</ion-label>
           <h4>
             {this.pensionPayments.toLocaleString('he-IL', currencyObj)}
           </h4>

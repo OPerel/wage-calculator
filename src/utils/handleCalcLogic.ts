@@ -36,11 +36,6 @@ export default function handleCalcLogic({
   hours2,
 }: FormState) {
 
-  const { weeks, futureWeeks } = colleges.find(c => c.name === college);
-  const { hourlyWage } = ranks.find(r => r.name === rank);
-  const seniorityWage = wageBySeniority[rank][seniority];
-  const preDealSeniorityWage = wageBySeniority[rank][preDealSeniority];
-
   let result: Result = {
     presentWage: undefined,
     presentWageAsSa: undefined,
@@ -48,48 +43,61 @@ export default function handleCalcLogic({
     futureWage: undefined,
     pensionPayments: undefined
   }
+  
+  const { weeks, futureWeeks } = colleges.find(c => c.name === college);
+  let { hourlyWage } = ranks.find(r => r.name === rank);
+  let seniorityWage = wageBySeniority[rank][seniority];
+  let preDealSeniorityWage = wageBySeniority[rank][preDealSeniority];
+  
+  const teach = position[0] === 'teach';
+  
+  // if sapir and teacher fix rank values for present and future wages
+  if (college === 'spr' && teach) {
+    hourlyWage = ranks.find(r => r.name === '1').hourlyWage;
+    seniorityWage = wageBySeniority['a'][seniority];
+    preDealSeniorityWage = wageBySeniority['a'][preDealSeniority];
+  }
 
-  // if user is EITHER a teacher OR a professor
-  if (!multiPosition) {
-    const teach = position[0] === 'teach';
-
-    if (preDealSa) {
-      result.presentWageAsSa = getFutureWage(preDealSeniorityWage, hours, teach, preDealSa, college);
-      result.futureWage = undefined;
-    } else {
-      result.presentWage = getPresentWage(weeks, hourlyWage, hours, teach);
-      result.presentWageAsSa = undefined;
-    }
-
-    if (futureWeeks) {
-      result.futureWageByWeeks = getPresentWage(futureWeeks, hourlyWage, hours, teach);
-    } else {
-      result.futureWageByWeeks = undefined;
-    }
-
-    result.futureWage = getFutureWage(seniorityWage, hours, teach);
-
-  // if user is BOTH a teacher AND a professor
+  if (preDealSa) {
+    result.presentWageAsSa = getFutureWage(preDealSeniorityWage, hours, teach, preDealSa, college);
+    result.futureWage = undefined;
   } else {
+    result.presentWage = getPresentWage(weeks, hourlyWage, hours, teach, college);
+    result.presentWageAsSa = undefined;
+  }
+
+  if (futureWeeks) {
+    result.futureWageByWeeks = getPresentWage(futureWeeks, hourlyWage, hours, teach, college);
+  } else {
+    result.futureWageByWeeks = undefined;
+  }
+
+  result.futureWage = getFutureWage(seniorityWage, hours, teach);
+
+  // if user is BOTH a teacher AND a professor, add professor calcs to result
+  if (multiPosition) {
+    // revert sapir rank values to user selected values for professor calcs
+    if (college === 'spr') {
+      hourlyWage = ranks.find(r => r.name === rank).hourlyWage;
+      seniorityWage = wageBySeniority[rank][seniority];
+      preDealSeniorityWage = wageBySeniority[rank][preDealSeniority];
+    }
+
     if (preDealSa) {
-      result.presentWageAsSa = getFutureWage(preDealSeniorityWage, hours, true, preDealSa, college) +
-        getFutureWage(preDealSeniorityWage, hours, false, preDealSa, college);
+      result.presentWageAsSa += getFutureWage(preDealSeniorityWage, hours, false, preDealSa, college);
       result.presentWage = undefined;
     } else {
-      result.presentWage = getPresentWage(weeks, hourlyWage, hours, true) +
-        getPresentWage(weeks, hourlyWage, hours2, false);
+      result.presentWage += getPresentWage(weeks, hourlyWage, hours2, false, college);
       result.presentWageAsSa = undefined;
     }
 
     if (futureWeeks) {
-      result.futureWageByWeeks = getPresentWage(futureWeeks, hourlyWage, hours, true) +
-        getPresentWage(futureWeeks, hourlyWage, hours2, false);
+      result.futureWageByWeeks += getPresentWage(futureWeeks, hourlyWage, hours2, false, college);
     } else {
       result.futureWageByWeeks = undefined;
     }
 
-    result.futureWage = getFutureWage(seniorityWage, hours, true) +
-      getFutureWage(seniorityWage, hours2, false);
+    result.futureWage += getFutureWage(seniorityWage, hours2, false);
   }
 
   // if preDealSa is false

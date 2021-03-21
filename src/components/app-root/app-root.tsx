@@ -1,6 +1,6 @@
 import { Component, h, State, Listen } from '@stencil/core';
 
-import { disclaimer } from '../../assets/data/text';
+import { disclaimer, saNote } from '../../assets/data/text';
 import { Result } from '../../utils/handleCalcLogic';
 
 @Component({
@@ -22,13 +22,13 @@ export class AppRoot {
       futureWageByWeeks,
       futureWage,
       pensionPayments
-      } = e.detail;
+    } = e.detail;
 
-      this.presentWage = presentWage;
-      this.presentWageAsSa = presentWageAsSa;
-      this.futureWageByWeeks = futureWageByWeeks;
-      this.futureWage = futureWage;
-      this.pensionPayments = pensionPayments;
+    this.presentWage = presentWage;
+    this.presentWageAsSa = presentWageAsSa;
+    this.futureWageByWeeks = futureWageByWeeks;
+    this.futureWage = futureWage;
+    this.pensionPayments = pensionPayments;
   }
 
   componentDidLoad() {
@@ -61,8 +61,8 @@ export class AppRoot {
             <ion-refresher-content></ion-refresher-content>
           </ion-refresher>
 
-          <main>
-          <div class="content">
+          <main class="content">
+
             <h2>מחשבון שכר נוכחי ועתידי</h2>
             
             <app-form />
@@ -77,11 +77,13 @@ export class AppRoot {
               />
             )}
 
-          </div>
+            <div class="note">
+              <p>* {disclaimer}</p>
+              <p>* {saNote}</p>
+            </div>
 
-          <p class="note">* {disclaimer}</p>
-          
           </main>
+          
         </ion-content>
 
         <app-footer />

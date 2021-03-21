@@ -1,6 +1,12 @@
-const getPresentWage = (weeks: number, hourlyWage: number, hours: number, teach: boolean): number => {
+const getPresentWage = (
+  weeks: number,
+  hourlyWage: number,
+  hours: number,
+  teach: boolean,
+  college: string
+): number => {
   let wage = weeks * hourlyWage * hours;
-  if (teach) {
+  if (teach && college !== 'spr' && college !== 'ata') {
     wage = wage * 0.5;
   }
   return roundResult(wage);
@@ -22,7 +28,7 @@ const getFutureWage = (
     wage = seniorityWage * (hours / 14);
   }
 
-  if (teach) {
+  if (teach && college !== 'ata') {
     if (asSa) {
       wage = wage * 0.5;
     } else {

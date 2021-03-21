@@ -77,7 +77,7 @@ const colleges: College[] = [
   {
     name: 'spr',
     label: 'ספיר',
-    weeks: 16.8,
+    weeks: 16.4,
     futureWeeks: 14
   },
   {
