@@ -52,8 +52,10 @@ export default function handleCalcLogic({
   const teach = position[0] === 'teach';
   
   // if sapir and teacher fix rank values for present and future wages
+  let sapirFutureHourlyWage: number;
   if (college === 'spr' && teach) {
     hourlyWage = ranks.find(r => r.name === '1').hourlyWage;
+    sapirFutureHourlyWage = ranks.find(r => r.name === 'a').hourlyWage;
     seniorityWage = wageBySeniority['a'][seniority];
     preDealSeniorityWage = wageBySeniority['a'][preDealSeniority];
   }
@@ -67,12 +69,12 @@ export default function handleCalcLogic({
   }
 
   if (futureWeeks) {
-    result.futureWageByWeeks = getPresentWage(futureWeeks, hourlyWage, hours, teach, college);
+    result.futureWageByWeeks = getPresentWage(futureWeeks, sapirFutureHourlyWage || hourlyWage, hours, teach, college);
   } else {
     result.futureWageByWeeks = undefined;
   }
 
-  result.futureWage = getFutureWage(seniorityWage, hours, teach);
+  result.futureWage = getFutureWage(seniorityWage, hours, teach, false, college);
 
   // if user is BOTH a teacher AND a professor, add professor calcs to result
   if (multiPosition) {

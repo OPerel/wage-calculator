@@ -9,6 +9,9 @@ const getPresentWage = (
   if (teach && college !== 'spr' && college !== 'ata') {
     wage = wage * 0.5;
   }
+  if (college === 'spr' && weeks === 14) {
+    wage = wage * 0.7;
+  }
   return roundResult(wage);
 }
 
