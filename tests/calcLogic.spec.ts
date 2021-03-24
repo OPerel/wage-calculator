@@ -44,7 +44,7 @@ const dataResultPairs: [string, FormState, Result][] = [
     }
   ],
   [
-    'ahva prof preDealSa rank-a preDealSeniority-8 seniority-8 hours-6',
+    'ahva prof preDealSa rank-a seniority-8 preDealSeniority-8 hours-6',
     {
       college: 'ahv',
       preDealSa: true,
@@ -64,27 +64,27 @@ const dataResultPairs: [string, FormState, Result][] = [
       presentWageAsSa: 21318.95
     }
   ],
-  // [
-  //   'hadasa prof noSa rank-b seniority-3 hours-14',
-  //   {
-  //     college: 'hds',
-  //     preDealSa: false,
-  //     position: ['prof'],
-  //     multiPosition: false,
-  //     rank: 'b',
-  //     preDealSeniority: undefined,
-  //     seniority: 3,
-  //     hours: 14,
-  //     hours2: undefined, 
-  //   },
-  //   {
-  //     futureWage: 65956.02,
-  //     futureWageByWeeks: 72861.6,
-  //     pensionPayments: 5158.6,
-  //     presentWage: 77719.04,
-  //     presentWageAsSa: undefined
-  //   }
-  // ],
+  [
+    'hadasa prof noSa rank-b seniority-3 hours-14',
+    {
+      college: 'hds',
+      preDealSa: false,
+      position: ['prof'],
+      multiPosition: false,
+      rank: 'b',
+      preDealSeniority: undefined,
+      seniority: 3,
+      hours: 14,
+      hours2: undefined, 
+    },
+    {
+      futureWage: 72861.6,
+      futureWageByWeeks: 72861.6,
+      pensionPayments: 5158.6,
+      presentWage: 77719.04,
+      presentWageAsSa: undefined
+    }
+  ],
   [
     'seminar [teach, prof] preDealSa rank-a seniority-4 preDealSeniority-4 hours-6 hours2-6',
     {
