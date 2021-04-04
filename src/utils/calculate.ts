@@ -3,15 +3,20 @@ const getPresentWage = (
   hourlyWage: number,
   hours: number,
   teach: boolean,
-  college: string
+  college: string,
+  asFuture = false
 ): number => {
   let wage = weeks * hourlyWage * hours;
-  if (teach && college !== 'spr' && college !== 'ata') {
-    wage = wage * 0.5;
+  
+  if (teach && college !== 'ata') {
+    if (!asFuture && college !== 'spr') {
+      wage = wage * 0.5;
+    }
+    if (asFuture) {
+      wage = wage * 0.7;
+    }
   }
-  if (college === 'spr' && weeks === 14) {
-    wage = wage * 0.7;
-  }
+
   return roundResult(wage);
 }
 

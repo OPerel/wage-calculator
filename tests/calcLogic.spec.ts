@@ -126,6 +126,132 @@ const dataResultPairs: [string, FormState, Result][] = [
       presentWage: undefined, 
       presentWageAsSa: 58111.61
     }
+  ],
+  [
+    'holon 16.8 [teach] noSa rank-a seniority-9 hours-7',
+    {
+      college: 'hit168',
+      preDealSa: false,
+      position: ['teach'],
+      multiPosition: false,
+      rank: 'a',
+      preDealSeniority: undefined,
+      seniority: 9,
+      hours: 7,
+      hours2: undefined
+    },
+    {
+      futureWage: 20031.63,
+      futureWageByWeeks: 18397.83,
+      pensionPayments: 1418.24,
+      presentWage: 15769.57, 
+      presentWageAsSa: undefined
+    }
+  ],
+  [
+    'rupin [teach] noSa rank-1 seniority-8 hours-8',
+    {
+      college: 'rpn',
+      preDealSa: false,
+      position: ['teach'],
+      multiPosition: false,
+      rank: '1',
+      preDealSeniority: undefined,
+      seniority: 8,
+      hours: 8,
+      hours2: undefined
+    },
+    {
+      futureWage: 13356.25,
+      futureWageByWeeks: undefined,
+      pensionPayments: 945.62,
+      presentWage: 9841.44, 
+      presentWageAsSa: undefined
+    }
+  ],
+  [
+    'kineret [prof] noSa rank-a seniority-12 hours-2',
+    {
+      college: 'cnr',
+      preDealSa: false,
+      position: ['prof'],
+      multiPosition: false,
+      rank: 'a',
+      preDealSeniority: undefined,
+      seniority: 12,
+      hours: 2,
+      hours2: undefined
+    },
+    {
+      futureWage: 8340.08,
+      futureWageByWeeks: undefined,
+      pensionPayments: 590.48,
+      presentWage: 7509.32, 
+      presentWageAsSa: undefined
+    }
+  ],
+  [
+    'beit-berl [prof] preDealSa rank-b seniority-4 preDealSeniority-4 hours-12',
+    {
+      college: 'bbr',
+      preDealSa: true,
+      position: ['prof'],
+      multiPosition: false,
+      rank: 'b',
+      preDealSeniority: 4,
+      seniority: 4,
+      hours: 12,
+      hours2: undefined, 
+    },
+    {
+      futureWage: 56928.19,
+      futureWageByWeeks: undefined,
+      pensionPayments: 4030.52,
+      presentWage: undefined, 
+      presentWageAsSa: 56928.19
+    }
+  ],
+  [
+    'azrieli [teach, prof] noSa rank-1 seniority-9 hours-10 hours2-4',
+    {
+      college: 'azr',
+      preDealSa: false,
+      position: ['teach', 'prof'],
+      multiPosition: true,
+      rank: '1',
+      preDealSeniority: undefined,
+      seniority: 9,
+      hours: 10,
+      hours2: 4, 
+    },
+    {
+      futureWage: 26408.770000000004,
+      futureWageByWeeks: undefined,
+      pensionPayments: 1869.74,
+      presentWage: 22143.239999999998, 
+      presentWageAsSa: undefined
+    }
+  ],
+  [
+    'ashkelon [teach, prof] noSa rank-a seniority-14 hours-4 hours2-8',
+    {
+      college: 'ask',
+      preDealSa: false,
+      position: ['teach', 'prof'],
+      multiPosition: true,
+      rank: 'a',
+      preDealSeniority: undefined,
+      seniority: 14,
+      hours: 4,
+      hours2: 8, 
+    },
+    {
+      futureWage: 45626.229999999996,
+      futureWageByWeeks: undefined,
+      pensionPayments: 3230.34,
+      presentWage: 40228.5, 
+      presentWageAsSa: undefined
+    }
   ]
 ]
 
