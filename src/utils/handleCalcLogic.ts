@@ -69,7 +69,7 @@ export default function handleCalcLogic({
   }
 
   if (futureWeeks) {
-    result.futureWageByWeeks = getPresentWage(futureWeeks, sapirFutureHourlyWage || hourlyWage, hours, teach, college);
+    result.futureWageByWeeks = getPresentWage(futureWeeks, sapirFutureHourlyWage || hourlyWage, hours, teach, college, true);
   } else {
     result.futureWageByWeeks = undefined;
   }
@@ -86,7 +86,7 @@ export default function handleCalcLogic({
     }
 
     if (preDealSa) {
-      result.presentWageAsSa += getFutureWage(preDealSeniorityWage, hours, false, preDealSa, college);
+      result.presentWageAsSa += getFutureWage(preDealSeniorityWage, hours2, false, preDealSa, college);
       result.presentWage = undefined;
     } else {
       result.presentWage += getPresentWage(weeks, hourlyWage, hours2, false, college);
@@ -94,7 +94,7 @@ export default function handleCalcLogic({
     }
 
     if (futureWeeks) {
-      result.futureWageByWeeks += getPresentWage(futureWeeks, hourlyWage, hours2, false, college);
+      result.futureWageByWeeks += getPresentWage(futureWeeks, hourlyWage, hours2, false, college, true);
     } else {
       result.futureWageByWeeks = undefined;
     }
