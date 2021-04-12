@@ -162,9 +162,9 @@ const dataResultPairs: [string, FormState, Result][] = [
       hours2: undefined
     },
     {
-      futureWage: 13778.02,
+      futureWage: 13356.25,
       futureWageByWeeks: 13778.02,
-      pensionPayments: 975.48,
+      pensionPayments: 945.62,
       presentWage: 9841.44, 
       presentWageAsSa: undefined
     }
@@ -225,9 +225,9 @@ const dataResultPairs: [string, FormState, Result][] = [
       hours2: 4, 
     },
     {
-      futureWage: 27063.96,
+      futureWage: 26408.770000000004,
       futureWageByWeeks: 27063.96,
-      pensionPayments: 1916.13,
+      pensionPayments: 1869.74,
       presentWage: 22143.239999999998, 
       presentWageAsSa: undefined
     }
