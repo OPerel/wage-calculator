@@ -1,5 +1,8 @@
-import { getPresentWage, getFutureWage, getEmployerPensionPayments } from './calculate';
-
+import {
+  getPresentWage,
+  getFutureWage,
+  getEmployerPensionPayments
+} from './calculate';
 import colleges from '../assets/data/colleges';
 import ranks from '../assets/data/wageByRank';
 import wageBySeniority from '../assets/data/wageBySeniority';
@@ -62,7 +65,7 @@ export default function handleCalcLogic({
 
   if (preDealSa) {
     result.presentWageAsSa = getFutureWage(preDealSeniorityWage, hours, teach, preDealSa, college);
-    result.futureWage = undefined;
+    result.presentWage = undefined;
   } else {
     result.presentWage = getPresentWage(weeks, hourlyWage, hours, teach, college);
     result.presentWageAsSa = undefined;
@@ -107,19 +110,12 @@ export default function handleCalcLogic({
     result.futureWage += getFutureWage(seniorityWage, hours2, false);
   }
 
-  // if preDealSa is false
-  if (!preDealSa) {
-    // check if present wage is higher than future wage
-    if (result.futureWageByWeeks) {
-      if (result.futureWageByWeeks > result.futureWage) {
-        result.futureWage = result.futureWageByWeeks;
-      }
-    } else {
-      if (result.presentWage > result.futureWage) {
-        result.futureWage = result.presentWage;
-      }
-    }
+  // if preDealSa is false and position is prof
+  // check if present wage is higher than future wage
+  if (!preDealSa && position[0] === 'prof' && result.futureWageByWeeks > result.futureWage) {
+    result.futureWage = result.futureWageByWeeks;
   }
+
 
   result.pensionPayments = getEmployerPensionPayments(result.futureWage);
 
