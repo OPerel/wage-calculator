@@ -9,7 +9,7 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 2%;
+  padding: 0 3%;
   box-shadow: 0 2px 5px 0 #00000042;
 }
 
@@ -18,14 +18,8 @@ header {
 }
 
 ion-title {
+  padding: 0;
   font-size: 15px;
-}
-
-footer {
-  width: 100vw;
-  text-align: center;
-  background-color: #393939;
-  color: #fff;
 }
 
 .hide {
@@ -69,6 +63,8 @@ ion-button {
 }
 
 .note {
+  margin: 0;
+  padding: 4% 0;
   text-align: center;
 }
 

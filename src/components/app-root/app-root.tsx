@@ -1,130 +1,46 @@
-import { Component, h, State } from '@stencil/core';
+import { Component, h, State, Listen } from '@stencil/core';
 
-import colleges from '../../assets/data/colleges';
-import ranks from '../../assets/data/wageByRank';
-import wageBySeniority from '../../assets/data/wageBySeniority';
-import { getPresentWage, getFutureWage, getEmployerPensionPayments } from '../../utils/calculate';
-import { disclaimer, seniorityMessage } from '../../assets/data/text';
+import { disclaimer, saNote } from '../../assets/data/text';
+import { Result } from '../../utils/handleCalcLogic';
 
 @Component({
   tag: 'app-root',
   styleUrl: 'app-root.css',
 })
 export class AppRoot {
-  hoursInput: HTMLInputElement;
-  hoursInput2: HTMLInputElement;
-
-  @State() college: string;
-  @State() position: string[];
-  @State() multiPosition: boolean;
-  @State() rank: string;
-  @State() seniority: number;
-  @State() hours: number;
-  @State() hours2: number;
-  @State() formIsValid: boolean;
-
   @State() presentWage: number;
+  @State() presentWageAsSa: number;
   @State() futureWageByWeeks: number;
   @State() futureWage: number;
   @State() pensionPayments: number;
 
-  handleSubmit() {
-    const { weeks, futureWeeks } = colleges.find(c => c.name === this.college);
-    const { hourlyWage } = ranks.find(r => r.name === this.rank);
-    const seniorityWage = wageBySeniority[this.rank][this.seniority];
+  @Listen('submitForm')
+  submitFormHandler(e: CustomEvent<Result>) {
+    const {
+      presentWage,
+      presentWageAsSa,
+      futureWageByWeeks,
+      futureWage,
+      pensionPayments
+    } = e.detail;
 
-    // if user is EITHER a teacher OR a professor
-    if (!this.multiPosition) {
-      const teach = this.position[0] === 'teach';
-
-      this.presentWage = getPresentWage(weeks, hourlyWage, this.hours, teach);
-
-      if (futureWeeks) {
-        this.futureWageByWeeks = getPresentWage(futureWeeks, hourlyWage, this.hours, teach);
-      } else {
-        this.futureWageByWeeks = undefined;
-      }
-
-      this.futureWage = getFutureWage(seniorityWage, this.hours, teach);
-
-    // if user is BOTH a teacher AND a professor
-    } else {
-      this.presentWage = getPresentWage(weeks, hourlyWage, this.hours, true) +
-        getPresentWage(weeks, hourlyWage, this.hours2, false);
-
-      if (futureWeeks) {
-        this.futureWageByWeeks = getPresentWage(futureWeeks, hourlyWage, this.hours, true) +
-          getPresentWage(futureWeeks, hourlyWage, this.hours2, false);
-      } else {
-        this.futureWageByWeeks = undefined;
-      }
-
-      this.futureWage = getFutureWage(seniorityWage, this.hours, true) +
-        getFutureWage(seniorityWage, this.hours2, false);
-    }
-
-    // check if present wage is higher than future wage
-    if (this.futureWageByWeeks) {
-      if (this.futureWageByWeeks > this.futureWage) {
-        this.futureWage = this.futureWageByWeeks;
-      }
-    } else {
-      if (this.presentWage > this.futureWage) {
-        this.futureWage = this.presentWage;
-      }
-    }
-
-    this.pensionPayments = getEmployerPensionPayments(this.futureWage);
-
+    this.presentWage = presentWage;
+    this.presentWageAsSa = presentWageAsSa;
+    this.futureWageByWeeks = futureWageByWeeks;
+    this.futureWage = futureWage;
+    this.pensionPayments = pensionPayments;
   }
 
   componentDidLoad() {
-    document.getElementById('input-hours1').addEventListener('keypress', (e: KeyboardEvent) => {
-      if (e.keyCode === 13) {
-        e.preventDefault();
-        this.hoursInput.blur();
-      }
-    });
-
     const footer = document.getElementsByTagName('footer')[0];
 
     window.addEventListener('ionKeyboardDidShow', () => {
       footer.classList.add('hide');
     });
-    
+
     window.addEventListener('ionKeyboardDidHide', () => {
       footer.classList.remove('hide');
     });
-  }
-
-  componentWillUpdate() {
-    if (this.position && this.position.length === 2) {
-      this.multiPosition = true;
-    } else {
-      this.multiPosition = false;
-      this.hours2 = undefined;
-    }
-
-    const isValid =
-      !!this.rank &&
-      !!this.college &&
-      !!this.hours &&
-      !!this.seniority &&
-      !!this.position &&
-      (this.multiPosition ? !!this.hours2 : true);
-
-    this.formIsValid = isValid;
-  }
-
-  componentDidUpdate() {
-    if (this.multiPosition) {
-      document.getElementById('input-hours2').addEventListener('keypress', (e: KeyboardEvent) => {
-        if (e.keyCode === 13) {
-          e.preventDefault();
-          this.hoursInput2.blur();
-        }
-      });
-    }
   }
 
   render() {
@@ -140,144 +56,37 @@ export class AppRoot {
         </header>
 
         <ion-content>
-          
+
           <ion-refresher slot="fixed" onIonRefresh={() => window.location.reload()}>
             <ion-refresher-content></ion-refresher-content>
           </ion-refresher>
 
-          <main>
-            <div class="content">
-              <h2>מחשבון שכר נוכחי ועתידי</h2>
-              <form>
+          <main class="content">
 
-                <ion-item>
-                  <ion-label>בחר מכללה</ion-label>
-                  <ion-select
-                    id="select-college"
-                    value={this.college}
-                    onIonChange={e => {this.college = e.detail.value}}
-                  >
-                    {colleges.map(({ name, label }) => (
-                      <ion-select-option value={name}>{label}</ion-select-option>
-                    ))}
-                  </ion-select>
-                </ion-item>
+            <h2>מחשבון שכר נוכחי ועתידי</h2>
 
-                <ion-item>
-                  <ion-label>בחר תפקיד</ion-label>
-                  <ion-select
-                    id="select-position"
-                    multiple
-                    value={this.position}
-                    onIonChange={e => {this.position = e.detail.value}}
-                  >
-                    <ion-select-option value="teach">מתרגל</ion-select-option>
-                    <ion-select-option value="prof">מרצה</ion-select-option>
-                  </ion-select>
-                </ion-item>
+            <app-form />
 
-                <ion-item>
-                  <ion-label>בחר דירוג</ion-label>
-                  <ion-select
-                    id="select-rank"
-                    value={this.rank}
-                    onIonChange={e => {this.rank = e.detail.value}}
-                  >
-                    {ranks.map(({ name, label }) => (
-                      <ion-select-option value={name}>{label}</ion-select-option>
-                    ))}
-                  </ion-select>
-                </ion-item>
+            {(!!this.presentWage || !!this.presentWageAsSa) && (
+              <wage-output
+                presentWage={this.presentWage}
+                presentWageAsSa={this.presentWageAsSa}
+                futureWageByWeeks={this.futureWageByWeeks}
+                futureWage={this.futureWage}
+                pensionPayments={this.pensionPayments}
+              />
+            )}
 
-                <ion-item>
-                  <ion-label>בחר ותק</ion-label>
-                  <ion-select
-                    id="select-seniority"
-                    value={this.seniority}
-                    onIonChange={e => {this.seniority = e.detail.value}}
-                    interfaceOptions={{ message: seniorityMessage }}
-                  >
-                    {this.rank === 'b' ? (
-                      Array.from(Array(26)).map((_, idx) => (
-                        <ion-select-option>{idx}</ion-select-option>
-                      ))
-                    ) : (
-                      Array.from(Array(16)).map((_, idx) => (
-                        <ion-select-option>{idx}</ion-select-option>
-                      ))
-                    )}
-                  </ion-select>
-                </ion-item>
-
-                <ion-item>
-                  <ion-label>הכנס מספר שעות {this.multiPosition && 'מתרגל'}</ion-label>
-                  <ion-input
-                    id="input-hours1"
-                    inputmode="numeric"
-                    enterkeyhint="done"
-                    value={this.hours}
-                    onIonChange={e => {this.hours = Number(e.detail.value)}} 
-                    ref={(el: HTMLIonInputElement) => {
-                      el.getInputElement().then(res => this.hoursInput = res);
-                    }}
-                  />
-                </ion-item>
-
-                {this.multiPosition && (
-                  <ion-item>
-                    <ion-label>הכנס מספר שעות מרצה</ion-label>
-                    <ion-input
-                      id="input-hours2"
-                      inputmode="numeric"
-                      enterkeyhint="done"
-                      value={this.hours2}
-                      onIonChange={e => {this.hours2 = Number(e.detail.value)}} 
-                      ref={(el: HTMLIonInputElement) => {
-                        if (this.multiPosition) {
-                          el.getInputElement().then(res => this.hoursInput2 = res);
-                        }
-                      }}
-                    />
-                  </ion-item>
-                )}
-
-                <ion-button onClick={() => this.handleSubmit()} disabled={!this.formIsValid}>
-                  חשב שכר נוכחי ועתידי
-                </ion-button>
-
-              </form>
-
-              {!!this.presentWage && (
-                <wage-output
-                  presentWage={this.presentWage}
-                  futureWageByWeeks={this.futureWageByWeeks}
-                  futureWage={this.futureWage}
-                  pensionPayments={this.pensionPayments}
-                />
-              )}
-
+            <div class="note">
+              <p>* {disclaimer}</p>
+              <p>* {saNote}</p>
             </div>
 
-            <p class="note">* {disclaimer}</p>
-          
           </main>
+
         </ion-content>
 
-        <footer dir="ltr">
-          <p>
-            <a href="https://workers.org.il/" target="_blank" rel="noopener">
-              Koach LaOvdim
-            </a>
-            &nbsp;
-            <span>- Democratic Workers’ Organization &#169; {new Date().getFullYear()},</span>
-            &nbsp;
-            <span>Developed by</span>
-            &nbsp;
-            <a href="https://github.com/OPerel" target="_blank" rel="noopener">
-              Ori Perelman
-            </a>
-          </p>
-        </footer>
+        <app-footer />
       </ion-app>
     );
   }

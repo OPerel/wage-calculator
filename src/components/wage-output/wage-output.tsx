@@ -11,6 +11,7 @@ const currencyObj = {
 })
 export class WageOutput {
   @Prop() presentWage: number;
+  @Prop() presentWageAsSa: number;
   @Prop() futureWageByWeeks: number;
   @Prop() futureWage: number;
   @Prop() pensionPayments: number;
@@ -18,12 +19,21 @@ export class WageOutput {
   render() {
     return (
       <div>
-        <ion-item>
-          <ion-label>שכר סמסטריאלי נוכחי כממ"ח</ion-label>
-          <h4>
-            {this.presentWage.toLocaleString('he-IL', currencyObj)}
-          </h4>
-        </ion-item>
+        {this.presentWageAsSa ? (
+          <ion-item>
+            <ion-label>שכר סמסטריאלי נוכחי כס"ע</ion-label>
+            <h4>
+              {this.presentWageAsSa.toLocaleString('he-IL', currencyObj)}
+            </h4>
+          </ion-item>
+        ) : (
+          <ion-item>
+            <ion-label>שכר סמסטריאלי נוכחי כממ"ח</ion-label>
+            <h4>
+              {this.presentWage.toLocaleString('he-IL', currencyObj)}
+            </h4>
+          </ion-item>
+        )}
 
         {this.futureWageByWeeks && (
           <ion-item>
@@ -42,7 +52,7 @@ export class WageOutput {
         </ion-item>
 
         <ion-item>
-          <ion-label>גובה קרן השתלמות הפרשות מעסיק</ion-label>
+          <ion-label>גובה קרן השתלמות לס"ע הפרשות מעסיק</ion-label>
           <h4>
             {this.pensionPayments.toLocaleString('he-IL', currencyObj)}
           </h4>
