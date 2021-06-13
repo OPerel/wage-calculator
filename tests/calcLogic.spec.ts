@@ -1,4 +1,4 @@
-import handleCalcLogic, { FormState, Result } from '../src/utils/handleCalcLogic';
+  import handleCalcLogic, { FormState, Result } from '../src/utils/handleCalcLogic';
 
 const dataResultPairs: [string, FormState, Result][] = [
   [
@@ -12,7 +12,7 @@ const dataResultPairs: [string, FormState, Result][] = [
       preDealSeniority: undefined,
       seniority: 5,
       hours: 5,
-      hours2: undefined, 
+      hours2: undefined,
     },
     {
       futureWage: 13925.80,
@@ -33,7 +33,7 @@ const dataResultPairs: [string, FormState, Result][] = [
       preDealSeniority: undefined,
       seniority: 8,
       hours: 9,
-      hours2: undefined, 
+      hours2: undefined,
     },
     {
       futureWage: 43879.59,
@@ -54,7 +54,7 @@ const dataResultPairs: [string, FormState, Result][] = [
       preDealSeniority: 8,
       seniority: 8,
       hours: 6,
-      hours2: undefined, 
+      hours2: undefined,
     },
     {
       futureWage: 24364.52,
@@ -75,7 +75,7 @@ const dataResultPairs: [string, FormState, Result][] = [
       preDealSeniority: undefined,
       seniority: 3,
       hours: 14,
-      hours2: undefined, 
+      hours2: undefined,
     },
     {
       futureWage: 72861.6,
@@ -96,7 +96,7 @@ const dataResultPairs: [string, FormState, Result][] = [
       preDealSeniority: 4,
       seniority: 4,
       hours: 6,
-      hours2: 6, 
+      hours2: 6,
     },
     {
       futureWage: 40305.57,
@@ -117,13 +117,13 @@ const dataResultPairs: [string, FormState, Result][] = [
       preDealSeniority: 7,
       seniority: 7,
       hours: 8,
-      hours2: 8, 
+      hours2: 8,
     },
     {
       futureWage: 65859.82,
       futureWageByWeeks: 70779.84,
       pensionPayments: 4662.88,
-      presentWage: undefined, 
+      presentWage: undefined,
       presentWageAsSa: 58111.61
     }
   ],
@@ -144,7 +144,7 @@ const dataResultPairs: [string, FormState, Result][] = [
       futureWage: 20031.63,
       futureWageByWeeks: 18397.83,
       pensionPayments: 1418.24,
-      presentWage: 15769.57, 
+      presentWage: 15769.57,
       presentWageAsSa: undefined
     }
   ],
@@ -165,7 +165,7 @@ const dataResultPairs: [string, FormState, Result][] = [
       futureWage: 13356.25,
       futureWageByWeeks: 13778.02,
       pensionPayments: 945.62,
-      presentWage: 9841.44, 
+      presentWage: 9841.44,
       presentWageAsSa: undefined
     }
   ],
@@ -186,7 +186,7 @@ const dataResultPairs: [string, FormState, Result][] = [
       futureWage: 8340.08,
       futureWageByWeeks: 7509.32,
       pensionPayments: 590.48,
-      presentWage: 7509.32, 
+      presentWage: 7509.32,
       presentWageAsSa: undefined
     }
   ],
@@ -201,13 +201,13 @@ const dataResultPairs: [string, FormState, Result][] = [
       preDealSeniority: 4,
       seniority: 4,
       hours: 12,
-      hours2: undefined, 
+      hours2: undefined,
     },
     {
       futureWage: 56928.19,
       futureWageByWeeks: 58289.28,
       pensionPayments: 4030.52,
-      presentWage: undefined, 
+      presentWage: undefined,
       presentWageAsSa: 56928.19
     }
   ],
@@ -222,13 +222,13 @@ const dataResultPairs: [string, FormState, Result][] = [
       preDealSeniority: undefined,
       seniority: 9,
       hours: 10,
-      hours2: 4, 
+      hours2: 4,
     },
     {
       futureWage: 26408.770000000004,
       futureWageByWeeks: 27063.96,
       pensionPayments: 1869.74,
-      presentWage: 22143.239999999998, 
+      presentWage: 22143.239999999998,
       presentWageAsSa: undefined
     }
   ],
@@ -243,13 +243,13 @@ const dataResultPairs: [string, FormState, Result][] = [
       preDealSeniority: undefined,
       seniority: 14,
       hours: 4,
-      hours2: 8, 
+      hours2: 8,
     },
     {
       futureWage: 45626.229999999996,
       futureWageByWeeks: 43446.78,
       pensionPayments: 3230.34,
-      presentWage: 40228.5, 
+      presentWage: 40228.5,
       presentWageAsSa: undefined
     }
   ]
