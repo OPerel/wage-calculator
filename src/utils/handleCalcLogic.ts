@@ -46,14 +46,14 @@ export default function handleCalcLogic({
     futureWage: undefined,
     pensionPayments: undefined
   }
-  
+
   const { weeks, futureWeeks } = colleges.find(c => c.name === college);
   let { hourlyWage } = ranks.find(r => r.name === rank);
   let seniorityWage = wageBySeniority[rank][seniority];
   let preDealSeniorityWage = wageBySeniority[rank][preDealSeniority];
-  
+
   const teach = position[0] === 'teach';
-  
+
   // if sapir and teacher fix rank values for present and future wages
   let sapirFutureHourlyWage: number;
   if (college === 'spr' && teach) {
@@ -117,7 +117,7 @@ export default function handleCalcLogic({
   }
 
 
-  result.pensionPayments = getEmployerPensionPayments(result.futureWage);
+  result.pensionPayments = getEmployerPensionPayments(result.futureWage, preDealSa);
 
   return result;
 }

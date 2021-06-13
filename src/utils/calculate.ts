@@ -7,7 +7,7 @@ const getPresentWage = (
   asFuture = false
 ): number => {
   let wage = weeks * hourlyWage * hours;
-  
+
   if (teach && college !== 'ata') {
     if (!asFuture && college !== 'spr') {
       wage = wage * 0.5;
@@ -29,7 +29,7 @@ const getFutureWage = (
 ): number => {
   let wage: number;
   const fourteenHourColleges = ['ata', 'bbr', 'snk', 'viz'];
-  
+
   if (asSa && !fourteenHourColleges.includes(college)) {
     wage = seniorityWage * (hours / 16);
   } else {
@@ -47,7 +47,12 @@ const getFutureWage = (
   return roundResult(wage);
 }
 
-const getEmployerPensionPayments = (wage: number): number => roundResult(wage * 0.0708);
+const getEmployerPensionPayments = (wage: number, preDealsa: boolean): number => {
+  if (preDealsa) {
+    return roundResult(wage * 0.075);
+  }
+  return roundResult(wage * 0.0708);
+};
 
 const roundResult = (wage: number): number => Math.round((wage + Number.EPSILON) * 100) / 100;
 
