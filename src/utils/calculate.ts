@@ -1,3 +1,4 @@
+// MAMA"H
 const getPresentWage = (
   weeks: number,
   hourlyWage: number,
@@ -6,9 +7,11 @@ const getPresentWage = (
   college: string,
   asFuture = false
 ): number => {
+  // divide hours to with bonus and without
   let wage = weeks * hourlyWage * hours;
 
   if (teach && college !== 'ata') {
+    // does the future parameter apply with the new changes?
     if (!asFuture && college !== 'spr') {
       wage = wage * 0.5;
     }
@@ -20,6 +23,7 @@ const getPresentWage = (
   return roundResult(wage);
 }
 
+// S"A
 const getFutureWage = (
   seniorityWage: number,
   hours: number,

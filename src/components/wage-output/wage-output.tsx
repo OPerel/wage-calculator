@@ -1,17 +1,12 @@
 import { Component, h, Prop } from '@stencil/core';
 
-const currencyObj = {
-  style: 'currency',
-  currency: 'ILS'
-}
-
 @Component({
   tag: 'wage-output',
   styleUrl: 'wage-output.css',
 })
 export class WageOutput {
-  @Prop() presentWage: number;
-  @Prop() presentWageAsSa: number;
+  @Prop() presentWage: number | undefined;
+  @Prop() presentWageAsSa: number | undefined;
   @Prop() futureWageByWeeks: number;
   @Prop() futureWage: number;
   @Prop() pensionPayments: number;
@@ -20,43 +15,16 @@ export class WageOutput {
     return (
       <div>
         {this.presentWageAsSa ? (
-          <ion-item>
-            <ion-label>שכר סמסטריאלי נוכחי כס"ע</ion-label>
-            <h4>
-              {this.presentWageAsSa.toLocaleString('he-IL', currencyObj)}
-            </h4>
-          </ion-item>
+          <output-item label={`שכר סמסטריאלי נוכחי כס"ע`} sum={this.presentWageAsSa} />
         ) : (
-          <ion-item>
-            <ion-label>שכר סמסטריאלי נוכחי כממ"ח</ion-label>
-            <h4>
-              {this.presentWage.toLocaleString('he-IL', currencyObj)}
-            </h4>
-          </ion-item>
+          <output-item label={`שכר סמסטריאלי נוכחי כממ"ח`} sum={this.presentWage} />
         )}
 
-        {this.futureWageByWeeks && (
-          <ion-item>
-            <ion-label>שכר סמסטריאלי עתידי כממ"ח</ion-label>
-            <h4>
-              {this.futureWageByWeeks.toLocaleString('he-IL', currencyObj)}
-            </h4>
-          </ion-item>
-        )}
+        <output-item label={`שכר סמסטריאלי עתידי כממ"ח`} sum={this.futureWageByWeeks} />
 
-        <ion-item>
-          <ion-label>שכר סמסטריאלי עתידי כס"ע</ion-label>
-          <h4>
-            {this.futureWage.toLocaleString('he-IL', currencyObj)}
-          </h4>
-        </ion-item>
+        <output-item label={`שכר סמסטריאלי עתידי כס"ע`} sum={this.futureWage} />
 
-        <ion-item>
-          <ion-label>גובה קרן השתלמות לס"ע הפרשות מעסיק</ion-label>
-          <h4>
-            {this.pensionPayments.toLocaleString('he-IL', currencyObj)}
-          </h4>
-        </ion-item>
+        <output-item label={`גובה קרן השתלמות לס"ע הפרשות מעסיק`} sum={this.pensionPayments} />
       </div>
     )
   }

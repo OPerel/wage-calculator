@@ -22,9 +22,9 @@ export interface FormState {
 export interface Result {
   presentWage: undefined | number,
   presentWageAsSa: undefined | number,
-  futureWageByWeeks: undefined | number,
-  futureWage: undefined | number
-  pensionPayments: undefined | number
+  futureWageByWeeks: number,
+  futureWage: number
+  pensionPayments: number
 }
 
 export default function handleCalcLogic({
@@ -74,7 +74,8 @@ export default function handleCalcLogic({
   result.futureWageByWeeks = getPresentWage(
     futureWeeks || weeks,
     sapirFutureHourlyWage || hourlyWage,
-    hours, teach,
+    hours,
+    teach,
     college,
     true
   );
