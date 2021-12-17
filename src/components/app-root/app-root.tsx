@@ -1,7 +1,7 @@
 import { Component, h, State, Listen } from '@stencil/core';
 
 import { disclaimer, saNote } from '../../assets/data/text';
-import { Result } from '../../utils/handleCalcLogic';
+import { Result } from '../../interfaces';
 
 @Component({
   tag: 'app-root',
@@ -37,7 +37,7 @@ export class AppRoot {
     window.addEventListener('ionKeyboardDidShow', () => {
       footer.classList.add('hide');
     });
-    
+
     window.addEventListener('ionKeyboardDidHide', () => {
       footer.classList.remove('hide');
     });
@@ -50,13 +50,14 @@ export class AppRoot {
           <ion-title>איגוד הסגל האקדמי במכללות הציבוריות</ion-title>
           <img
             src="https://cafe.themarker.com/media/t/146/754/7/file_0_big.jpg?1267870768"
+            alt="logo"
             width="100"
             height="50"
           />
         </header>
 
         <ion-content>
-          
+
           <ion-refresher slot="fixed" onIonRefresh={() => window.location.reload()}>
             <ion-refresher-content></ion-refresher-content>
           </ion-refresher>
@@ -64,7 +65,7 @@ export class AppRoot {
           <main class="content">
 
             <h2>מחשבון שכר נוכחי ועתידי</h2>
-            
+
             <app-form />
 
             {(!!this.presentWage || !!this.presentWageAsSa) && (
@@ -83,7 +84,7 @@ export class AppRoot {
             </div>
 
           </main>
-          
+
         </ion-content>
 
         <app-footer />

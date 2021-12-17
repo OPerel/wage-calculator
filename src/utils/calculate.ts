@@ -5,10 +5,17 @@ const getPresentWage = (
   hours: number,
   teach: boolean,
   college: string,
+  maxPrevHours?: number,
   asFuture = false
 ): number => {
+  let wage: number;
   // divide hours to with bonus and without
-  let wage = weeks * hourlyWage * hours;
+  if (maxPrevHours) {
+    const noBonusHours = hours - maxPrevHours;
+    wage = (weeks * hourlyWage * noBonusHours) + ((weeks + 1) * hourlyWage * maxPrevHours);
+  } else {
+    wage = weeks * hourlyWage * hours;
+  }
 
   if (teach && college !== 'ata') {
     // does the future parameter apply with the new changes?
@@ -51,8 +58,8 @@ const getFutureWage = (
   return roundResult(wage);
 }
 
-const getEmployerPensionPayments = (wage: number, preDealsa: boolean): number => {
-  if (preDealsa) {
+const getEmployerPensionPayments = (wage: number, preDealSa: boolean): number => {
+  if (preDealSa) {
     return roundResult(wage * 0.075);
   }
   return roundResult(wage * 0.0708);

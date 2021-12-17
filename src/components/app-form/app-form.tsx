@@ -4,7 +4,10 @@ import { seniorityMessage } from '../../assets/data/text';
 import colleges from '../../assets/data/colleges';
 import ranks from '../../assets/data/wageByRank';
 
-import handleCalcLogic, { Result } from '../../utils/handleCalcLogic';
+import { CheckboxChangeEventDetail, modalController, OverlayEventDetail } from '@ionic/core';
+
+import handleCalcLogic from '../../utils/handleCalcLogic';
+import  { Result } from '../../interfaces';
 
 @Component({
   tag: 'app-form',
@@ -14,6 +17,8 @@ export class AppRoot {
   hoursInput: HTMLInputElement;
   hoursInput2: HTMLInputElement;
 
+  @State() existingTeacher: boolean = false;
+  @State() maxPrevHours: number;
   @State() college: string;
   @State() preDealSa: boolean;
   @State() position: string[];
@@ -23,12 +28,15 @@ export class AppRoot {
   @State() seniority: number;
   @State() hours: number;
   @State() hours2: number;
+  @State() recentHours: number[] = [];
   @State() formIsValid: boolean;
 
   @Event() submitForm: EventEmitter<Result>;
 
   handleSubmit() {
     const state = {
+      existingTeacher: this.existingTeacher,
+      maxPrevHours: this.maxPrevHours,
       college: this.college,
       preDealSa: this.preDealSa,
       position: this.position,
@@ -39,9 +47,34 @@ export class AppRoot {
       hours: this.hours,
       hours2: this.hours2
     };
-    
+
     const result = handleCalcLogic(state);
     this.submitForm.emit(result);
+  }
+
+  private async openModal() {
+    const modal: HTMLIonModalElement = await modalController.create({
+      component: 'prev-sems-dialog'
+    });
+
+    await modal.present();
+
+    modal.onDidDismiss()
+      .then(async (detail: OverlayEventDetail) => {
+        this.maxPrevHours = detail.data;
+        if (!detail.data) {
+          this.existingTeacher = false;
+        }
+      })
+  }
+
+  handleExistingCheckbox = (e: CustomEvent<CheckboxChangeEventDetail>) => {
+    this.existingTeacher = e.detail.checked;
+    if (this.existingTeacher) {
+      this.openModal();
+    } else {
+      this.maxPrevHours = undefined;
+    }
   }
 
   componentDidLoad() {
@@ -85,8 +118,14 @@ export class AppRoot {
   }
 
   render() {
+    console.log(this.existingTeacher)
     return (
       <form>
+
+        <ion-item>
+          <ion-label>האם התחלת לעבוד לפני סמסטר א' תשפ"א?</ion-label>
+          <ion-checkbox checked={this.existingTeacher} onIonChange={this.handleExistingCheckbox} />
+        </ion-item>
 
         <ion-item>
           <ion-label>בחר/י מכללה</ion-label>
@@ -98,7 +137,7 @@ export class AppRoot {
         </ion-item>
 
         <ion-item>
-          <ion-label>בחר/י אופן העסקה לפני ההסכם</ion-label>
+          <ion-label>בחר/י אופן העסקה {this.existingTeacher && 'לפני ההסכם'}</ion-label>
           <ion-select
             value={this.preDealSa}
             onIonChange={e => {this.preDealSa = e.detail.value}}
@@ -177,7 +216,7 @@ export class AppRoot {
             inputmode="numeric"
             enterkeyhint="done"
             value={this.hours}
-            onIonChange={e => {this.hours = Number(e.detail.value)}} 
+            onIonChange={e => {this.hours = Number(e.detail.value)}}
             ref={(el: HTMLIonInputElement) => el.getInputElement().then(res => this.hoursInput = res)}
           />
         </ion-item>
@@ -187,10 +226,11 @@ export class AppRoot {
             <ion-label>הכנס/י מספר שעות מרצה</ion-label>
             <ion-input
               id="hours2"
+              type="number"
               inputmode="numeric"
               enterkeyhint="done"
               value={this.hours2}
-              onIonChange={e => {this.hours2 = Number(e.detail.value)}} 
+              onIonChange={e => {this.hours2 = Number(e.detail.value)}}
               ref={(el: HTMLIonInputElement) => {
                 if (this.multiPosition) {
                   el.getInputElement().then(res => this.hoursInput2 = res);
@@ -200,6 +240,7 @@ export class AppRoot {
           </ion-item>
         )}
 
+        {this.maxPrevHours &&<p> * שעות לחישוב בונוס: <b>{this.maxPrevHours}</b></p>}
 
         <ion-button
           onClick={() => this.handleSubmit()}
