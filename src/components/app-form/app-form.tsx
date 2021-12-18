@@ -8,6 +8,7 @@ import { CheckboxChangeEventDetail, modalController, OverlayEventDetail } from '
 
 import handleCalcLogic from '../../utils/handleCalcLogic';
 import  { Result } from '../../interfaces';
+import { FormLabels } from '../../utils/labels';
 
 @Component({
   tag: 'app-form',
@@ -123,12 +124,12 @@ export class AppRoot {
       <form>
 
         <ion-item>
-          <ion-label>האם התחלת לעבוד לפני סמסטר א' תשפ"א?</ion-label>
+          <ion-label>{FormLabels.HasPrevSems}</ion-label>
           <ion-checkbox checked={this.existingTeacher} onIonChange={this.handleExistingCheckbox} />
         </ion-item>
 
         <ion-item>
-          <ion-label>בחר/י מכללה</ion-label>
+          <ion-label>{FormLabels.ChooseCollege}</ion-label>
           <ion-select value={this.college} onIonChange={e => {this.college = e.detail.value}}>
             {colleges.map(({ name, label }) => (
               <ion-select-option value={name}>{label}</ion-select-option>
@@ -137,30 +138,30 @@ export class AppRoot {
         </ion-item>
 
         <ion-item>
-          <ion-label>בחר/י אופן העסקה {this.existingTeacher && 'לפני ההסכם'}</ion-label>
+          <ion-label>{FormLabels.ChooseDeal} {this.existingTeacher && FormLabels.BeforeDeal}</ion-label>
           <ion-select
             value={this.preDealSa}
             onIonChange={e => {this.preDealSa = e.detail.value}}
           >
-            <ion-select-option value={false}>ממ"ח</ion-select-option>
-            <ion-select-option value={true}>ס"ע</ion-select-option>
+            <ion-select-option value={false}>{FormLabels.Sa}</ion-select-option>
+            <ion-select-option value={true}>{FormLabels.Mmh}</ion-select-option>
           </ion-select>
         </ion-item>
 
         <ion-item>
-          <ion-label>בחר/י תפקיד</ion-label>
+          <ion-label>{FormLabels.ChoosePosition}</ion-label>
           <ion-select
             multiple
             value={this.position}
             onIonChange={e => {this.position = e.detail.value}}
           >
-            <ion-select-option value="teach">מתרגל</ion-select-option>
-            <ion-select-option value="prof">מרצה</ion-select-option>
+            <ion-select-option value="teach">{FormLabels.Teacher}</ion-select-option>
+            <ion-select-option value="prof">{FormLabels.Professor}</ion-select-option>
           </ion-select>
         </ion-item>
 
         <ion-item>
-          <ion-label>בחר/י דירוג</ion-label>
+          <ion-label>{FormLabels.ChooseRank}</ion-label>
           <ion-select value={this.rank} onIonChange={e => {this.rank = e.detail.value}}>
             {ranks.map(({ name, label }) => (
               <ion-select-option value={name}>{label}</ion-select-option>
@@ -170,7 +171,7 @@ export class AppRoot {
 
         <div>
           <ion-item>
-            <ion-label>בחר/י ותק</ion-label>
+            <ion-label>{FormLabels.ChooseSeniority}</ion-label>
             <ion-select
               value={this.seniority}
               onIonChange={e => {this.seniority = e.detail.value}}
@@ -189,7 +190,7 @@ export class AppRoot {
           </ion-item>
           {this.preDealSa && (
             <ion-item>
-              <ion-label>בחר/י ותק לצורך טבלת השכר הנוכחית</ion-label>
+              <ion-label>{FormLabels.ChooseCurrentSeniority}</ion-label>
               <ion-select
                 value={this.preDealSeniority}
                 onIonChange={e => {this.preDealSeniority = e.detail.value}}
@@ -210,7 +211,7 @@ export class AppRoot {
         </div>
 
         <ion-item>
-          <ion-label>הכנס/י מספר שעות {this.multiPosition && 'מתרגל'}</ion-label>
+          <ion-label>{FormLabels.EnterHours} {this.multiPosition && FormLabels.Teacher}</ion-label>
           <ion-input
             id="hours1"
             inputmode="numeric"
@@ -223,7 +224,7 @@ export class AppRoot {
 
         {this.multiPosition && (
           <ion-item>
-            <ion-label>הכנס/י מספר שעות מרצה</ion-label>
+            <ion-label>{`${FormLabels.EnterHours} ${FormLabels.Professor}`}</ion-label>
             <ion-input
               id="hours2"
               type="number"
@@ -240,13 +241,13 @@ export class AppRoot {
           </ion-item>
         )}
 
-        {this.maxPrevHours &&<p> * שעות לחישוב בונוס: <b>{this.maxPrevHours}</b></p>}
+        {this.maxPrevHours && <p>* {FormLabels.BonusHours} <b>{this.maxPrevHours}</b></p>}
 
         <ion-button
           onClick={() => this.handleSubmit()}
           disabled={!this.formIsValid}
         >
-          חשב/י שכר נוכחי ועתידי
+          {FormLabels.SubmitButton}
         </ion-button>
 
       </form>

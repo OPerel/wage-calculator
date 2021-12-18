@@ -1,4 +1,7 @@
 import { Component, h, Prop } from '@stencil/core';
+import { Output } from '../../utils/labels';
+
+const { SemPay, AsMmh, AsSa, Future, Present, Pension } = Output;
 
 @Component({
   tag: 'wage-output',
@@ -15,16 +18,16 @@ export class WageOutput {
     return (
       <div>
         {this.presentWageAsSa ? (
-          <output-item label={`שכר סמסטריאלי נוכחי כס"ע`} sum={this.presentWageAsSa} />
+          <output-item label={`${SemPay} ${Present} ${AsSa}`} sum={this.presentWageAsSa} />
         ) : (
-          <output-item label={`שכר סמסטריאלי נוכחי כממ"ח`} sum={this.presentWage} />
+          <output-item label={`${SemPay} ${Present} ${AsMmh}`} sum={this.presentWage} />
         )}
 
-        <output-item label={`שכר סמסטריאלי עתידי כממ"ח`} sum={this.futureWageByWeeks} />
+        <output-item label={`${SemPay} ${Future} ${AsMmh}`} sum={this.futureWageByWeeks} />
 
-        <output-item label={`שכר סמסטריאלי עתידי כס"ע`} sum={this.futureWage} />
+        <output-item label={`${SemPay} ${Future} ${AsSa}`} sum={this.futureWage} />
 
-        <output-item label={`גובה קרן השתלמות לס"ע הפרשות מעסיק`} sum={this.pensionPayments} />
+        <output-item label={Pension} sum={this.pensionPayments} />
       </div>
     )
   }

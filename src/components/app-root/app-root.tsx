@@ -2,6 +2,7 @@ import { Component, h, State, Listen } from '@stencil/core';
 
 import { disclaimer, saNote } from '../../assets/data/text';
 import { Result } from '../../interfaces';
+import { RootLabels } from '../../utils/labels';
 
 @Component({
   tag: 'app-root',
@@ -47,7 +48,7 @@ export class AppRoot {
     return (
       <ion-app>
         <header>
-          <ion-title>איגוד הסגל האקדמי במכללות הציבוריות</ion-title>
+          <ion-title>{RootLabels.HeaderTitle}</ion-title>
           <img
             src="https://cafe.themarker.com/media/t/146/754/7/file_0_big.jpg?1267870768"
             alt="logo"
@@ -64,7 +65,7 @@ export class AppRoot {
 
           <main class="content">
 
-            <h2>מחשבון שכר נוכחי ועתידי</h2>
+            <h2>{RootLabels.PageTitle}</h2>
 
             <app-form />
 

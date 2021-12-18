@@ -1,15 +1,12 @@
 import { Component, h, Element, State } from '@stencil/core';
 import { Watch } from '@ionic/core/dist/types/stencil-public-runtime';
+import { Dialog } from '../../../utils/labels';
 
 interface Questions {
   [key: string]: number | null
 }
 
-const
-  q1 = 'שעות סמסטר ב תש"פ',
-  q2 = 'שעות סמסטר א תש"פ',
-  q3 = 'שעות סמסטר ב תשע"ט',
-  q4 = 'שעות סמסטר א תשע"ט';
+const { q1, q2 ,q3, q4, Title, Submit, Close } = Dialog;
 
 const questions: Questions = {
   [q1]: null,
@@ -48,7 +45,7 @@ export class PrevSems {
       <from class="content">
         <ion-toolbar>
           <ion-title>
-            הכנס\י שעות של 4 סמס' אחרונים
+            {Title}
           </ion-title>
         </ion-toolbar>
         {
@@ -75,12 +72,12 @@ export class PrevSems {
           onClick={() => this.handleSubmit()}
           disabled={!this.valid}
         >
-          הכנס
+          {Submit}
         </ion-button>
         <ion-button
           onClick={() => this.close()}
         >
-          סגור
+          {Close}
         </ion-button>
       </from>
     )
