@@ -42,44 +42,50 @@ export class PrevSems {
 
   render() {
     return (
-      <from class="content">
-        <ion-toolbar>
+      <ion-page>
+        <header>
           <ion-title>
             {Title}
           </ion-title>
-        </ion-toolbar>
-        {
-          Object.keys(questions).map((key) => {
-            return (
-              <ion-item>
-                <ion-label slot="start">{key}</ion-label>
-                <ion-input
-                  inputmode="numeric"
-                  enterkeyhint="done"
-                  value={this.questions[key]}
-                  onIonChange={e => {
-                    this.questions = {
-                      ...this.questions,
-                      [key]: Number(e.detail.value)
-                    }
-                  }}
-                />
-              </ion-item>
-            )
-          })
-        }
-        <ion-button
-          onClick={() => this.handleSubmit()}
-          disabled={!this.valid}
-        >
-          {Submit}
-        </ion-button>
-        <ion-button
-          onClick={() => this.close()}
-        >
-          {Close}
-        </ion-button>
-      </from>
+        </header>
+        <from class="content">
+          {
+            Object.keys(questions).map((key, idx) => {
+              return (
+                <ion-item>
+                  <ion-label slot="start">{key}</ion-label>
+                  <ion-input
+                    inputmode="numeric"
+                    enterkeyhint={idx === 3 ? 'done' : 'next'}
+                    value={this.questions[key]}
+                    onIonChange={e => {
+                      this.questions = {
+                        ...this.questions,
+                        [key]: Number(e.detail.value)
+                      }
+                    }}
+                  />
+                </ion-item>
+              )
+            })
+          }
+        </from>
+
+        <div class="ion-padding">
+          <ion-button
+            onClick={() => this.handleSubmit()}
+            disabled={!this.valid}
+          >
+            {Submit}
+          </ion-button>
+          <ion-button
+            onClick={() => this.close()}
+            color="secondary"
+          >
+            {Close}
+          </ion-button>
+        </div>
+      </ion-page>
     )
   }
 }
