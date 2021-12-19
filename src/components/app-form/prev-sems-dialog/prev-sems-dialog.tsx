@@ -30,14 +30,21 @@ export class PrevSems {
     }
   }
 
+  handleInput(key: string, value: number) {
+    this.questions = {
+      ...this.questions,
+      [key]: value
+    }
+  }
+
   async handleSubmit() {
     const vals = Object.values(this.questions);
     const max = Math.max(...vals);
-    await (this.el.closest('ion-modal') as HTMLIonModalElement).dismiss(max);
+    await this.close(max);
   }
 
-  async close() {
-    await (this.el.closest('ion-modal') as HTMLIonModalElement).dismiss();
+  async close(data?: number) {
+    await (this.el.closest('ion-modal') as HTMLIonModalElement).dismiss(data);
   }
 
   render() {
@@ -58,12 +65,7 @@ export class PrevSems {
                     inputmode="numeric"
                     enterkeyhint={idx === 3 ? 'done' : 'next'}
                     value={this.questions[key]}
-                    onIonChange={e => {
-                      this.questions = {
-                        ...this.questions,
-                        [key]: Number(e.detail.value)
-                      }
-                    }}
+                    onIonChange={e => this.handleInput(key, Number(e.detail.value))}
                   />
                 </ion-item>
               )

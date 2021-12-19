@@ -7,7 +7,7 @@ import ranks from '../../assets/data/wageByRank';
 import { CheckboxChangeEventDetail, modalController, OverlayEventDetail } from '@ionic/core';
 
 import handleCalcLogic from '../../utils/handleCalcLogic';
-import  { Result } from '../../interfaces';
+import { Result } from '../../interfaces';
 import { FormLabels } from '../../utils/labels';
 
 @Component({
@@ -119,7 +119,6 @@ export class AppRoot {
   }
 
   render() {
-    console.log(this.existingTeacher)
     return (
       <form>
 
