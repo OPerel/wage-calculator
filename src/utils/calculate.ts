@@ -48,11 +48,7 @@ const getFutureWage = (
   }
 
   if (teach && college !== 'ata') {
-    if (asSa) {
-      wage = wage * 0.5;
-    } else {
       wage = wage * 0.7;
-    }
   }
 
   return roundResult(wage);
