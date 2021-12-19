@@ -47,7 +47,6 @@ const colleges: College[] = [
     name: 'hit15',
     label: 'HIT 15',
     weeks: 15,
-    futureWeeks: 14,
     weeksForNew: 13
   },
   {
@@ -78,28 +77,24 @@ const colleges: College[] = [
     name: 'ahv',
     label: 'אחווה',
     weeks: 16,
-    futureWeeks: 15,
     weeksForNew: 14
   },
   {
     name: 'hds',
     label: 'הדסה',
     weeks: 16,
-    futureWeeks: 15,
     weeksForNew: 14
   },
   {
     name: 'spr',
     label: 'ספיר',
     weeks: 16.4,
-    futureWeeks: 14,
     weeksForNew: 13
   },
   {
     name: 'hit168',
     label: 'HIT 16.8',
     weeks: 16.8,
-    futureWeeks: 14,
     weeksForNew: 13
   }
 ]

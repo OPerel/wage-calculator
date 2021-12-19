@@ -5,7 +5,6 @@ const dataResultPairs: [string, FormState, Result][] = [
   [
     'rpn teach preDealSa rank-b seniority-4 hours-6',
     {
-      existingTeacher: false,
       maxPrevHours: undefined,
       college: 'rpn',
       preDealSa: false,
@@ -28,7 +27,6 @@ const dataResultPairs: [string, FormState, Result][] = [
   [
     'hadasa prof noSa rank-a seniority-2 hours-4',
     {
-      existingTeacher: false,
       maxPrevHours: undefined,
       college: 'hds',
       preDealSa: false,
@@ -51,7 +49,6 @@ const dataResultPairs: [string, FormState, Result][] = [
   [
     'ask prof noSa rank-a seniority-2 hours-4',
     {
-      existingTeacher: true,
       maxPrevHours: 8,
       college: 'ask',
       preDealSa: false,
@@ -74,7 +71,6 @@ const dataResultPairs: [string, FormState, Result][] = [
   [
     'ahv prof noSa rank-a seniority-2 hours-4',
     {
-      existingTeacher: true,
       maxPrevHours: 7,
       college: 'ahv',
       preDealSa: true,
@@ -89,9 +85,31 @@ const dataResultPairs: [string, FormState, Result][] = [
     {
       futureWage: 41288.24,
       futureWageByWeeks: 41288.24,
-      pensionPayments: 2923.20,
+      pensionPayments: 3096.62,
       presentWage: undefined,
       presentWageAsSa: 32978.01
+    }
+  ],
+  [
+    'hit13 prof existingTeacher max5 noSa rank-a seniority-4 hours-8',
+    {
+      maxPrevHours: 5,
+      college: 'hit13',
+      preDealSa: false,
+      position: ['prof'],
+      multiPosition: false,
+      rank: 'a',
+      preDealSeniority: undefined,
+      seniority: 4,
+      hours: 8,
+      hours2: undefined,
+    },
+    {
+      futureWage: 31612.22,
+      futureWageByWeeks: 27891.76,
+      pensionPayments: 2238.15,
+      presentWage: 27891.76,
+      presentWageAsSa: undefined
     }
   ]
 ]

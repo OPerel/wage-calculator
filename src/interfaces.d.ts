@@ -1,5 +1,4 @@
 export interface FormState {
-  existingTeacher: boolean;
   maxPrevHours: number;
   college: string;
   preDealSa: boolean;

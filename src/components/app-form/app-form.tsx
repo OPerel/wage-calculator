@@ -36,7 +36,6 @@ export class AppRoot {
 
   handleSubmit() {
     const state = {
-      existingTeacher: this.existingTeacher,
       maxPrevHours: this.maxPrevHours,
       college: this.college,
       preDealSa: this.preDealSa,
@@ -142,8 +141,8 @@ export class AppRoot {
             value={this.preDealSa}
             onIonChange={e => {this.preDealSa = e.detail.value}}
           >
-            <ion-select-option value={false}>{FormLabels.Sa}</ion-select-option>
-            <ion-select-option value={true}>{FormLabels.Mmh}</ion-select-option>
+            <ion-select-option value={false}>{FormLabels.Mmh}</ion-select-option>
+            <ion-select-option value={true}>{FormLabels.Sa}</ion-select-option>
           </ion-select>
         </ion-item>
 
