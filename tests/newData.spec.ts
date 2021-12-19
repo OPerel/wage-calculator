@@ -21,7 +21,7 @@ const dataResultPairs: [string, FormState, Result][] = [
       futureWageByWeeks: 18944.02,
       pensionPayments: 1410.68,
       presentWage: 13531.44,
-      presentWageAsSa: undefined
+      presentWageAsSa: null
     }
   ],
   [
@@ -43,7 +43,7 @@ const dataResultPairs: [string, FormState, Result][] = [
       futureWageByWeeks: 15018.64,
       pensionPayments: 1103.59,
       presentWage: 15018.64,
-      presentWageAsSa: undefined
+      presentWageAsSa: null
     }
   ],
   [
@@ -65,7 +65,7 @@ const dataResultPairs: [string, FormState, Result][] = [
       futureWageByWeeks: 47201.44,
       pensionPayments: 3450.02,
       presentWage: 47201.44,
-      presentWageAsSa: undefined
+      presentWageAsSa: null
     }
   ],
   [
@@ -86,7 +86,7 @@ const dataResultPairs: [string, FormState, Result][] = [
       futureWage: 41288.24,
       futureWageByWeeks: 41288.24,
       pensionPayments: 3096.62,
-      presentWage: undefined,
+      presentWage: null,
       presentWageAsSa: 32978.01
     }
   ],
@@ -109,12 +109,39 @@ const dataResultPairs: [string, FormState, Result][] = [
       futureWageByWeeks: 27891.76,
       pensionPayments: 2238.15,
       presentWage: 27891.76,
-      presentWageAsSa: undefined
+      presentWageAsSa: null
     }
-  ]
+  ],
+  [
+    "bbr [\"prof\"] preDealSa rank-b seniority-12 preDealSeniority-4 hours-6 ",
+    {
+      "maxPrevHours": null,
+      "college": "bbr",
+      "preDealSa": true,
+      "position": [
+        "prof"
+      ],
+      "multiPosition": false,
+      "rank": "b",
+      "preDealSeniority": 4,
+      "seniority": 12,
+      "hours": 6,
+      "hours2": null
+    },
+    {
+      "presentWage": null,
+      "presentWageAsSa": 28464.09,
+      "futureWageByWeeks": 29144.64,
+      "futureWage": 30041.67,
+      "pensionPayments": 2253.13
+    }
+  ],
 ]
 
-test.each(dataResultPairs)('test use case %# - %s', (_, input, output) => {
+test.each(dataResultPairs)(
+  'test use case %# - %s',
+  (_, input, output) =>
+{
   const result = handleCalcLogic(input);
   expect(result).toStrictEqual(output);
 })

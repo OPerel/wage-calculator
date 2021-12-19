@@ -7,19 +7,22 @@ import colleges from '../assets/data/colleges';
 import ranks from '../assets/data/wageByRank';
 import wageBySeniority from '../assets/data/wageBySeniority';
 import { FormState, Result } from '../interfaces';
+import testStringGenerator from '../../tests/testGenerator';
 
-export default function handleCalcLogic({
-  maxPrevHours,
-  college,
-  preDealSa,
-  position,
-  multiPosition,
-  rank,
-  preDealSeniority,
-  seniority,
-  hours,
-  hours2,
-}: FormState) {
+export default function handleCalcLogic(state: FormState) {
+
+  const {
+    maxPrevHours,
+    college,
+    preDealSa,
+    position,
+    multiPosition,
+    rank,
+    preDealSeniority,
+    seniority,
+    hours,
+    hours2,
+  } = state;
 
   let result: Result = {
     presentWage: undefined,
@@ -47,10 +50,10 @@ export default function handleCalcLogic({
 
   if (preDealSa) {
     result.presentWageAsSa = getFutureWage(preDealSeniorityWage, hours, teach, preDealSa, college);
-    result.presentWage = undefined;
+    result.presentWage = null;
   } else {
     result.presentWage = getPresentWage(weeks, hourlyWage, hours, teach, college, maxPrevHours);
-    result.presentWageAsSa = undefined;
+    result.presentWageAsSa = null;
   }
 
   result.futureWageByWeeks = getPresentWage(
@@ -102,6 +105,14 @@ export default function handleCalcLogic({
   }
 
   result.pensionPayments = getEmployerPensionPayments(result.futureWage, preDealSa);
+
+  if (process.env.NODE_ENV === 'development') {
+    console.log('Test Object: ', JSON.stringify(
+      [testStringGenerator(state), state, result],
+      (_, v) => v === undefined ? null : v,
+      2
+    ));
+  }
 
   return result;
 }
