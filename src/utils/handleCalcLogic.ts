@@ -49,10 +49,12 @@ export default function handleCalcLogic(state: FormState) {
   }
 
   if (preDealSa) {
-    result.presentWageAsSa = getFutureWage(preDealSeniorityWage, hours, teach, preDealSa, college);
+    result.presentWageAsSa =
+      getFutureWage(preDealSeniorityWage, hours, teach, preDealSa, college);
     result.presentWage = null;
   } else {
-    result.presentWage = getPresentWage(weeks, hourlyWage, hours, teach, college, maxPrevHours);
+    result.presentWage =
+      getPresentWage(maxPrevHours ? weeks : weeksForNew, hourlyWage, hours, teach, college, maxPrevHours);
     result.presentWageAsSa = null;
   }
 
@@ -66,7 +68,7 @@ export default function handleCalcLogic(state: FormState) {
     true
   );
 
-  result.futureWage = getFutureWage(seniorityWage, hours, teach, false, college);
+  result.futureWage = getFutureWage(seniorityWage, hours, teach, false, college, true);
 
   // if user is BOTH a teacher AND a professor, add professor calcs to result
   if (multiPosition) {
@@ -78,24 +80,19 @@ export default function handleCalcLogic(state: FormState) {
     }
 
     if (preDealSa) {
-      result.presentWageAsSa += getFutureWage(preDealSeniorityWage, hours2, false, preDealSa, college);
+      result.presentWageAsSa +=
+        getFutureWage(preDealSeniorityWage, hours2, false, preDealSa, college, false);
       result.presentWage = undefined;
     } else {
-      result.presentWage += getPresentWage(weeks, hourlyWage, hours2, false, college, maxPrevHours);
+      result.presentWage +=
+        getPresentWage(maxPrevHours ? weeks : weeksForNew, hourlyWage, hours2, false, college, maxPrevHours);
       result.presentWageAsSa = undefined;
     }
 
-    result.futureWageByWeeks += getPresentWage(
-      weeksForNew,
-      hourlyWage,
-      hours2,
-      false,
-      college,
-      maxPrevHours,
-      true
-    );
+    result.futureWageByWeeks +=
+      getPresentWage(weeksForNew, hourlyWage, hours2, false, college, maxPrevHours, true);
 
-    result.futureWage += getFutureWage(seniorityWage, hours2, false);
+    result.futureWage += getFutureWage(seniorityWage, hours2, false, preDealSa, college, true);
   }
 
   // if position is prof
@@ -106,6 +103,8 @@ export default function handleCalcLogic(state: FormState) {
 
   result.pensionPayments = getEmployerPensionPayments(result.futureWage, preDealSa);
 
+  // if running in dev mode
+  // generate and log a test object for current use case
   if (process.env.NODE_ENV === 'development') {
     console.log('Test Object: ', JSON.stringify(
       [testStringGenerator(state), state, result],

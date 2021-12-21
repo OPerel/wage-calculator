@@ -10,7 +10,7 @@ const getPresentWage = (
 ): number => {
   let wage: number;
   // divide hours to with bonus and without
-  if (maxPrevHours && college !== 'hit13' && college !== 'bbr') {
+  if (asFuture && maxPrevHours && college !== 'hit13' && college !== 'bbr') {
     const noBonusHours = hours - maxPrevHours;
     wage = (weeks * hourlyWage * noBonusHours) + ((weeks + 1) * hourlyWage * maxPrevHours);
   } else {
@@ -18,7 +18,6 @@ const getPresentWage = (
   }
 
   if (teach && college !== 'ata') {
-    // does the future parameter apply with the new changes?
     if (!asFuture && college !== 'spr') {
       wage = wage * 0.5;
     }
@@ -36,7 +35,8 @@ const getFutureWage = (
   hours: number,
   teach: boolean,
   asSa = false,
-  college?: string
+  college?: string,
+  asFuture = false
 ): number => {
   let wage: number;
   const fourteenHourColleges = ['ata', 'bbr', 'snk', 'viz'];
@@ -48,7 +48,12 @@ const getFutureWage = (
   }
 
   if (teach && college !== 'ata') {
+    if (!asFuture && college !== 'spr') {
+      wage = wage * 0.5;
+    }
+    if (asFuture) {
       wage = wage * 0.7;
+    }
   }
 
   return roundResult(wage);
