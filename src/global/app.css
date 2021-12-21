@@ -23,6 +23,8 @@
 
 :root {
   --ion-color-primary: #d24848;
+  --ion-color-secondary: #393939;
+  --ion-background-color: #f0f0f0;
   --app-direction: rtl;
 }
 
