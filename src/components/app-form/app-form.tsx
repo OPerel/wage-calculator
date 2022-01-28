@@ -33,6 +33,7 @@ export class AppRoot {
   @State() formIsValid: boolean;
 
   @Event() submitForm: EventEmitter<Result>;
+  @Event() chooseCollege: EventEmitter<string>;
 
   handleSubmit() {
     const state = {
@@ -49,6 +50,7 @@ export class AppRoot {
     };
 
     const result = handleCalcLogic(state);
+    result.college = this.college;
     this.submitForm.emit(result);
   }
 
@@ -122,13 +124,16 @@ export class AppRoot {
       <form>
 
         <ion-item>
-          <ion-label>{FormLabels.HasPrevSems}</ion-label>
+          <ion-label class="my-label">{FormLabels.HasPrevSems}</ion-label>
           <ion-checkbox checked={this.existingTeacher} onIonChange={this.handleExistingCheckbox} />
         </ion-item>
 
         <ion-item>
           <ion-label>{FormLabels.ChooseCollege}</ion-label>
-          <ion-select value={this.college} onIonChange={e => {this.college = e.detail.value}}>
+          <ion-select value={this.college} onIonChange={e => {
+            this.college = e.detail.value;
+            this.chooseCollege.emit(this.college)}
+          }>
             {colleges.map(({ name, label }) => (
               <ion-select-option value={name}>{label}</ion-select-option>
             ))}

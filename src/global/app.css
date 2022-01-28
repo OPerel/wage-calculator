@@ -28,6 +28,10 @@
   --app-direction: rtl;
 }
 
+html {
+  font-size: calc(65% + 1vmin);
+}
+
 /*
   The CSS Variables below can be used to theme your app.
   For more info on CSS variables check out:

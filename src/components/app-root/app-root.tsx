@@ -1,6 +1,6 @@
 import { Component, h, State, Listen } from '@stencil/core';
 
-import { disclaimer, saNote } from '../../assets/data/text';
+import { disclaimer, extraNote, saNote } from '../../assets/data/text';
 import { Result } from '../../interfaces';
 import { RootLabels } from '../../utils/labels';
 
@@ -14,6 +14,7 @@ export class AppRoot {
   @State() futureWageByWeeks: number;
   @State() futureWage: number;
   @State() pensionPayments: number;
+  @State() college: string;
 
   @Listen('submitForm')
   submitFormHandler(e: CustomEvent<Result>) {
@@ -22,7 +23,7 @@ export class AppRoot {
       presentWageAsSa,
       futureWageByWeeks,
       futureWage,
-      pensionPayments
+      pensionPayments,
     } = e.detail;
 
     this.presentWage = presentWage;
@@ -30,6 +31,11 @@ export class AppRoot {
     this.futureWageByWeeks = futureWageByWeeks;
     this.futureWage = futureWage;
     this.pensionPayments = pensionPayments;
+  }
+
+  @Listen('chooseCollege')
+  chooseCollegeHandler(e: CustomEvent<string>) {
+    this.college = e.detail
   }
 
   componentDidLoad() {
@@ -80,6 +86,7 @@ export class AppRoot {
             )}
 
             <div class="note">
+              {['hit15', 'hit168', 'ahv', 'hds', 'spr'].includes(this.college) && <p>* {extraNote}</p>}
               <p>* {disclaimer}</p>
               <p>* {saNote}</p>
             </div>
