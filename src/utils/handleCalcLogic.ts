@@ -97,7 +97,7 @@ export default function handleCalcLogic(state: FormState) {
 
   // if position is prof
   // check if present wage is higher than future wage
-  if (position[0] === 'prof' && result.futureWageByWeeks > result.futureWage) {
+  if (position[0] === 'prof' && result.futureWageByWeeks > result.futureWage && !!maxPrevHours) {
     result.futureWage = result.futureWageByWeeks;
   }
 
