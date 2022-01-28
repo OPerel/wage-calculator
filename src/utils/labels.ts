@@ -8,17 +8,17 @@ export enum FormLabels {
   ChooseCollege = 'בחר/י מכללה',
   ChooseDeal = 'בחר/י אופן העסקה',
   BeforeDeal = 'לפני ההסכם',
-  Sa = 'ס"ע',
-  Mmh = 'ממ"ח',
+  Sa = 'סגל עמית',
+  Mmh = 'מרצה מן החוץ',
   ChoosePosition = 'בחר/י תפקיד',
-  Teacher = 'מתרגל',
+  Teacher = 'מתרגל\\מעבדה',
   Professor = 'מרצה',
   ChooseRank = 'בחר/י דירוג',
   ChooseSeniority = 'בחר/י ותק',
   ChooseCurrentSeniority = 'בחר/י ותק לצורך טבלת השכר הנוכחית',
-  EnterHours = 'הכנס/י מספר שעות',
+  EnterHours = 'הכנס/י מספר שעות שבועיות',
   BonusHours = 'שעות לחישוב בונוס:',
-  SubmitButton = 'חשב/י שכר נוכחי ועתידי'
+  SubmitButton = 'חשב/י שכר'
 }
 
 export enum Dialog {
@@ -33,9 +33,9 @@ export enum Dialog {
 
 export enum Output {
   SemPay = 'שכר סמסטריאלי',
-  Present = 'נוכחי',
-  Future = 'עתידי',
-  AsSa = 'כס"ע',
-  AsMmh = 'כממ"ח',
-  Pension = 'גובה קרן השתלמות לס"ע הפרשות מעסיק'
+  Present = 'לפני ההסכם',
+  Future = 'אחרי ההסכם',
+  AsSa = 'כסגל עמית',
+  AsMmh = 'כמרצה מן החוץ',
+  Pension = 'גובה קרן השתלמות לסגל עמית הפרשות מעסיק'
 }

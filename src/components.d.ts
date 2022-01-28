@@ -77,6 +77,7 @@ declare namespace LocalJSX {
     interface AppFooter {
     }
     interface AppForm {
+        "onChooseCollege"?: (event: CustomEvent<string>) => void;
         "onSubmitForm"?: (event: CustomEvent<Result>) => void;
     }
     interface AppRoot {

@@ -15,10 +15,10 @@ export class OutputItem {
   render() {
     return (
       <ion-item>
-        <ion-label>{this.label}</ion-label>
-        <h4>
+        <ion-label style={{ whiteSpace: 'initial', marginLeft: '2%' }}>{this.label}</ion-label>
+        <span>
           {this.sum.toLocaleString('he-IL', currencyObj)}
-        </h4>
+        </span>
       </ion-item>
     )
   }

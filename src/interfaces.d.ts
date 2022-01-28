@@ -17,4 +17,5 @@ export interface Result {
   futureWageByWeeks: number;
   futureWage: number;
   pensionPayments: number;
+  college?: string;
 }
