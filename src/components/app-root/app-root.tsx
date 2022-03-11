@@ -82,6 +82,7 @@ export class AppRoot {
                 futureWageByWeeks={this.futureWageByWeeks}
                 futureWage={this.futureWage}
                 pensionPayments={this.pensionPayments}
+                college={this.college}
               />
             )}
 

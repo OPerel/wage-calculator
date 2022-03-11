@@ -20,6 +20,7 @@ export namespace Components {
     interface PrevSemsDialog {
     }
     interface WageOutput {
+        "college": string;
         "futureWage": number;
         "futureWageByWeeks": number;
         "pensionPayments": number;
@@ -89,6 +90,7 @@ declare namespace LocalJSX {
     interface PrevSemsDialog {
     }
     interface WageOutput {
+        "college"?: string;
         "futureWage"?: number;
         "futureWageByWeeks"?: number;
         "pensionPayments"?: number;
