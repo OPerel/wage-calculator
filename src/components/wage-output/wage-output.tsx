@@ -1,63 +1,51 @@
 import { Component, h, Prop } from '@stencil/core';
+import { Output } from '../../utils/labels';
 
-const currencyObj = {
-  style: 'currency',
-  currency: 'ILS'
-}
+const { SemPay, AsMmh, AsSa, Future, Present, Pension } = Output;
 
 @Component({
   tag: 'wage-output',
   styleUrl: 'wage-output.css',
 })
 export class WageOutput {
-  @Prop() presentWage: number;
-  @Prop() presentWageAsSa: number;
+  @Prop() presentWage: number | undefined;
+  @Prop() presentWageAsSa: number | undefined;
   @Prop() futureWageByWeeks: number;
   @Prop() futureWage: number;
   @Prop() pensionPayments: number;
+  @Prop() college: string;
 
   render() {
     return (
       <div>
         {this.presentWageAsSa ? (
-          <ion-item>
-            <ion-label>שכר סמסטריאלי נוכחי כס"ע</ion-label>
-            <h4>
-              {this.presentWageAsSa.toLocaleString('he-IL', currencyObj)}
-            </h4>
-          </ion-item>
+          <output-item
+            label={`${SemPay} ${Present} ${AsSa}`}
+            sum={this.presentWageAsSa}
+          />
         ) : (
-          <ion-item>
-            <ion-label>שכר סמסטריאלי נוכחי כממ"ח</ion-label>
-            <h4>
-              {this.presentWage.toLocaleString('he-IL', currencyObj)}
-            </h4>
-          </ion-item>
+          <output-item
+            label={`${SemPay} ${Present} ${AsMmh}`}
+            sum={this.presentWage}
+          />
         )}
 
-        {this.futureWageByWeeks && (
-          <ion-item>
-            <ion-label>שכר סמסטריאלי עתידי כממ"ח</ion-label>
-            <h4>
-              {this.futureWageByWeeks.toLocaleString('he-IL', currencyObj)}
-            </h4>
-          </ion-item>
-        )}
+        <output-item
+          label={`${SemPay} ${Future} ${AsMmh}`}
+          sum={this.futureWageByWeeks}
+        />
 
-        <ion-item>
-          <ion-label>שכר סמסטריאלי עתידי כס"ע</ion-label>
-          <h4>
-            {this.futureWage.toLocaleString('he-IL', currencyObj)}
-          </h4>
-        </ion-item>
+        <output-item
+          label={`${SemPay} ${Future} ${AsSa}${
+            ['hit15', 'hit168', 'ahv', 'hds', 'spr'].includes(this.college)
+              ? '**'
+              : ''
+          }`}
+          sum={this.futureWage}
+        />
 
-        <ion-item>
-          <ion-label>גובה קרן השתלמות לס"ע הפרשות מעסיק</ion-label>
-          <h4>
-            {this.pensionPayments.toLocaleString('he-IL', currencyObj)}
-          </h4>
-        </ion-item>
+        <output-item label={Pension} sum={this.pensionPayments} />
       </div>
-    )
+    );
   }
 }

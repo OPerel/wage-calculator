@@ -1,12 +1,23 @@
+// MAMA"H
 const getPresentWage = (
   weeks: number,
   hourlyWage: number,
   hours: number,
   teach: boolean,
   college: string,
-  asFuture = false
+  maxPrevHours?: number,
+  asFuture = false,
 ): number => {
-  let wage = weeks * hourlyWage * hours;
+  let wage: number;
+  // divide hours to with bonus and without
+  if (asFuture && maxPrevHours && college !== 'hit13' && college !== 'bbr') {
+    const noBonusHours = hours - maxPrevHours;
+    wage =
+      weeks * hourlyWage * noBonusHours +
+      (weeks + 1) * hourlyWage * maxPrevHours;
+  } else {
+    wage = weeks * hourlyWage * hours;
+  }
 
   if (teach && college !== 'ata') {
     if (!asFuture && college !== 'spr') {
@@ -18,14 +29,16 @@ const getPresentWage = (
   }
 
   return roundResult(wage);
-}
+};
 
+// S"A
 const getFutureWage = (
   seniorityWage: number,
   hours: number,
   teach: boolean,
   asSa = false,
-  college?: string
+  college?: string,
+  asFuture = false,
 ): number => {
   let wage: number;
   const fourteenHourColleges = ['ata', 'bbr', 'snk', 'viz'];
@@ -37,27 +50,28 @@ const getFutureWage = (
   }
 
   if (teach && college !== 'ata') {
-    if (asSa) {
+    if (!asFuture && college !== 'spr') {
       wage = wage * 0.5;
-    } else {
+    }
+    if (asFuture) {
       wage = wage * 0.7;
     }
   }
 
   return roundResult(wage);
-}
+};
 
-const getEmployerPensionPayments = (wage: number, preDealsa: boolean): number => {
-  if (preDealsa) {
+const getEmployerPensionPayments = (
+  wage: number,
+  preDealSa: boolean,
+): number => {
+  if (preDealSa) {
     return roundResult(wage * 0.075);
   }
   return roundResult(wage * 0.0708);
 };
 
-const roundResult = (wage: number): number => Math.round((wage + Number.EPSILON) * 100) / 100;
+const roundResult = (wage: number): number =>
+  Math.round((wage + Number.EPSILON) * 100) / 100;
 
-export {
-  getPresentWage,
-  getFutureWage,
-  getEmployerPensionPayments
-}
+export { getPresentWage, getFutureWage, getEmployerPensionPayments };

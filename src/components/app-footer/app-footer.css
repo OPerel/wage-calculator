@@ -3,9 +3,9 @@ footer {
   justify-content: center;
   align-items: center;
   width: 100vw;
-  /* height: 5.5%; */
+  padding: 0 3px;
   text-align: center;
-  background-color: #393939;
+  background-color: var(--ion-color-secondary);
   color: #fff;
 }
 

@@ -1,7 +1,8 @@
 import { Component, h, State, Listen } from '@stencil/core';
 
-import { disclaimer, saNote } from '../../assets/data/text';
-import { Result } from '../../utils/handleCalcLogic';
+import { disclaimer, extraNote, saNote } from '../../assets/data/text';
+import { Result } from '../../interfaces';
+import { RootLabels } from '../../utils/labels';
 
 @Component({
   tag: 'app-root',
@@ -13,6 +14,7 @@ export class AppRoot {
   @State() futureWageByWeeks: number;
   @State() futureWage: number;
   @State() pensionPayments: number;
+  @State() college: string;
 
   @Listen('submitForm')
   submitFormHandler(e: CustomEvent<Result>) {
@@ -21,7 +23,7 @@ export class AppRoot {
       presentWageAsSa,
       futureWageByWeeks,
       futureWage,
-      pensionPayments
+      pensionPayments,
     } = e.detail;
 
     this.presentWage = presentWage;
@@ -31,13 +33,18 @@ export class AppRoot {
     this.pensionPayments = pensionPayments;
   }
 
+  @Listen('chooseCollege')
+  chooseCollegeHandler(e: CustomEvent<string>) {
+    this.college = e.detail;
+  }
+
   componentDidLoad() {
     const footer = document.getElementsByTagName('footer')[0];
 
     window.addEventListener('ionKeyboardDidShow', () => {
       footer.classList.add('hide');
     });
-    
+
     window.addEventListener('ionKeyboardDidHide', () => {
       footer.classList.remove('hide');
     });
@@ -47,24 +54,26 @@ export class AppRoot {
     return (
       <ion-app>
         <header>
-          <ion-title>איגוד הסגל האקדמי במכללות הציבוריות</ion-title>
+          <ion-title>{RootLabels.HeaderTitle}</ion-title>
           <img
             src="https://cafe.themarker.com/media/t/146/754/7/file_0_big.jpg?1267870768"
+            alt="logo"
             width="100"
             height="50"
           />
         </header>
 
         <ion-content>
-          
-          <ion-refresher slot="fixed" onIonRefresh={() => window.location.reload()}>
+          <ion-refresher
+            slot="fixed"
+            onIonRefresh={() => window.location.reload()}
+          >
             <ion-refresher-content></ion-refresher-content>
           </ion-refresher>
 
           <main class="content">
+            <h2>{RootLabels.PageTitle}</h2>
 
-            <h2>מחשבון שכר נוכחי ועתידי</h2>
-            
             <app-form />
 
             {(!!this.presentWage || !!this.presentWageAsSa) && (
@@ -74,19 +83,20 @@ export class AppRoot {
                 futureWageByWeeks={this.futureWageByWeeks}
                 futureWage={this.futureWage}
                 pensionPayments={this.pensionPayments}
+                college={this.college}
               />
             )}
 
             <div class="note">
+              {['hit15', 'hit168', 'ahv', 'hds', 'spr'].includes(
+                this.college,
+              ) && <p>* {extraNote}</p>}
               <p>* {disclaimer}</p>
               <p>* {saNote}</p>
             </div>
-
           </main>
-          
+          <app-footer />
         </ion-content>
-
-        <app-footer />
       </ion-app>
     );
   }

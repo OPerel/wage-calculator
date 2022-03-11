@@ -1,53 +1,37 @@
 import {
   getPresentWage,
   getFutureWage,
-  getEmployerPensionPayments
+  getEmployerPensionPayments,
 } from './calculate';
 import colleges from '../assets/data/colleges';
 import ranks from '../assets/data/wageByRank';
 import wageBySeniority from '../assets/data/wageBySeniority';
+import { FormState, Result } from '../interfaces';
+import testStringGenerator from '../../tests/testGenerator';
 
-export interface FormState {
-  college: string;
-  preDealSa: boolean;
-  position: string[];
-  multiPosition: boolean;
-  rank: string;
-  preDealSeniority: number;
-  seniority: number;
-  hours: number;
-  hours2: number;
-}
-
-export interface Result {
-  presentWage: undefined | number,
-  presentWageAsSa: undefined | number,
-  futureWageByWeeks: undefined | number,
-  futureWage: undefined | number
-  pensionPayments: undefined | number
-}
-
-export default function handleCalcLogic({
-  college,
-  preDealSa,
-  position,
-  multiPosition,
-  rank,
-  preDealSeniority,
-  seniority,
-  hours,
-  hours2,
-}: FormState) {
+export default function handleCalcLogic(state: FormState) {
+  const {
+    maxPrevHours,
+    college,
+    preDealSa,
+    position,
+    multiPosition,
+    rank,
+    preDealSeniority,
+    seniority,
+    hours,
+    hours2,
+  } = state;
 
   let result: Result = {
     presentWage: undefined,
     presentWageAsSa: undefined,
     futureWageByWeeks: undefined,
     futureWage: undefined,
-    pensionPayments: undefined
-  }
+    pensionPayments: undefined,
+  };
 
-  const { weeks, futureWeeks } = colleges.find(c => c.name === college);
+  const { weeks, weeksForNew } = colleges.find(c => c.name === college);
   let { hourlyWage } = ranks.find(r => r.name === rank);
   let seniorityWage = wageBySeniority[rank][seniority];
   let preDealSeniorityWage = wageBySeniority[rank][preDealSeniority];
@@ -64,22 +48,44 @@ export default function handleCalcLogic({
   }
 
   if (preDealSa) {
-    result.presentWageAsSa = getFutureWage(preDealSeniorityWage, hours, teach, preDealSa, college);
-    result.presentWage = undefined;
+    result.presentWageAsSa = getFutureWage(
+      preDealSeniorityWage,
+      hours,
+      teach,
+      preDealSa,
+      college,
+    );
+    result.presentWage = null;
   } else {
-    result.presentWage = getPresentWage(weeks, hourlyWage, hours, teach, college);
-    result.presentWageAsSa = undefined;
+    result.presentWage = getPresentWage(
+      maxPrevHours ? weeks : weeksForNew,
+      hourlyWage,
+      hours,
+      teach,
+      college,
+      maxPrevHours,
+    );
+    result.presentWageAsSa = null;
   }
 
   result.futureWageByWeeks = getPresentWage(
-    futureWeeks || weeks,
+    weeksForNew,
     sapirFutureHourlyWage || hourlyWage,
-    hours, teach,
+    hours,
+    teach,
     college,
-    true
+    maxPrevHours,
+    true,
   );
 
-  result.futureWage = getFutureWage(seniorityWage, hours, teach, false, college);
+  result.futureWage = getFutureWage(
+    seniorityWage,
+    hours,
+    teach,
+    false,
+    college,
+    true,
+  );
 
   // if user is BOTH a teacher AND a professor, add professor calcs to result
   if (multiPosition) {
@@ -91,33 +97,74 @@ export default function handleCalcLogic({
     }
 
     if (preDealSa) {
-      result.presentWageAsSa += getFutureWage(preDealSeniorityWage, hours2, false, preDealSa, college);
+      result.presentWageAsSa += getFutureWage(
+        preDealSeniorityWage,
+        hours2,
+        false,
+        preDealSa,
+        college,
+        false,
+      );
       result.presentWage = undefined;
     } else {
-      result.presentWage += getPresentWage(weeks, hourlyWage, hours2, false, college);
+      result.presentWage += getPresentWage(
+        maxPrevHours ? weeks : weeksForNew,
+        hourlyWage,
+        hours2,
+        false,
+        college,
+        maxPrevHours,
+      );
       result.presentWageAsSa = undefined;
     }
 
     result.futureWageByWeeks += getPresentWage(
-      futureWeeks || weeks,
+      weeksForNew,
       hourlyWage,
       hours2,
       false,
       college,
-      true
+      maxPrevHours,
+      true,
     );
 
-    result.futureWage += getFutureWage(seniorityWage, hours2, false);
+    result.futureWage += getFutureWage(
+      seniorityWage,
+      hours2,
+      false,
+      preDealSa,
+      college,
+      true,
+    );
   }
 
-  // if preDealSa is false and position is prof
+  // if position is prof
   // check if present wage is higher than future wage
-  if (!preDealSa && position[0] === 'prof' && result.futureWageByWeeks > result.futureWage) {
+  if (
+    position[0] === 'prof' &&
+    result.futureWageByWeeks > result.futureWage &&
+    !!maxPrevHours
+  ) {
     result.futureWage = result.futureWageByWeeks;
   }
 
+  result.pensionPayments = getEmployerPensionPayments(
+    result.futureWage,
+    preDealSa,
+  );
 
-  result.pensionPayments = getEmployerPensionPayments(result.futureWage, preDealSa);
+  // if running in dev mode
+  // generate and log a test object for current use case
+  if (process.env.NODE_ENV === 'development') {
+    console.log(
+      'Test Object: ',
+      JSON.stringify(
+        [testStringGenerator(state), state, result],
+        (_, v) => (v === undefined ? null : v),
+        2,
+      ),
+    );
+  }
 
   return result;
 }
