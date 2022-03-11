@@ -3,20 +3,20 @@ import { Watch } from '@ionic/core/dist/types/stencil-public-runtime';
 import { Dialog } from '../../../utils/labels';
 
 interface Questions {
-  [key: string]: number | null
+  [key: string]: number | null;
 }
 
-const { q1, q2 ,q3, q4, Title, Submit, Close } = Dialog;
+const { q1, q2, q3, q4, Title, Submit, Close } = Dialog;
 
 const questions: Questions = {
   [q1]: null,
   [q2]: null,
   [q3]: null,
-  [q4]: null
+  [q4]: null,
 };
 
 @Component({
-  tag: 'prev-sems-dialog'
+  tag: 'prev-sems-dialog',
 })
 export class PrevSems {
   @Element() el: HTMLElement;
@@ -26,15 +26,15 @@ export class PrevSems {
   @Watch('questions')
   onFormChange() {
     if (Object.keys(this.questions).length === 4) {
-      this.valid = true
+      this.valid = true;
     }
   }
 
   handleInput(key: string, value: number) {
     this.questions = {
       ...this.questions,
-      [key]: value
-    }
+      [key]: value,
+    };
   }
 
   async handleSubmit() {
@@ -51,26 +51,24 @@ export class PrevSems {
     return (
       <ion-page>
         <header>
-          <ion-title>
-            {Title}
-          </ion-title>
+          <ion-title>{Title}</ion-title>
         </header>
         <from class="content">
-          {
-            Object.keys(questions).map((key, idx) => {
-              return (
-                <ion-item>
-                  <ion-label slot="start">{key}</ion-label>
-                  <ion-input
-                    inputmode="numeric"
-                    enterkeyhint={idx === 3 ? 'done' : 'next'}
-                    value={this.questions[key]}
-                    onIonChange={e => this.handleInput(key, Number(e.detail.value))}
-                  />
-                </ion-item>
-              )
-            })
-          }
+          {Object.keys(questions).map((key, idx) => {
+            return (
+              <ion-item>
+                <ion-label slot="start">{key}</ion-label>
+                <ion-input
+                  inputmode="numeric"
+                  enterkeyhint={idx === 3 ? 'done' : 'next'}
+                  value={this.questions[key]}
+                  onIonChange={e =>
+                    this.handleInput(key, Number(e.detail.value))
+                  }
+                />
+              </ion-item>
+            );
+          })}
         </from>
 
         <div class="ion-padding">
@@ -80,14 +78,11 @@ export class PrevSems {
           >
             {Submit}
           </ion-button>
-          <ion-button
-            onClick={() => this.close()}
-            color="secondary"
-          >
+          <ion-button onClick={() => this.close()} color="secondary">
             {Close}
           </ion-button>
         </div>
       </ion-page>
-    )
+    );
   }
 }

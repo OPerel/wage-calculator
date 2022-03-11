@@ -13,7 +13,10 @@ export class AppFooter {
             Koach LaOvdim
           </a>
           &nbsp;
-          <span>- Democratic Workers’ Organization &#169; {new Date().getFullYear()},</span>
+          <span>
+            - Democratic Workers’ Organization &#169; {new Date().getFullYear()}
+            ,
+          </span>
           &nbsp;
           <span>Developed by</span>
           &nbsp;
@@ -22,6 +25,6 @@ export class AppFooter {
           </a>
         </p>
       </footer>
-    )
+    );
   }
 }

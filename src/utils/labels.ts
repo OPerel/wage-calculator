@@ -1,6 +1,6 @@
 export enum RootLabels {
   HeaderTitle = 'איגוד הסגל האקדמי במכללות הציבוריות',
-  PageTitle = 'מחשבון שכר נוכחי ועתידי'
+  PageTitle = 'מחשבון שכר נוכחי ועתידי',
 }
 
 export enum FormLabels {
@@ -18,7 +18,7 @@ export enum FormLabels {
   ChooseCurrentSeniority = 'בחר/י ותק לצורך טבלת השכר הנוכחית',
   EnterHours = 'הכנס/י מספר שעות שבועיות',
   BonusHours = 'שעות לחישוב בונוס:',
-  SubmitButton = 'חשב/י שכר'
+  SubmitButton = 'חשב/י שכר',
 }
 
 export enum Dialog {
@@ -28,7 +28,7 @@ export enum Dialog {
   q4 = 'שעות סמסטר א תשע"ט',
   Title = "הכנס\\י שעות של 4 סמס'",
   Submit = 'הכנס',
-  Close = 'סגור'
+  Close = 'סגור',
 }
 
 export enum Output {
@@ -37,5 +37,5 @@ export enum Output {
   Future = 'אחרי ההסכם',
   AsSa = 'כסגל עמית',
   AsMmh = 'כמרצה מן החוץ',
-  Pension = 'גובה קרן השתלמות לסגל עמית הפרשות מעסיק'
+  Pension = 'גובה קרן השתלמות לסגל עמית הפרשות מעסיק',
 }

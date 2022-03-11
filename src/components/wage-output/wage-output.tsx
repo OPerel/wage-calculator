@@ -19,12 +19,21 @@ export class WageOutput {
     return (
       <div>
         {this.presentWageAsSa ? (
-          <output-item label={`${SemPay} ${Present} ${AsSa}`} sum={this.presentWageAsSa} />
+          <output-item
+            label={`${SemPay} ${Present} ${AsSa}`}
+            sum={this.presentWageAsSa}
+          />
         ) : (
-          <output-item label={`${SemPay} ${Present} ${AsMmh}`} sum={this.presentWage} />
+          <output-item
+            label={`${SemPay} ${Present} ${AsMmh}`}
+            sum={this.presentWage}
+          />
         )}
 
-        <output-item label={`${SemPay} ${Future} ${AsMmh}`} sum={this.futureWageByWeeks} />
+        <output-item
+          label={`${SemPay} ${Future} ${AsMmh}`}
+          sum={this.futureWageByWeeks}
+        />
 
         <output-item
           label={`${SemPay} ${Future} ${AsSa}${
@@ -37,6 +46,6 @@ export class WageOutput {
 
         <output-item label={Pension} sum={this.pensionPayments} />
       </div>
-    )
+    );
   }
 }

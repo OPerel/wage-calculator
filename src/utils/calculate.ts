@@ -6,13 +6,15 @@ const getPresentWage = (
   teach: boolean,
   college: string,
   maxPrevHours?: number,
-  asFuture = false
+  asFuture = false,
 ): number => {
   let wage: number;
   // divide hours to with bonus and without
   if (asFuture && maxPrevHours && college !== 'hit13' && college !== 'bbr') {
     const noBonusHours = hours - maxPrevHours;
-    wage = (weeks * hourlyWage * noBonusHours) + ((weeks + 1) * hourlyWage * maxPrevHours);
+    wage =
+      weeks * hourlyWage * noBonusHours +
+      (weeks + 1) * hourlyWage * maxPrevHours;
   } else {
     wage = weeks * hourlyWage * hours;
   }
@@ -27,7 +29,7 @@ const getPresentWage = (
   }
 
   return roundResult(wage);
-}
+};
 
 // S"A
 const getFutureWage = (
@@ -36,7 +38,7 @@ const getFutureWage = (
   teach: boolean,
   asSa = false,
   college?: string,
-  asFuture = false
+  asFuture = false,
 ): number => {
   let wage: number;
   const fourteenHourColleges = ['ata', 'bbr', 'snk', 'viz'];
@@ -57,19 +59,19 @@ const getFutureWage = (
   }
 
   return roundResult(wage);
-}
+};
 
-const getEmployerPensionPayments = (wage: number, preDealSa: boolean): number => {
+const getEmployerPensionPayments = (
+  wage: number,
+  preDealSa: boolean,
+): number => {
   if (preDealSa) {
     return roundResult(wage * 0.075);
   }
   return roundResult(wage * 0.0708);
 };
 
-const roundResult = (wage: number): number => Math.round((wage + Number.EPSILON) * 100) / 100;
+const roundResult = (wage: number): number =>
+  Math.round((wage + Number.EPSILON) * 100) / 100;
 
-export {
-  getPresentWage,
-  getFutureWage,
-  getEmployerPensionPayments
-}
+export { getPresentWage, getFutureWage, getEmployerPensionPayments };

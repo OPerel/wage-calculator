@@ -35,7 +35,7 @@ export class AppRoot {
 
   @Listen('chooseCollege')
   chooseCollegeHandler(e: CustomEvent<string>) {
-    this.college = e.detail
+    this.college = e.detail;
   }
 
   componentDidLoad() {
@@ -64,13 +64,14 @@ export class AppRoot {
         </header>
 
         <ion-content>
-
-          <ion-refresher slot="fixed" onIonRefresh={() => window.location.reload()}>
+          <ion-refresher
+            slot="fixed"
+            onIonRefresh={() => window.location.reload()}
+          >
             <ion-refresher-content></ion-refresher-content>
           </ion-refresher>
 
           <main class="content">
-
             <h2>{RootLabels.PageTitle}</h2>
 
             <app-form />
@@ -87,13 +88,13 @@ export class AppRoot {
             )}
 
             <div class="note">
-              {['hit15', 'hit168', 'ahv', 'hds', 'spr'].includes(this.college) && <p>* {extraNote}</p>}
+              {['hit15', 'hit168', 'ahv', 'hds', 'spr'].includes(
+                this.college,
+              ) && <p>* {extraNote}</p>}
               <p>* {disclaimer}</p>
               <p>* {saNote}</p>
             </div>
-
           </main>
-
         </ion-content>
 
         <app-footer />
