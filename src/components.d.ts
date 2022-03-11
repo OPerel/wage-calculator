@@ -18,6 +18,7 @@ export namespace Components {
         "sum": number;
     }
     interface PrevSemsDialog {
+        "beforeSemA": boolean;
     }
     interface WageOutput {
         "college": string;
@@ -88,6 +89,7 @@ declare namespace LocalJSX {
         "sum"?: number;
     }
     interface PrevSemsDialog {
+        "beforeSemA"?: boolean;
     }
     interface WageOutput {
         "college"?: string;

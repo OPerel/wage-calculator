@@ -22,7 +22,8 @@ export class AppRoot {
   hoursInput: HTMLInputElement;
   hoursInput2: HTMLInputElement;
 
-  @State() existingTeacher: boolean = false;
+  @State() beforeSemA: boolean = false;
+  @State() startedInSemA: boolean = false;
   @State() maxPrevHours: number;
   @State() college: string;
   @State() preDealSa: boolean;
@@ -61,6 +62,9 @@ export class AppRoot {
   private async openModal() {
     const modal: HTMLIonModalElement = await modalController.create({
       component: 'prev-sems-dialog',
+      componentProps: {
+        beforeSemA: this.beforeSemA,
+      },
     });
 
     await modal.present();
@@ -68,14 +72,19 @@ export class AppRoot {
     modal.onDidDismiss().then(async (detail: OverlayEventDetail) => {
       this.maxPrevHours = detail.data;
       if (!detail.data) {
-        this.existingTeacher = false;
+        this.beforeSemA = false;
+        this.startedInSemA = false;
       }
     });
   }
 
-  handleExistingCheckbox = (e: CustomEvent<CheckboxChangeEventDetail>) => {
-    this.existingTeacher = e.detail.checked;
-    if (this.existingTeacher) {
+  handleExistingCheckbox = (
+    e: CustomEvent<CheckboxChangeEventDetail>,
+    name: 'beforeSemA' | 'startedInSemA',
+  ) => {
+    const { checked } = e.detail;
+    this[name] = checked;
+    if (this.beforeSemA || this.startedInSemA) {
       this.openModal();
     } else {
       this.maxPrevHours = undefined;
@@ -128,10 +137,19 @@ export class AppRoot {
     return (
       <form>
         <ion-item>
-          <ion-label class="my-label">{FormLabels.HasPrevSems}</ion-label>
+          <ion-label class="my-label">{FormLabels.StartedBeforeSemA}</ion-label>
           <ion-checkbox
-            checked={this.existingTeacher}
-            onIonChange={this.handleExistingCheckbox}
+            checked={this.beforeSemA}
+            onIonChange={e => this.handleExistingCheckbox(e, 'beforeSemA')}
+            disabled={this.startedInSemA}
+          />
+        </ion-item>
+        <ion-item>
+          <ion-label class="my-label">{FormLabels.StartedInSemA}</ion-label>
+          <ion-checkbox
+            checked={this.startedInSemA}
+            onIonChange={e => this.handleExistingCheckbox(e, 'startedInSemA')}
+            disabled={this.beforeSemA}
           />
         </ion-item>
 
@@ -152,8 +170,7 @@ export class AppRoot {
 
         <ion-item>
           <ion-label>
-            {FormLabels.ChooseDeal}{' '}
-            {this.existingTeacher && FormLabels.BeforeDeal}
+            {FormLabels.ChooseDeal} {this.beforeSemA && FormLabels.BeforeDeal}
           </ion-label>
           <ion-select
             value={this.preDealSa}

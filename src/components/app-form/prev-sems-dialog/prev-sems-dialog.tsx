@@ -1,4 +1,4 @@
-import { Component, h, Element, State } from '@stencil/core';
+import { Component, h, Element, State, Prop } from '@stencil/core';
 import { Watch } from '@ionic/core/dist/types/stencil-public-runtime';
 import { Dialog } from '../../../utils/labels';
 
@@ -6,39 +6,34 @@ interface Questions {
   [key: string]: number | null;
 }
 
-const { q1, q2, q3, q4, Title, Submit, Close } = Dialog;
-
-const questions: Questions = {
-  [q1]: null,
-  [q2]: null,
-  [q3]: null,
-  [q4]: null,
-};
+const { q1, q2, q3, q4, q, Title, SemATitle, Submit, Close } = Dialog;
 
 @Component({
   tag: 'prev-sems-dialog',
+  styleUrl: 'prev-sems-dialog.css',
 })
 export class PrevSems {
   @Element() el: HTMLElement;
-  @State() questions: Questions = {};
+  @State() answers: Questions = {};
   @State() valid: boolean = false;
-
-  @Watch('questions')
+  @Prop() beforeSemA: boolean;
+  @Watch('answers')
   onFormChange() {
-    if (Object.keys(this.questions).length === 4) {
+    const length = this.beforeSemA ? 4 : 1;
+    if (Object.keys(this.answers).length === length) {
       this.valid = true;
     }
   }
 
   handleInput(key: string, value: number) {
-    this.questions = {
-      ...this.questions,
+    this.answers = {
+      ...this.answers,
       [key]: value,
     };
   }
 
   async handleSubmit() {
-    const vals = Object.values(this.questions);
+    const vals = Object.values(this.answers);
     const max = Math.max(...vals);
     await this.close(max);
   }
@@ -47,21 +42,34 @@ export class PrevSems {
     await (this.el.closest('ion-modal') as HTMLIonModalElement).dismiss(data);
   }
 
+  getQuestions() {
+    return this.beforeSemA
+      ? {
+          [q1]: null,
+          [q2]: null,
+          [q3]: null,
+          [q4]: null,
+        }
+      : {
+          [q]: null,
+        };
+  }
+
   render() {
     return (
       <ion-page>
         <header>
-          <ion-title>{Title}</ion-title>
+          <ion-title>{this.beforeSemA ? Title : SemATitle}</ion-title>
         </header>
         <from class="content">
-          {Object.keys(questions).map((key, idx) => {
+          {Object.keys(this.getQuestions()).map((key, idx) => {
             return (
-              <ion-item>
+              <ion-item class="dialog-item">
                 <ion-label slot="start">{key}</ion-label>
                 <ion-input
                   inputmode="numeric"
                   enterkeyhint={idx === 3 ? 'done' : 'next'}
-                  value={this.questions[key]}
+                  value={this.answers[key]}
                   onIonChange={e =>
                     this.handleInput(key, Number(e.detail.value))
                   }

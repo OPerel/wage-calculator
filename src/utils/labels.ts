@@ -4,7 +4,8 @@ export enum RootLabels {
 }
 
 export enum FormLabels {
-  HasPrevSems = 'האם התחלת לעבוד לפני סמסטר א\' תשפ"א?',
+  StartedBeforeSemA = 'האם התחלת לעבוד לפני סמסטר א\' תשפ"א?',
+  StartedInSemA = 'האם התחלת לעבוד בסמסטר א\' תשפ"א?',
   ChooseCollege = 'בחר/י מכללה',
   ChooseDeal = 'בחר/י אופן העסקה',
   BeforeDeal = 'לפני ההסכם',
@@ -26,7 +27,9 @@ export enum Dialog {
   q2 = 'שעות סמסטר א תש"פ',
   q3 = 'שעות סמסטר ב תשע"ט',
   q4 = 'שעות סמסטר א תשע"ט',
+  q = 'שעות סמסטר א תשפ"א',
   Title = "הכנס\\י שעות של 4 סמס'",
+  SemATitle = 'הכנס\\י שעות של סמס\' א תשפ"א',
   Submit = 'הכנס',
   Close = 'סגור',
 }
