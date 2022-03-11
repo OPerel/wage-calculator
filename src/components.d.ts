@@ -13,13 +13,6 @@ export namespace Components {
     }
     interface AppRoot {
     }
-    interface OutputItem {
-        "label": string;
-        "sum": number;
-    }
-    interface PrevSemsDialog {
-        "beforeSemA": boolean;
-    }
     interface WageOutput {
         "college": string;
         "futureWage": number;
@@ -48,18 +41,6 @@ declare global {
         prototype: HTMLAppRootElement;
         new (): HTMLAppRootElement;
     };
-    interface HTMLOutputItemElement extends Components.OutputItem, HTMLStencilElement {
-    }
-    var HTMLOutputItemElement: {
-        prototype: HTMLOutputItemElement;
-        new (): HTMLOutputItemElement;
-    };
-    interface HTMLPrevSemsDialogElement extends Components.PrevSemsDialog, HTMLStencilElement {
-    }
-    var HTMLPrevSemsDialogElement: {
-        prototype: HTMLPrevSemsDialogElement;
-        new (): HTMLPrevSemsDialogElement;
-    };
     interface HTMLWageOutputElement extends Components.WageOutput, HTMLStencilElement {
     }
     var HTMLWageOutputElement: {
@@ -70,8 +51,6 @@ declare global {
         "app-footer": HTMLAppFooterElement;
         "app-form": HTMLAppFormElement;
         "app-root": HTMLAppRootElement;
-        "output-item": HTMLOutputItemElement;
-        "prev-sems-dialog": HTMLPrevSemsDialogElement;
         "wage-output": HTMLWageOutputElement;
     }
 }
@@ -83,13 +62,6 @@ declare namespace LocalJSX {
         "onSubmitForm"?: (event: CustomEvent<Result>) => void;
     }
     interface AppRoot {
-    }
-    interface OutputItem {
-        "label"?: string;
-        "sum"?: number;
-    }
-    interface PrevSemsDialog {
-        "beforeSemA"?: boolean;
     }
     interface WageOutput {
         "college"?: string;
@@ -103,8 +75,6 @@ declare namespace LocalJSX {
         "app-footer": AppFooter;
         "app-form": AppForm;
         "app-root": AppRoot;
-        "output-item": OutputItem;
-        "prev-sems-dialog": PrevSemsDialog;
         "wage-output": WageOutput;
     }
 }
@@ -115,8 +85,6 @@ declare module "@stencil/core" {
             "app-footer": LocalJSX.AppFooter & JSXBase.HTMLAttributes<HTMLAppFooterElement>;
             "app-form": LocalJSX.AppForm & JSXBase.HTMLAttributes<HTMLAppFormElement>;
             "app-root": LocalJSX.AppRoot & JSXBase.HTMLAttributes<HTMLAppRootElement>;
-            "output-item": LocalJSX.OutputItem & JSXBase.HTMLAttributes<HTMLOutputItemElement>;
-            "prev-sems-dialog": LocalJSX.PrevSemsDialog & JSXBase.HTMLAttributes<HTMLPrevSemsDialogElement>;
             "wage-output": LocalJSX.WageOutput & JSXBase.HTMLAttributes<HTMLWageOutputElement>;
         }
     }

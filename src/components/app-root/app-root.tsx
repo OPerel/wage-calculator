@@ -56,7 +56,8 @@ export class AppRoot {
         <header>
           <ion-title>{RootLabels.HeaderTitle}</ion-title>
           <img
-            src="https://cafe.themarker.com/media/t/146/754/7/file_0_big.jpg?1267870768"
+            style={{ backgroundColor: 'white' }}
+            src="https://workers.org.il/wp-content/uploads/2018/05/workers-logo-80h.png"
             alt="logo"
             width="100"
             height="50"
