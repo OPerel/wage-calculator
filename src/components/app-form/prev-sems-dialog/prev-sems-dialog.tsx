@@ -10,7 +10,6 @@ const { q1, q2, q3, q4, q, Title, SemATitle, Submit, Close } = Dialog;
 
 @Component({
   tag: 'prev-sems-dialog',
-  styleUrl: 'prev-sems-dialog.css',
 })
 export class PrevSems {
   @Element() el: HTMLElement;

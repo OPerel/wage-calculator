@@ -95,9 +95,8 @@ export class AppRoot {
               <p>* {saNote}</p>
             </div>
           </main>
+          <app-footer />
         </ion-content>
-
-        <app-footer />
       </ion-app>
     );
   }
