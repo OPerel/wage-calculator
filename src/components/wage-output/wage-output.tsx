@@ -13,22 +13,39 @@ export class WageOutput {
   @Prop() futureWageByWeeks: number;
   @Prop() futureWage: number;
   @Prop() pensionPayments: number;
+  @Prop() college: string;
 
   render() {
     return (
       <div>
         {this.presentWageAsSa ? (
-          <output-item label={`${SemPay} ${Present} ${AsSa}`} sum={this.presentWageAsSa} />
+          <output-item
+            label={`${SemPay} ${Present} ${AsSa}`}
+            sum={this.presentWageAsSa}
+          />
         ) : (
-          <output-item label={`${SemPay} ${Present} ${AsMmh}`} sum={this.presentWage} />
+          <output-item
+            label={`${SemPay} ${Present} ${AsMmh}`}
+            sum={this.presentWage}
+          />
         )}
 
-        <output-item label={`${SemPay} ${Future} ${AsMmh}`} sum={this.futureWageByWeeks} />
+        <output-item
+          label={`${SemPay} ${Future} ${AsMmh}`}
+          sum={this.futureWageByWeeks}
+        />
 
-        <output-item label={`${SemPay} ${Future} ${AsSa}`} sum={this.futureWage} />
+        <output-item
+          label={`${SemPay} ${Future} ${AsSa}${
+            ['hit15', 'hit168', 'ahv', 'hds', 'spr'].includes(this.college)
+              ? '**'
+              : ''
+          }`}
+          sum={this.futureWage}
+        />
 
         <output-item label={Pension} sum={this.pensionPayments} />
       </div>
-    )
+    );
   }
 }

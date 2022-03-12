@@ -35,7 +35,7 @@ export class AppRoot {
 
   @Listen('chooseCollege')
   chooseCollegeHandler(e: CustomEvent<string>) {
-    this.college = e.detail
+    this.college = e.detail;
   }
 
   componentDidLoad() {
@@ -56,7 +56,8 @@ export class AppRoot {
         <header>
           <ion-title>{RootLabels.HeaderTitle}</ion-title>
           <img
-            src="https://cafe.themarker.com/media/t/146/754/7/file_0_big.jpg?1267870768"
+            style={{ backgroundColor: 'white' }}
+            src="https://workers.org.il/wp-content/uploads/2018/05/workers-logo-80h.png"
             alt="logo"
             width="100"
             height="50"
@@ -64,13 +65,14 @@ export class AppRoot {
         </header>
 
         <ion-content>
-
-          <ion-refresher slot="fixed" onIonRefresh={() => window.location.reload()}>
+          <ion-refresher
+            slot="fixed"
+            onIonRefresh={() => window.location.reload()}
+          >
             <ion-refresher-content></ion-refresher-content>
           </ion-refresher>
 
           <main class="content">
-
             <h2>{RootLabels.PageTitle}</h2>
 
             <app-form />
@@ -82,20 +84,20 @@ export class AppRoot {
                 futureWageByWeeks={this.futureWageByWeeks}
                 futureWage={this.futureWage}
                 pensionPayments={this.pensionPayments}
+                college={this.college}
               />
             )}
 
             <div class="note">
-              {['hit15', 'hit168', 'ahv', 'hds', 'spr'].includes(this.college) && <p>* {extraNote}</p>}
+              {['hit15', 'hit168', 'ahv', 'hds', 'spr'].includes(
+                this.college,
+              ) && <p>* {extraNote}</p>}
               <p>* {disclaimer}</p>
               <p>* {saNote}</p>
             </div>
-
           </main>
-
+          <app-footer />
         </ion-content>
-
-        <app-footer />
       </ion-app>
     );
   }

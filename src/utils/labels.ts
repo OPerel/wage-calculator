@@ -1,10 +1,11 @@
 export enum RootLabels {
   HeaderTitle = 'איגוד הסגל האקדמי במכללות הציבוריות',
-  PageTitle = 'מחשבון שכר נוכחי ועתידי'
+  PageTitle = 'מחשבון שכר נוכחי ועתידי',
 }
 
 export enum FormLabels {
-  HasPrevSems = 'האם התחלת לעבוד לפני סמסטר א\' תשפ"א?',
+  StartedBeforeSemA = 'האם התחלת לעבוד לפני סמסטר א\' תשפ"א?',
+  StartedInSemA = 'האם התחלת לעבוד בסמסטר א\' תשפ"א?',
   ChooseCollege = 'בחר/י מכללה',
   ChooseDeal = 'בחר/י אופן העסקה',
   BeforeDeal = 'לפני ההסכם',
@@ -18,7 +19,7 @@ export enum FormLabels {
   ChooseCurrentSeniority = 'בחר/י ותק לצורך טבלת השכר הנוכחית',
   EnterHours = 'הכנס/י מספר שעות שבועיות',
   BonusHours = 'שעות לחישוב בונוס:',
-  SubmitButton = 'חשב/י שכר'
+  SubmitButton = 'חשב/י שכר',
 }
 
 export enum Dialog {
@@ -26,9 +27,11 @@ export enum Dialog {
   q2 = 'שעות סמסטר א תש"פ',
   q3 = 'שעות סמסטר ב תשע"ט',
   q4 = 'שעות סמסטר א תשע"ט',
-  Title = 'הכנס\\י שעות של 4 סמס\' אחרונים',
+  q = 'שעות סמסטר א תשפ"א',
+  Title = "הכנס\\י שעות של 4 סמס'",
+  SemATitle = 'הכנס\\י שעות של סמס\' א תשפ"א',
   Submit = 'הכנס',
-  Close = 'סגור'
+  Close = 'סגור',
 }
 
 export enum Output {
@@ -37,5 +40,5 @@ export enum Output {
   Future = 'אחרי ההסכם',
   AsSa = 'כסגל עמית',
   AsMmh = 'כמרצה מן החוץ',
-  Pension = 'גובה קרן השתלמות לסגל עמית הפרשות מעסיק'
+  Pension = 'גובה קרן השתלמות לסגל עמית הפרשות מעסיק',
 }
