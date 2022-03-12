@@ -91,7 +91,7 @@ export class AppRoot {
             <div class="note">
               {['hit15', 'hit168', 'ahv', 'hds', 'spr'].includes(
                 this.college,
-              ) && <p>* {extraNote}</p>}
+              ) && <p>** {extraNote}</p>}
               <p>* {disclaimer}</p>
               <p>* {saNote}</p>
             </div>
