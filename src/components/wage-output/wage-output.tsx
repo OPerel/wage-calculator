@@ -33,16 +33,16 @@ export class WageOutput {
         <output-item
           label={`${SemPay} ${Future} ${AsMmh}${
             ['hit15', 'hit168', 'ahv', 'hds', 'spr'].includes(this.college)
-              ? '**'
+              ? ' **'
               : ''
-          }\``}
+          }`}
           sum={this.futureWageByWeeks}
         />
 
         <output-item
           label={`${SemPay} ${Future} ${AsSa}${
             ['hit15', 'hit168', 'ahv', 'hds', 'spr'].includes(this.college)
-              ? '**'
+              ? ' **'
               : ''
           }`}
           sum={this.futureWage}

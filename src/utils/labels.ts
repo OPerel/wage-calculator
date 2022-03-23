@@ -4,7 +4,7 @@ export enum RootLabels {
 }
 
 export enum FormLabels {
-  StartedBeforeSemA = 'האם התחלת לעבוד לפני סמסטר א\' תשפ"א?',
+  StartedBeforeSemA = 'האם עבדת לפני סמסטר א\' תשפ"א?',
   StartedInSemA = 'האם התחלת לעבוד בסמסטר א\' תשפ"א?',
   ChooseCollege = 'בחר/י מכללה',
   ChooseDeal = 'בחר/י אופן העסקה',
@@ -18,7 +18,7 @@ export enum FormLabels {
   ChooseSeniority = 'בחר/י ותק',
   ChooseCurrentSeniority = 'בחר/י ותק לצורך טבלת השכר הנוכחית',
   EnterHours = 'הכנס/י מספר שעות שבועיות',
-  BonusHours = 'שעות לחישוב בונוס:',
+  BonusHours = 'שעות לתוספת נשחקת:',
   SubmitButton = 'חשב/י שכר',
 }
 
