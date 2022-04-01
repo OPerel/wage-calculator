@@ -51,5 +51,7 @@ export class WageOutput {
 }
 
 function addDoubleAstrixIfNeeded(college) {
-  return ['hit15', 'hit168', 'ahv', 'hds', 'spr'].includes(college) ? '**' : '';
+  return ['hit15', 'hit168', 'ahv', 'hds', 'spr'].includes(college)
+    ? ' **'
+    : '';
 }
