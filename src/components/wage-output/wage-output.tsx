@@ -31,20 +31,16 @@ export class WageOutput {
         )}
 
         <output-item
-          label={`${SemPay} ${Future} ${AsMmh}${
-            ['hit15', 'hit168', 'ahv', 'hds', 'spr'].includes(this.college)
-              ? '**'
-              : ''
-          }\``}
+          label={`${SemPay} ${Future} ${AsMmh}${addDoubleAstrixIfNeeded(
+            this.college,
+          )}`}
           sum={this.futureWageByWeeks}
         />
 
         <output-item
-          label={`${SemPay} ${Future} ${AsSa}${
-            ['hit15', 'hit168', 'ahv', 'hds', 'spr'].includes(this.college)
-              ? '**'
-              : ''
-          }`}
+          label={`${SemPay} ${Future} ${AsSa}${addDoubleAstrixIfNeeded(
+            this.college,
+          )}`}
           sum={this.futureWage}
         />
 
@@ -52,4 +48,10 @@ export class WageOutput {
       </div>
     );
   }
+}
+
+function addDoubleAstrixIfNeeded(college) {
+  return ['hit15', 'hit168', 'ahv', 'hds', 'spr'].includes(college)
+    ? ' **'
+    : '';
 }
