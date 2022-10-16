@@ -27,6 +27,8 @@ export namespace Components {
         "pensionPayments": number;
         "presentWage": number | undefined;
         "presentWageAsSa": number | undefined;
+        "remainingHoursMmh": number | undefined;
+        "remainingHoursSa": number | undefined;
     }
 }
 declare global {
@@ -98,6 +100,8 @@ declare namespace LocalJSX {
         "pensionPayments"?: number;
         "presentWage"?: number | undefined;
         "presentWageAsSa"?: number | undefined;
+        "remainingHoursMmh"?: number | undefined;
+        "remainingHoursSa"?: number | undefined;
     }
     interface IntrinsicElements {
         "app-footer": AppFooter;

@@ -17,5 +17,7 @@ export interface Result {
   futureWageByWeeks: number;
   futureWage: number;
   pensionPayments: number;
+  remainingHoursSa: number | undefined;
+  remainingHoursMmh: number | undefined;
   college?: string;
 }

@@ -22,6 +22,8 @@ const dataResultPairs: [string, FormState, Result][] = [
       futureWageByWeeks: 18944.02,
       futureWage: 19924.87,
       pensionPayments: 1494.37,
+      remainingHoursMmh: undefined,
+      remainingHoursSa: undefined,
     },
   ],
   [
@@ -44,6 +46,8 @@ const dataResultPairs: [string, FormState, Result][] = [
       pensionPayments: 1103.59,
       presentWage: 15018.64,
       presentWageAsSa: null,
+      remainingHoursMmh: 0.0037286998023789105,
+      remainingHoursSa: 0.0038699066826024878,
     },
   ],
   [
@@ -66,6 +70,8 @@ const dataResultPairs: [string, FormState, Result][] = [
       futureWageByWeeks: 12202.64,
       futureWage: 14116.95,
       pensionPayments: 999.48,
+      remainingHoursMmh: 0.0052201805789126405,
+      remainingHoursSa: 0.006039105326673638,
     },
   ],
   [
@@ -88,6 +94,8 @@ const dataResultPairs: [string, FormState, Result][] = [
       futureWageByWeeks: 48574.4,
       futureWage: 49412.53,
       pensionPayments: 3498.41,
+      remainingHoursMmh: 0.0028821766197832605,
+      remainingHoursSa: 0.0029319073151771085,
     },
   ],
   [
@@ -110,6 +118,8 @@ const dataResultPairs: [string, FormState, Result][] = [
       futureWageByWeeks: 13945.88,
       futureWage: 15806.11,
       pensionPayments: 1185.46,
+      remainingHoursMmh: undefined,
+      remainingHoursSa: undefined,
     },
   ],
   [
@@ -132,6 +142,8 @@ const dataResultPairs: [string, FormState, Result][] = [
       futureWageByWeeks: 65228.48,
       futureWage: 68257.14,
       pensionPayments: 5119.29,
+      remainingHoursMmh: undefined,
+      remainingHoursSa: undefined,
     },
   ],
   [
@@ -154,6 +166,8 @@ const dataResultPairs: [string, FormState, Result][] = [
       futureWageByWeeks: 25907.15,
       futureWage: 27851.61,
       pensionPayments: 1971.89,
+      remainingHoursMmh: 0.004802564603959918,
+      remainingHoursSa: 0.005163020878378985,
     },
   ],
   // [
@@ -198,6 +212,8 @@ const dataResultPairs: [string, FormState, Result][] = [
       futureWageByWeeks: 47201.44,
       futureWage: 48729.03,
       pensionPayments: 3450.02,
+      remainingHoursMmh: 0.0036458398067704904,
+      remainingHoursSa: 0.003763830877179032,
     },
   ],
   [
@@ -220,6 +236,8 @@ const dataResultPairs: [string, FormState, Result][] = [
       futureWageByWeeks: 41288.24,
       futureWage: 41288.24,
       pensionPayments: 3096.62,
+      remainingHoursMmh: undefined,
+      remainingHoursSa: undefined,
     },
   ],
   [
@@ -242,6 +260,8 @@ const dataResultPairs: [string, FormState, Result][] = [
       pensionPayments: 2238.15,
       presentWage: 27891.76,
       presentWageAsSa: null,
+      remainingHoursMmh: 0.0037286998023789105,
+      remainingHoursSa: 0.004226068145816494,
     },
   ],
   [
@@ -264,6 +284,8 @@ const dataResultPairs: [string, FormState, Result][] = [
       futureWageByWeeks: 29144.64,
       futureWage: 30041.67,
       pensionPayments: 2253.13,
+      remainingHoursMmh: undefined,
+      remainingHoursSa: undefined,
     },
   ],
   [
@@ -286,6 +308,8 @@ const dataResultPairs: [string, FormState, Result][] = [
       futureWageByWeeks: 17834.63,
       futureWage: 19897.69,
       pensionPayments: 1408.76,
+      remainingHoursMmh: 0.005030150911496652,
+      remainingHoursSa: 0.005612024667188376,
     },
   ],
   [
@@ -308,6 +332,8 @@ const dataResultPairs: [string, FormState, Result][] = [
       futureWageByWeeks: 39692.12,
       futureWage: 39788.01,
       pensionPayments: 2816.99,
+      remainingHoursMmh: 0.0036789838050138583,
+      remainingHoursSa: 0.00368787165875064,
     },
   ],
   [
@@ -330,6 +356,8 @@ const dataResultPairs: [string, FormState, Result][] = [
       futureWageByWeeks: 32182.8,
       futureWage: 32182.8,
       pensionPayments: 2413.71,
+      remainingHoursMmh: undefined,
+      remainingHoursSa: undefined,
     },
   ],
   [
@@ -352,6 +380,8 @@ const dataResultPairs: [string, FormState, Result][] = [
       futureWageByWeeks: 36916.54,
       futureWage: 37794.54,
       pensionPayments: 2834.59,
+      remainingHoursMmh: undefined,
+      remainingHoursSa: undefined,
     },
   ],
 ];

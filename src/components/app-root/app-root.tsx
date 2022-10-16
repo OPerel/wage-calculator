@@ -14,6 +14,8 @@ export class AppRoot {
   @State() futureWageByWeeks: number;
   @State() futureWage: number;
   @State() pensionPayments: number;
+  @State() remainingHoursMmh: number | undefined;
+  @State() remainingHoursSa: number | undefined;
   @State() college: string;
 
   @Listen('submitForm')
@@ -24,6 +26,8 @@ export class AppRoot {
       futureWageByWeeks,
       futureWage,
       pensionPayments,
+      remainingHoursMmh,
+      remainingHoursSa
     } = e.detail;
 
     this.presentWage = presentWage;
@@ -31,6 +35,8 @@ export class AppRoot {
     this.futureWageByWeeks = futureWageByWeeks;
     this.futureWage = futureWage;
     this.pensionPayments = pensionPayments;
+    this.remainingHoursMmh = remainingHoursMmh;
+    this.remainingHoursSa = remainingHoursSa;
   }
 
   @Listen('chooseCollege')
@@ -84,6 +90,8 @@ export class AppRoot {
                 futureWageByWeeks={this.futureWageByWeeks}
                 futureWage={this.futureWage}
                 pensionPayments={this.pensionPayments}
+                remainingHoursMmh={this.remainingHoursMmh}
+                remainingHoursSa={this.remainingHoursSa}
                 college={this.college}
               />
             )}

@@ -29,6 +29,8 @@ export default function handleCalcLogic(state: FormState) {
     futureWageByWeeks: undefined,
     futureWage: undefined,
     pensionPayments: undefined,
+    remainingHoursMmh: undefined,
+    remainingHoursSa: undefined
   };
 
   const { weeks, weeksForNew } = colleges.find(c => c.name === college);
@@ -152,6 +154,11 @@ export default function handleCalcLogic(state: FormState) {
     result.futureWage,
     preDealSa,
   );
+
+  if (!preDealSa) {
+    result.remainingHoursMmh = (result.futureWageByWeeks / result.presentWage) / hourlyWage;
+    result.remainingHoursSa = (result.futureWage / result.presentWage) / hourlyWage;
+  }
 
   // if running in dev mode
   // generate and log a test object for current use case
