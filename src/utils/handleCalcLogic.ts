@@ -2,6 +2,7 @@ import {
   getPresentWage,
   getFutureWage,
   getEmployerPensionPayments,
+  getRemainingHours,
 } from './calculate';
 import colleges from '../assets/data/colleges';
 import ranks from '../assets/data/wageByRank';
@@ -30,7 +31,7 @@ export default function handleCalcLogic(state: FormState) {
     futureWage: undefined,
     pensionPayments: undefined,
     remainingHoursMmh: undefined,
-    remainingHoursSa: undefined
+    remainingHoursSa: undefined,
   };
 
   const { weeks, weeksForNew } = colleges.find(c => c.name === college);
@@ -156,8 +157,16 @@ export default function handleCalcLogic(state: FormState) {
   );
 
   if (!preDealSa) {
-    result.remainingHoursMmh = (result.futureWageByWeeks / result.presentWage) / hourlyWage;
-    result.remainingHoursSa = (result.futureWage / result.presentWage) / hourlyWage;
+    result.remainingHoursMmh = getRemainingHours(
+      result.futureWageByWeeks,
+      result.presentWage,
+      hourlyWage,
+    );
+    result.remainingHoursSa = getRemainingHours(
+      result.futureWage,
+      result.presentWage,
+      hourlyWage,
+    );
   }
 
   // if running in dev mode

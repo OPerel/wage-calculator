@@ -1,8 +1,7 @@
 import { Component, h, Prop } from '@stencil/core';
 import { Output } from '../../utils/labels';
 
-const { SemPay, AsMmh, AsSa, Future, Present, Pension, RemainingHours } =
-  Output;
+const { SemPay, AsMmh, AsSa, Future, Present, Pension } = Output;
 
 @Component({
   tag: 'wage-output',
@@ -48,21 +47,6 @@ export class WageOutput {
         />
 
         <output-item label={Pension} sum={this.pensionPayments} />
-
-        {addDoubleAstrixIfNeeded(this.college) &&
-          this.remainingHoursSa &&
-          this.remainingHoursMmh && [
-            <output-item
-              label={`${RemainingHours} כממ"ח הן`}
-              sum={this.remainingHoursMmh}
-              isCurrency={false}
-            />,
-            <output-item
-              label={`${RemainingHours} כס"ע הן`}
-              sum={this.remainingHoursSa}
-              isCurrency={false}
-            />,
-          ]}
       </div>
     );
   }
