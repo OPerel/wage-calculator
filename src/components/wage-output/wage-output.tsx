@@ -55,10 +55,12 @@ export class WageOutput {
             <output-item
               label={`${RemainingHours} כממ"ח הן`}
               sum={this.remainingHoursMmh}
+              isCurrency={false}
             />,
             <output-item
               label={`${RemainingHours} כס"ע הן`}
               sum={this.remainingHoursSa}
+              isCurrency={false}
             />,
           ]}
       </div>

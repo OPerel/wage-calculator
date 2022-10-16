@@ -14,6 +14,7 @@ export namespace Components {
     interface AppRoot {
     }
     interface OutputItem {
+        "isCurrency"?: boolean;
         "label": string;
         "sum": number;
     }
@@ -87,6 +88,7 @@ declare namespace LocalJSX {
     interface AppRoot {
     }
     interface OutputItem {
+        "isCurrency"?: boolean;
         "label"?: string;
         "sum"?: number;
     }
