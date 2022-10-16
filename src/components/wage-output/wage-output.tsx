@@ -13,6 +13,8 @@ export class WageOutput {
   @Prop() futureWageByWeeks: number;
   @Prop() futureWage: number;
   @Prop() pensionPayments: number;
+  @Prop() remainingHoursMmh: number | undefined;
+  @Prop() remainingHoursSa: number | undefined;
   @Prop() college: string;
 
   render() {

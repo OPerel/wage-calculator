@@ -14,6 +14,7 @@ export namespace Components {
     interface AppRoot {
     }
     interface OutputItem {
+        "isCurrency"?: boolean;
         "label": string;
         "sum": number;
     }
@@ -27,6 +28,8 @@ export namespace Components {
         "pensionPayments": number;
         "presentWage": number | undefined;
         "presentWageAsSa": number | undefined;
+        "remainingHoursMmh": number | undefined;
+        "remainingHoursSa": number | undefined;
     }
 }
 declare global {
@@ -85,6 +88,7 @@ declare namespace LocalJSX {
     interface AppRoot {
     }
     interface OutputItem {
+        "isCurrency"?: boolean;
         "label"?: string;
         "sum"?: number;
     }
@@ -98,6 +102,8 @@ declare namespace LocalJSX {
         "pensionPayments"?: number;
         "presentWage"?: number | undefined;
         "presentWageAsSa"?: number | undefined;
+        "remainingHoursMmh"?: number | undefined;
+        "remainingHoursSa"?: number | undefined;
     }
     interface IntrinsicElements {
         "app-footer": AppFooter;

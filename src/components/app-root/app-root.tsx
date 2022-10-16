@@ -1,8 +1,10 @@
-import { Component, h, State, Listen } from '@stencil/core';
+import { Component, h, State, Listen, Fragment } from '@stencil/core';
 
 import { disclaimer, extraNote, saNote } from '../../assets/data/text';
 import { Result } from '../../interfaces';
-import { RootLabels } from '../../utils/labels';
+import { Output, RootLabels } from '../../utils/labels';
+
+const { RemainingHours } = Output;
 
 @Component({
   tag: 'app-root',
@@ -14,6 +16,8 @@ export class AppRoot {
   @State() futureWageByWeeks: number;
   @State() futureWage: number;
   @State() pensionPayments: number;
+  @State() remainingHoursMmh: number | undefined;
+  @State() remainingHoursSa: number | undefined;
   @State() college: string;
 
   @Listen('submitForm')
@@ -24,6 +28,8 @@ export class AppRoot {
       futureWageByWeeks,
       futureWage,
       pensionPayments,
+      remainingHoursMmh,
+      remainingHoursSa,
     } = e.detail;
 
     this.presentWage = presentWage;
@@ -31,6 +37,8 @@ export class AppRoot {
     this.futureWageByWeeks = futureWageByWeeks;
     this.futureWage = futureWage;
     this.pensionPayments = pensionPayments;
+    this.remainingHoursMmh = remainingHoursMmh;
+    this.remainingHoursSa = remainingHoursSa;
   }
 
   @Listen('chooseCollege')
@@ -84,6 +92,8 @@ export class AppRoot {
                 futureWageByWeeks={this.futureWageByWeeks}
                 futureWage={this.futureWage}
                 pensionPayments={this.pensionPayments}
+                remainingHoursMmh={this.remainingHoursMmh}
+                remainingHoursSa={this.remainingHoursSa}
                 college={this.college}
               />
             )}
@@ -91,7 +101,25 @@ export class AppRoot {
             <div class="note">
               {['hit15', 'hit168', 'ahv', 'hds', 'spr'].includes(
                 this.college,
-              ) && <p>** {extraNote}</p>}
+              ) && (
+                <Fragment>
+                  <p>** {extraNote}</p>
+                  {this.remainingHoursSa && this.remainingHoursMmh && (
+                    <Fragment>
+                      <output-item
+                        label={`${RemainingHours} כממ"ח הן`}
+                        sum={this.remainingHoursMmh}
+                        isCurrency={false}
+                      />
+                      <output-item
+                        label={`${RemainingHours} כס"ע הן`}
+                        sum={this.remainingHoursSa}
+                        isCurrency={false}
+                      />
+                    </Fragment>
+                  )}
+                </Fragment>
+              )}
               <p>* {disclaimer}</p>
               <p>* {saNote}</p>
             </div>

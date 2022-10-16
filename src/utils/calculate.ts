@@ -71,7 +71,21 @@ const getEmployerPensionPayments = (
   return roundResult(wage * 0.0708);
 };
 
+const getRemainingHours = (
+  futureWage: number,
+  currentWage: number,
+  hourlyRate: number,
+) => {
+  const result = (futureWage - currentWage) / hourlyRate;
+  return roundResult(result);
+};
+
 const roundResult = (wage: number): number =>
   Math.round((wage + Number.EPSILON) * 100) / 100;
 
-export { getPresentWage, getFutureWage, getEmployerPensionPayments };
+export {
+  getPresentWage,
+  getFutureWage,
+  getEmployerPensionPayments,
+  getRemainingHours,
+};
