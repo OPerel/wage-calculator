@@ -47,7 +47,7 @@ const dataResultPairs: [string, FormState, Result][] = [
       presentWage: 15018.64,
       presentWageAsSa: null,
       remainingHoursMmh: 0,
-      remainingHoursSa: 2.12,
+      remainingHoursSa: 0,
     },
   ],
   [
@@ -70,8 +70,8 @@ const dataResultPairs: [string, FormState, Result][] = [
       futureWageByWeeks: 12202.64,
       futureWage: 14116.95,
       pensionPayments: 999.48,
-      remainingHoursMmh: 13,
-      remainingHoursSa: 20.14,
+      remainingHoursMmh: 0,
+      remainingHoursSa: 0,
     },
   ],
   [
@@ -95,7 +95,7 @@ const dataResultPairs: [string, FormState, Result][] = [
       futureWage: 49412.53,
       pensionPayments: 3498.41,
       remainingHoursMmh: 0,
-      remainingHoursSa: 2.42,
+      remainingHoursSa: 0,
     },
   ],
   [
@@ -166,8 +166,8 @@ const dataResultPairs: [string, FormState, Result][] = [
       futureWageByWeeks: 25907.15,
       futureWage: 27851.61,
       pensionPayments: 1971.89,
-      remainingHoursMmh: 21.6,
-      remainingHoursSa: 28.85,
+      remainingHoursMmh: 0,
+      remainingHoursSa: 0,
     },
   ],
   // [
@@ -212,8 +212,8 @@ const dataResultPairs: [string, FormState, Result][] = [
       futureWageByWeeks: 47201.44,
       futureWage: 48729.03,
       pensionPayments: 3450.02,
-      remainingHoursMmh: -4,
-      remainingHoursSa: 1.7,
+      remainingHoursMmh: 4,
+      remainingHoursSa: 0,
     },
   ],
   [
@@ -261,7 +261,7 @@ const dataResultPairs: [string, FormState, Result][] = [
       presentWage: 27891.76,
       presentWageAsSa: null,
       remainingHoursMmh: 0,
-      remainingHoursSa: 13.87,
+      remainingHoursSa: 0,
     },
   ],
   [
@@ -308,8 +308,8 @@ const dataResultPairs: [string, FormState, Result][] = [
       futureWageByWeeks: 17834.63,
       futureWage: 19897.69,
       pensionPayments: 1408.76,
-      remainingHoursMmh: -13.32,
-      remainingHoursSa: -1.58,
+      remainingHoursMmh: 13.32,
+      remainingHoursSa: 1.58,
     },
   ],
   [
@@ -332,8 +332,8 @@ const dataResultPairs: [string, FormState, Result][] = [
       futureWageByWeeks: 39692.12,
       futureWage: 39788.01,
       pensionPayments: 2816.99,
-      remainingHoursMmh: -2,
-      remainingHoursSa: -1.64,
+      remainingHoursMmh: 2,
+      remainingHoursSa: 1.64,
     },
   ],
   [
