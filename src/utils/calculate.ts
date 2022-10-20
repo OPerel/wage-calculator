@@ -76,8 +76,8 @@ const getRemainingHours = (
   currentWage: number,
   hourlyRate: number,
 ) => {
-  const result = (futureWage - currentWage) / hourlyRate;
-  return roundResult(result);
+  const result = roundResult((currentWage - futureWage) / hourlyRate);
+  return result > 0 ? result : 0;
 };
 
 const roundResult = (wage: number): number =>

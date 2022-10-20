@@ -104,7 +104,7 @@ export class AppRoot {
               ) && (
                 <Fragment>
                   <p>** {extraNote}</p>
-                  {this.remainingHoursSa && this.remainingHoursMmh && (
+                  {this.remainingHoursSa !== undefined && (
                     <Fragment>
                       <output-item
                         label={`${RemainingHours} כממ"ח הן`}
