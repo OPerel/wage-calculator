@@ -384,6 +384,30 @@ const dataResultPairs: [string, FormState, Result][] = [
       remainingHoursSa: undefined,
     },
   ],
+  [
+    'hds ["prof"] max-6 noSa rank-b seniority-20 hours-3 ',
+    {
+      maxPrevHours: 6,
+      college: 'hds',
+      preDealSa: false,
+      position: ['prof'],
+      multiPosition: false,
+      rank: 'b',
+      preDealSeniority: null,
+      seniority: 20,
+      hours: 3,
+      hours2: null,
+    },
+    {
+      presentWage: 16654.08,
+      presentWageAsSa: null,
+      futureWageByWeeks: 15613.2,
+      futureWage: 15809.79,
+      pensionPayments: 1119.33,
+      remainingHoursMmh: 3,
+      remainingHoursSa: 2.43,
+    },
+  ],
 ];
 
 test.each(dataResultPairs)('test use case %# - %s', (_, input, output) => {
