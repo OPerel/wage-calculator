@@ -11,10 +11,10 @@ const getPresentWage = (
   let wage: number;
   // divide hours to with bonus and without
   if (asFuture && maxPrevHours && college !== 'hit13' && college !== 'bbr') {
-    const noBonusHours = hours - maxPrevHours;
+    const noBonusHours = hours > maxPrevHours ? hours - maxPrevHours : 0;
     wage =
       weeks * hourlyWage * noBonusHours +
-      (weeks + 1) * hourlyWage * maxPrevHours;
+      (weeks + 1) * hourlyWage * (hours > maxPrevHours ? maxPrevHours : hours);
   } else {
     wage = weeks * hourlyWage * hours;
   }

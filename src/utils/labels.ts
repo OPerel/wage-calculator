@@ -18,7 +18,7 @@ export enum FormLabels {
   ChooseSeniority = 'בחר/י ותק',
   ChooseCurrentSeniority = 'בחר/י ותק לצורך טבלת השכר הנוכחית',
   EnterHours = 'הכנס/י מספר שעות שבועיות',
-  BonusHours = 'שעות לתוספת נשחקת:',
+  BonusHours = 'מקסימום שעות לתוספת נשחקת:',
   SubmitButton = 'חשב/י שכר',
 }
 
