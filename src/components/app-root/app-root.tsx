@@ -1,4 +1,5 @@
 import { Component, h, State, Listen, Fragment } from '@stencil/core';
+import { marked } from 'marked';
 
 import { disclaimer, extraNote, saNote } from '../../assets/data/text';
 import { Result } from '../../interfaces';
@@ -121,7 +122,7 @@ export class AppRoot {
                 </Fragment>
               )}
               <p>* {disclaimer}</p>
-              <p>* {saNote}</p>
+              <p innerHTML={marked.parse(`* ${saNote}`)} />
             </div>
           </main>
           <app-footer />

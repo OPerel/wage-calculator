@@ -64,7 +64,8 @@ ion-button {
 .note {
   margin: 0;
   padding: 4% 0;
-  text-align: center;
+  text-align: start;
+  font-size: 18px;
 }
 
 @media only screen and (min-width: 776px) {
