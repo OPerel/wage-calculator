@@ -12,10 +12,10 @@ export interface FormState {
 }
 
 export interface Result {
-  presentWage: undefined | number;
+  presentWageAsMamah: undefined | number;
   presentWageAsSa: undefined | number;
-  futureWageByWeeks: number;
-  futureWage: number;
+  futureWageAsMamah: number;
+  futureWageAsSa: number;
   pensionPayments: number;
   remainingHoursSa: number | undefined;
   remainingHoursMmh: number | undefined;

@@ -12,10 +12,10 @@ const { RemainingHours } = Output;
   styleUrl: 'app-root.css',
 })
 export class AppRoot {
-  @State() presentWage: number;
+  @State() presentWageAsMamah: number;
   @State() presentWageAsSa: number;
-  @State() futureWageByWeeks: number;
-  @State() futureWage: number;
+  @State() futureWageAsMamah: number;
+  @State() futureWageAsSa: number;
   @State() pensionPayments: number;
   @State() remainingHoursMmh: number | undefined;
   @State() remainingHoursSa: number | undefined;
@@ -24,19 +24,19 @@ export class AppRoot {
   @Listen('submitForm')
   submitFormHandler(e: CustomEvent<Result>) {
     const {
-      presentWage,
+      presentWageAsMamah,
       presentWageAsSa,
-      futureWageByWeeks,
-      futureWage,
+      futureWageAsMamah,
+      futureWageAsSa,
       pensionPayments,
       remainingHoursMmh,
       remainingHoursSa,
     } = e.detail;
 
-    this.presentWage = presentWage;
+    this.presentWageAsMamah = presentWageAsMamah;
     this.presentWageAsSa = presentWageAsSa;
-    this.futureWageByWeeks = futureWageByWeeks;
-    this.futureWage = futureWage;
+    this.futureWageAsMamah = futureWageAsMamah;
+    this.futureWageAsSa = futureWageAsSa;
     this.pensionPayments = pensionPayments;
     this.remainingHoursMmh = remainingHoursMmh;
     this.remainingHoursSa = remainingHoursSa;
@@ -86,12 +86,12 @@ export class AppRoot {
 
             <app-form />
 
-            {(!!this.presentWage || !!this.presentWageAsSa) && (
+            {(!!this.presentWageAsMamah || !!this.presentWageAsSa) && (
               <wage-output
-                presentWage={this.presentWage}
+                presentWageAsMamah={this.presentWageAsMamah}
                 presentWageAsSa={this.presentWageAsSa}
-                futureWageByWeeks={this.futureWageByWeeks}
-                futureWage={this.futureWage}
+                futureWageAsMamah={this.futureWageAsMamah}
+                futureWageAsSa={this.futureWageAsSa}
                 pensionPayments={this.pensionPayments}
                 remainingHoursMmh={this.remainingHoursMmh}
                 remainingHoursSa={this.remainingHoursSa}
