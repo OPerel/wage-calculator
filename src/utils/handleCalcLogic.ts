@@ -1,6 +1,6 @@
 import {
-  getPresentWage,
-  getFutureWage,
+  getWageAsMamah,
+  getWageAsSa,
   getEmployerPensionPayments,
   getRemainingHours,
 } from './calculate';
@@ -25,10 +25,10 @@ export default function handleCalcLogic(state: FormState) {
   } = state;
 
   let result: Result = {
-    presentWage: undefined,
+    presentWageAsMamah: undefined,
     presentWageAsSa: undefined,
-    futureWageByWeeks: undefined,
-    futureWage: undefined,
+    futureWageAsMamah: undefined,
+    futureWageAsSa: undefined,
     pensionPayments: undefined,
     remainingHoursMmh: undefined,
     remainingHoursSa: undefined,
@@ -51,16 +51,16 @@ export default function handleCalcLogic(state: FormState) {
   }
 
   if (preDealSa) {
-    result.presentWageAsSa = getFutureWage(
+    result.presentWageAsSa = getWageAsSa(
       preDealSeniorityWage,
       hours,
       teach,
       preDealSa,
       college,
     );
-    result.presentWage = null;
+    result.presentWageAsMamah = null;
   } else {
-    result.presentWage = getPresentWage(
+    result.presentWageAsMamah = getWageAsMamah(
       maxPrevHours ? weeks : weeksForNew,
       hourlyWage,
       hours,
@@ -71,7 +71,7 @@ export default function handleCalcLogic(state: FormState) {
     result.presentWageAsSa = null;
   }
 
-  result.futureWageByWeeks = getPresentWage(
+  result.futureWageAsMamah = getWageAsMamah(
     weeksForNew,
     sapirFutureHourlyWage || hourlyWage,
     hours,
@@ -81,7 +81,7 @@ export default function handleCalcLogic(state: FormState) {
     true,
   );
 
-  result.futureWage = getFutureWage(
+  result.futureWageAsSa = getWageAsSa(
     seniorityWage,
     hours,
     teach,
@@ -100,7 +100,7 @@ export default function handleCalcLogic(state: FormState) {
     }
 
     if (preDealSa) {
-      result.presentWageAsSa += getFutureWage(
+      result.presentWageAsSa += getWageAsSa(
         preDealSeniorityWage,
         hours2,
         false,
@@ -108,9 +108,9 @@ export default function handleCalcLogic(state: FormState) {
         college,
         false,
       );
-      result.presentWage = undefined;
+      result.presentWageAsMamah = undefined;
     } else {
-      result.presentWage += getPresentWage(
+      result.presentWageAsMamah += getWageAsMamah(
         maxPrevHours ? weeks : weeksForNew,
         hourlyWage,
         hours2,
@@ -121,7 +121,7 @@ export default function handleCalcLogic(state: FormState) {
       result.presentWageAsSa = undefined;
     }
 
-    result.futureWageByWeeks += getPresentWage(
+    result.futureWageAsMamah += getWageAsMamah(
       weeksForNew,
       hourlyWage,
       hours2,
@@ -131,7 +131,7 @@ export default function handleCalcLogic(state: FormState) {
       true,
     );
 
-    result.futureWage += getFutureWage(
+    result.futureWageAsSa += getWageAsSa(
       seniorityWage,
       hours2,
       false,
@@ -145,26 +145,26 @@ export default function handleCalcLogic(state: FormState) {
   // check if present wage is higher than future wage
   if (
     position[0] === 'prof' &&
-    result.futureWageByWeeks > result.futureWage &&
+    result.futureWageAsMamah > result.futureWageAsSa &&
     !!maxPrevHours
   ) {
-    result.futureWage = result.futureWageByWeeks;
+    result.futureWageAsSa = result.futureWageAsMamah;
   }
 
   result.pensionPayments = getEmployerPensionPayments(
-    result.futureWage,
+    result.futureWageAsSa,
     preDealSa,
   );
 
   if (!preDealSa) {
     result.remainingHoursMmh = getRemainingHours(
-      result.futureWageByWeeks,
-      result.presentWage,
+      result.futureWageAsMamah,
+      result.presentWageAsMamah,
       hourlyWage,
     );
     result.remainingHoursSa = getRemainingHours(
-      result.futureWage,
-      result.presentWage,
+      result.futureWageAsSa,
+      result.presentWageAsMamah,
       hourlyWage,
     );
   }

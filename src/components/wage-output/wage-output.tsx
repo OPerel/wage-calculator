@@ -8,10 +8,10 @@ const { SemPay, AsMmh, AsSa, Future, Present, Pension } = Output;
   styleUrl: 'wage-output.css',
 })
 export class WageOutput {
-  @Prop() presentWage: number | undefined;
+  @Prop() presentWageAsMamah: number | undefined;
   @Prop() presentWageAsSa: number | undefined;
-  @Prop() futureWageByWeeks: number;
-  @Prop() futureWage: number;
+  @Prop() futureWageAsMamah: number;
+  @Prop() futureWageAsSa: number;
   @Prop() pensionPayments: number;
   @Prop() remainingHoursMmh: number | undefined;
   @Prop() remainingHoursSa: number | undefined;
@@ -28,7 +28,7 @@ export class WageOutput {
         ) : (
           <output-item
             label={`${SemPay} ${Present} ${AsMmh}`}
-            sum={this.presentWage}
+            sum={this.presentWageAsMamah}
           />
         )}
 
@@ -36,14 +36,14 @@ export class WageOutput {
           label={`${SemPay} ${Future} ${AsMmh}${addDoubleAstrixIfNeeded(
             this.college,
           )}`}
-          sum={this.futureWageByWeeks}
+          sum={this.futureWageAsMamah}
         />
 
         <output-item
           label={`${SemPay} ${Future} ${AsSa}${addDoubleAstrixIfNeeded(
             this.college,
           )}`}
-          sum={this.futureWage}
+          sum={this.futureWageAsSa}
         />
 
         <output-item label={Pension} sum={this.pensionPayments} />
