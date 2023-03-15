@@ -1,5 +1,4 @@
-// MAMA"H
-const getPresentWage = (
+const getWageAsMamah = (
   weeks: number,
   hourlyWage: number,
   hours: number,
@@ -31,8 +30,7 @@ const getPresentWage = (
   return roundResult(wage);
 };
 
-// S"A
-const getFutureWage = (
+const getWageAsSa = (
   seniorityWage: number,
   hours: number,
   teach: boolean,
@@ -84,8 +82,8 @@ const roundResult = (wage: number): number =>
   Math.round((wage + Number.EPSILON) * 100) / 100;
 
 export {
-  getPresentWage,
-  getFutureWage,
+  getWageAsMamah,
+  getWageAsSa,
   getEmployerPensionPayments,
   getRemainingHours,
 };
